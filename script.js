@@ -68,6 +68,8 @@ const owPage = document.getElementById("owPage");
 const countPage = document.getElementById("countPage");
 const moodPage = document.getElementById("moodPage");
 const growthPage = document.getElementById('growthPage');
+const replyPage = document.getElementById("replyPage");
+
 
 function hideAllPages() {
   homePage.classList.add("hidden");
@@ -78,6 +80,8 @@ function hideAllPages() {
   owPage.classList.add("hidden");
   countPage.classList.add("hidden");
   growthPage.classList.add("hidden");
+  replyPage.classList.add("hidden");
+
 }
 
 
@@ -89,22 +93,34 @@ function showHome() {
   stopEmojiRain();
 }
 
+function showReplyPage(){
+  hideAllPages();
+  replyPage.classList.remove("hidden");
+  startEmojiRain(love2Emoji);
+  loadReplies();
+}
+
+
 function showOW(){
   hideAllPages();
   owPage.classList.remove("hidden");
+  startEmojiRain(cuteEmoji);
 }
 
 function showGrowth(){
   hideAllPages();
   growthPage.classList.remove("hidden");
+  startEmojiRain(surpriseEmoji);
 }
 
 function showCount(){
+  startEmojiRain(loveEmoji);
   hideAllPages();
   countPage.classList.remove("hidden");
 }
 
 function showNote() {
+  startEmojiRain(celebEmoji);
   hideAllPages();
   notePage.classList.remove("hidden");
   stopHearts();
@@ -121,9 +137,11 @@ function showMore() {
   hideAllPages();
   khaasPage.classList.remove("hidden");
   stopHearts();
+  stopEmojiRain();
 }
 
 function showExpress() {
+  startEmojiRain(susEmoji);
   hideAllPages();
   expressPage.classList.remove("hidden");
   stopHearts();
@@ -161,9 +179,16 @@ const emojiRainBox = document.querySelector(".emoji-rain");
 let emojiRainInterval = null;
 
 // 👉 EDIT THIS LIST ONLY
-const emojiList = ["🍑","🔞","🥵","💦","👅","💋","👡","👙","🍒","👠"];
+const naughtyEmoji = ["🍑","🔞","🥵","💦","👅","💋","👡","👙","🍒","👠"];
+const loveEmoji = ["🤍","💖","💕","💞","💓"];
+const celebEmoji = ["🎉","🎆","✨","🔥","💥"];
+const susEmoji = ["😁","😋","😘","🤗","😚","😉"];
+const love2Emoji = ["🤍","💖","💕","💞","💓","💘","💗","🫶","🥰","😍"];
+const cuteEmoji = ["🌸","🌼","🌷","🧸","🐻","🐰","💫","🍓","🫧","🎀"];
+const surpriseEmoji = ["🤍","💋","🌙","🔥","🥺","🎉","✨","🍒","🫶","😏"];
 
-function startEmojiRain(){
+
+function startEmojiRain(emojiList){
   if (emojiRainInterval) return;
 
   emojiRainInterval = setInterval(()=>{
@@ -177,7 +202,7 @@ function startEmojiRain(){
     e.style.opacity = Math.random()*0.6 + 0.4;
 
     emojiRainBox.appendChild(e);
-    setTimeout(()=>e.remove(), 9000);
+    
   }, 280);
 }
 
@@ -493,14 +518,20 @@ function markDone(){
   }
 })();
 
+function stopp(){
+  stopEmojiRain();
+  stopHearts();
+  stopFirework();
+}
+
 /* ===== REACTIONS ===== */
 function react(t){
   localStorage.setItem("react-"+Date(),t);
   if(t==="love")startHearts();
   if(t==="fire")startFirework();
-  if(t==="meh")startEmojiRain();
-  if(t==="se")stopFirework();
-  if(t==="cross")stopEmojiRain();
+  if(t==="meh")startEmojiRain(naughtyEmoji);
+  if(t==="se")startEmojiRain(susEmoji);
+  if(t==="cross")stopp();
 }
 
 
@@ -831,5 +862,66 @@ function celebrateFor(seconds = 5) {
   startFirework();
   
   setTimeout(stopFirework, seconds * 1000);
+}
+
+
+const REPLY_BOT_TOKEN = "8493536361:AAGhjUtdlotUPBUrBykJ0YY-keTP7Lhf100";
+const REPLY_CHAT_ID = 7654665438;
+
+async function loadReplies(){
+  const box = document.getElementById("replyList");
+  box.innerHTML = "Loading replies…";
+
+  try {
+    const res = await fetch(
+      `https://api.telegram.org/bot${REPLY_BOT_TOKEN}/getUpdates`
+    );
+    const data = await res.json();
+
+    if(!data.ok){
+      box.innerHTML = "Failed to load replies 🤍";
+      return;
+    }
+
+    const msgs = data.result
+      .filter(u =>
+        u.message &&
+        u.message.chat.id === REPLY_CHAT_ID &&
+        u.message.text
+      )
+      .map(u => ({
+        text: u.message.text,
+        time: new Date(u.message.date * 1000)
+      }))
+      .reverse();
+
+    if(msgs.length === 0){
+      box.innerHTML = "No replies yet 🤍";
+      return;
+    }
+
+    box.innerHTML = "";
+
+    msgs.forEach(m => {
+      const div = document.createElement("div");
+      div.style.marginBottom = "12px";
+      div.style.paddingBottom = "8px";
+      div.style.borderBottom =
+        "1px solid rgba(255,255,255,0.4)";
+
+      div.innerHTML = `
+        <div style="font-size:15px">${m.text}</div>
+        <div style="font-size:11px;opacity:.6">
+          ${m.time.toLocaleString()}
+        </div>
+      `;
+
+      box.appendChild(div);
+    });
+
+  } catch(e){
+    console.error(e);
+    box.innerHTML = "Error loading replies 🤍";
+  }
 }
 

@@ -303,9 +303,11 @@ body {
 /* ===== SEND A FEELING ===== */
 .send-feeling {
   width: min(90vw, 520px);
+  height: 350px;
   margin: 20px auto;
   padding: 20px;
   text-align: center;
+  overflow: auto;
 }
 
 .feeling-title {
@@ -442,9 +444,11 @@ body {
 /* ===== COUNTDOWN ===== */
 .countdown-box {
   width: min(90vw, 520px);
+  height: 350px;
   margin: 20px auto;
   padding: 20px;
   text-align: center;
+  overflow: auto;
 }
 
 .countdown-title {

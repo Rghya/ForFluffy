@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daily Fluffy</title>
+  <link rel="icon" type="image/png" href="assets/icon.png">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Irish+Grover&family=Gloria+Hallelujah&family=Inria+Serif&display=swap" rel="stylesheet">
@@ -66,9 +67,22 @@
     <button class="glass back-btn" onclick="showHome()">← Back</button>
   </section>
 
+  <!-- ===== Reply PAGE ===== -->
+  <section id="replyPage" class="page hidden">
+    <h1 class="heading">My Replies 🤍</h1>
+
+    <div id="replyList" class="glass"
+         style="width:min(90vw,520px);margin:auto;padding:16px">
+      Loading replies…
+    </div>
+
+    <br>
+    <button class="glass back-btn" onclick="showMore()">← Back</button>
+  </section>
+
   <!-- ===== GROWTH PAGE ===== -->
   <section id="growthPage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    <h1 class="heading">Growinn Togetherr!!!</h1>
 
     <div class="glass growth-box">
       <h2>🌱 Our Growth</h2>
@@ -135,7 +149,7 @@
 
   <!-- ===== Countdown PAGE ===== -->
   <section id="countPage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    <h1 class="heading">Special CountDownss!!!!</h1>
     <div class="countdown-box glass">
       <h2 class="countdown-title">Countdowns ⏳</h2>
 
@@ -163,7 +177,7 @@
 
   <!-- ===== Open When PAGE ===== -->
   <section id="owPage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    <h1 class="heading">Open Whens For YAAA!!!</h1>
 
     <div class="open-when glass">
       <h2 class="open-title">Open When… 💌</h2>
@@ -218,6 +232,8 @@
         <button onclick="sendFeeling('proud')">😔<span>I m Sadd</span></button>
         <button onclick="sendFeeling('grateful')">🌸<span>Grateful for you</span></button>
         <button onclick="sendFeeling('naughty')">💋<span>Feelin Naughtyy</span></button>
+        <button onclick="sendFeeling('grateful')">🌸<span>Grateful for you</span></button>
+        <button onclick="sendFeeling('grateful')">🌸<span>Grateful for you</span></button>
       </div>
     
       <p id="feelingStatus" class="feeling-status hidden"></p>
@@ -241,7 +257,7 @@
     <button class="glass back-btn" onclick="showOW()">Open Whens!!</button>
     <button class="glass back-btn" onclick="showCount()">CountDowns!!</button>
     <button class="glass back-btn" onclick="showGrowth()">Growth Timeline!!</button>
-    
+    <button class="glass back-btn" onclick="showReplyPage()">His Replies!!</button>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
   </section>
 

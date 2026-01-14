@@ -612,60 +612,101 @@ body {
 
 
 /* ===== OPEN WHEN LETTERS ===== */
-.open-when {
-  width: min(90vw, 520px);
-  height: 300px;
+/* ===== SPLIT OPEN WHEN ===== */
+.open-when.split-layout {
+  width: min(95vw, 900px);
+  height: 420px;
   margin: 20px auto;
-  padding: 20px;
-  text-align: center;
-  overflow:auto;
+  padding: 16px;
+  display: flex;
+  gap: 16px;
 }
 
-.open-title {
-  font-family: 'Irish Grover', cursive;
-  color: #a63a6f;
-  margin-bottom: 14px;
+/* LEFT */
+.letter-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .letter-list {
+  flex: 1;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  padding-right: 6px;
 }
 
-.letter {
-  padding: 14px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.letter:active {
-  transform: scale(0.95);
-}
-
-.letter-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
+/* RIGHT */
+.reading-panel {
+  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+  flex-direction: column;
 }
 
 .letter-box {
-  width: min(85vw, 420px);
-  padding: 20px;
-  text-align: left;
-  font-size: 15px;
-  line-height: 1.6;
+  flex: 1;
+  padding: 18px;
+  overflow-y: auto;
+  font-size: 16px;
+  line-height: 1.7;
   color: #4a1f35;
-
 }
+
+/* LETTER ITEM */
+.letter {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s;
+}
+
+.letter:hover {
+  background: rgba(255,255,255,0.75);
+}
+
+.letter:active {
+  transform: scale(0.96);
+}
+
+
 
 .hidden {
   display: none;
 }
+
+
+/* Typing cursor */
+.typing::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s infinite;
+  opacity: 0.7;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+
+#replyText {
+  width: 100%;
+  min-height: 80px;
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 12px;
+  border: none;
+  resize: none;
+  font-family: inherit;
+}
+
+#replyStatus {
+  font-size: 13px;
+  margin-top: 6px;
+  opacity: 0.8;
+}
+
 

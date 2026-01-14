@@ -176,46 +176,119 @@
   </section>
 
   <!-- ===== Open When PAGE ===== -->
-  <section id="owPage" class="page hidden">
-    <h1 class="heading">Open Whens For YAAA!!!</h1>
+<section id="owPage" class="page hidden">
+  <h1 class="heading">Open Whens For YAAA!!!</h1>
 
-    <div class="open-when glass">
-      <h2 class="open-title">Open When… 💌</h2>
+  <div class="open-when glass split-layout">
+
+    <!-- LEFT: LETTER LIST -->
+    <div class="letter-panel">
+      <h2 class="open-title">💌 Letters</h2>
 
       <div class="letter-list">
-        <div class="letter" onclick="openLetter('miss')">
-          💭 Open when you miss me
-        </div>
-
-        <div class="letter" onclick="openLetter('low')">
-          🌧️ Open when you feel low
-        </div>
-
-        <div class="letter" onclick="openLetter('night')">
-          🌙 Open when you can’t sleep
-        </div>
-
-        <div class="letter" onclick="openLetter('happy')">
-          ☀️ Open when you’re happy
-        </div>
-        <div class="letter" onclick="openLetter('happy')">
-          ☀️ Open when you’re happy
-        </div>
-      </div>
-
-      <div id="letterModal" class="letter-modal hidden">
-        <div class="letter-box glass">
-          <p id="letterText"></p>
-          <button class="glass" onclick="closeLetter()">Close</button>
-        </div>
+        <div class="letter" onclick="openLetter(this,'sad1')">😔 Open when you’re sad #1</div>
+        <div class="letter" onclick="openLetter(this,'sad2')">😔 Open when you’re sad #2</div>
+        <div class="letter" onclick="openLetter(this,'sad3')">😔 Open when you’re sad #3</div>
+        <div class="letter" onclick="openLetter(this,'sad4')">😔 Open when you’re sad #4</div>
+        <div class="letter" onclick="openLetter(this,'sad5')">😔 Open when you’re sad #5</div>
+        <div class="letter" onclick="openLetter(this,'low1')">🌧️ Open when you feel low #1</div>
+        <div class="letter" onclick="openLetter(this,'low2')">🌧️ Open when you feel low #2</div>
+        <div class="letter" onclick="openLetter(this,'low3')">🌧️ Open when you feel low #3</div>
+        <div class="letter" onclick="openLetter(this,'low4')">🌧️ Open when you feel low #4</div>
+        <div class="letter" onclick="openLetter(this,'low5')">🌧️ Open when you feel low #5</div>
+        <div class="letter" onclick="openLetter(this,'miss1')">💭 Open when you miss me #1</div>
+        <div class="letter" onclick="openLetter(this,'miss2')">💭 Open when you miss me #2</div>
+        <div class="letter" onclick="openLetter(this,'miss3')">💭 Open when you miss me #3</div>
+        <div class="letter" onclick="openLetter(this,'miss4')">💭 Open when you miss me #4</div>
+        <div class="letter" onclick="openLetter(this,'miss5')">💭 Open when you miss me #5</div>
+        <div class="letter" onclick="openLetter(this,'anx1')">🌀 Open when you’re overthinking #1</div>
+        <div class="letter" onclick="openLetter(this,'anx2')">🌀 Open when you’re overthinking #2</div>
+        <div class="letter" onclick="openLetter(this,'anx3')">🌀 Open when you’re overthinking #3</div>
+        <div class="letter" onclick="openLetter(this,'anx4')">🌀 Open when you’re overthinking #4</div>
+        <div class="letter" onclick="openLetter(this,'anx5')">🌀 Open when you’re overthinking #5</div>
+        <div class="letter" onclick="openLetter(this,'night1')">🌙 Open when you can’t sleep #1</div>
+        <div class="letter" onclick="openLetter(this,'night2')">🌙 Open when you can’t sleep #2</div>
+        <div class="letter" onclick="openLetter(this,'night3')">🌙 Open when you can’t sleep #3</div>
+        <div class="letter" onclick="openLetter(this,'night4')">🌙 Open when you can’t sleep #4</div>
+        <div class="letter" onclick="openLetter(this,'night5')">🌙 Open when you can’t sleep #5</div>
+        <div class="letter" onclick="openLetter(this,'lonely1')">🌫️ Open when you feel lonely #1</div>
+        <div class="letter" onclick="openLetter(this,'lonely2')">🌫️ Open when you feel lonely #2</div>
+        <div class="letter" onclick="openLetter(this,'lonely3')">🌫️ Open when you feel lonely #3</div>
+        <div class="letter" onclick="openLetter(this,'lonely4')">🌫️ Open when you feel lonely #4</div>
+        <div class="letter" onclick="openLetter(this,'lonely5')">🌫️ Open when you feel lonely #5</div>
+        <div class="letter" onclick="openLetter(this,'happy1')">☀️ Open when you’re happy #1</div>
+        <div class="letter" onclick="openLetter(this,'happy2')">☀️ Open when you’re happy #2</div>
+        <div class="letter" onclick="openLetter(this,'happy3')">☀️ Open when you’re happy #3</div>
+        <div class="letter" onclick="openLetter(this,'secure1')">🫶 Open when you need reassurance #1</div>
+        <div class="letter" onclick="openLetter(this,'secure2')">🫶 Open when you need reassurance #2</div>
+        <div class="letter" onclick="openLetter(this,'secure3')">🫶 Open when you need reassurance #3</div>
+        <div class="letter" onclick="openLetter(this,'hug1')">🫂 Open when you need a hug #1</div>
+        <div class="letter" onclick="openLetter(this,'hug2')">🫂 Open when you need a hug #2</div>
+        <div class="letter" onclick="openLetter(this,'cry1')">😭 Open when you feel like crying</div>
+        <div class="letter" onclick="openLetter(this,'empty1')">🕳️ Open when you feel empty</div>
+        <div class="letter" onclick="openLetter(this,'tired1')">🪫 Open when you feel exhausted</div>
+        <div class="letter" onclick="openLetter(this,'lost1')">❓ Open when you feel lost</div>
+        <div class="letter" onclick="openLetter(this,'sad6')">😔 Open when you’re sad #6</div>
+        <div class="letter" onclick="openLetter(this,'sad7')">😔 Open when you’re sad #7</div>
+        <div class="letter" onclick="openLetter(this,'sad8')">😔 Open when you’re sad #8</div>
+        <div class="letter" onclick="openLetter(this,'sad9')">😔 Open when you’re sad #9</div>
+        <div class="letter" onclick="openLetter(this,'sad10')">😔 Open when you’re sad #10</div>      
+        <div class="letter" onclick="openLetter(this,'miss6')">💭 Open when you miss me #6</div>
+        <div class="letter" onclick="openLetter(this,'miss7')">💭 Open when you miss me #7</div>
+        <div class="letter" onclick="openLetter(this,'miss8')">💭 Open when you miss me #8</div>
+        <div class="letter" onclick="openLetter(this,'miss9')">💭 Open when you miss me #9</div>
+        <div class="letter" onclick="openLetter(this,'miss10')">💭 Open when you miss me #10</div>      
+        <div class="letter" onclick="openLetter(this,'anx6')">🌀 Open when you’re overthinking #6</div>
+        <div class="letter" onclick="openLetter(this,'anx7')">🌀 Open when you’re overthinking #7</div>
+        <div class="letter" onclick="openLetter(this,'anx8')">🌀 Open when you’re overthinking #8</div>
+        <div class="letter" onclick="openLetter(this,'anx9')">🌀 Open when you’re overthinking #9</div>
+        <div class="letter" onclick="openLetter(this,'anx10')">🌀 Open when you’re overthinking #10</div>   
+        <div class="letter" onclick="openLetter(this,'night6')">🌙 Open when you can’t sleep #6</div>
+        <div class="letter" onclick="openLetter(this,'night7')">🌙 Open when you can’t sleep #7</div>
+        <div class="letter" onclick="openLetter(this,'night8')">🌙 Open when you can’t sleep #8</div>
+        <div class="letter" onclick="openLetter(this,'night9')">🌙 Open when you can’t sleep #9</div>
+        <div class="letter" onclick="openLetter(this,'night10')">🌙 Open when you can’t sleep #10</div>      
+        <div class="letter" onclick="openLetter(this,'secure4')">🫶 Open when you need reassurance #4</div>
+        <div class="letter" onclick="openLetter(this,'secure5')">🫶 Open when you need reassurance #5</div>
+        <div class="letter" onclick="openLetter(this,'secure6')">🫶 Open when you need reassurance #6</div>    
+        <div class="letter" onclick="openLetter(this,'hug3')">🫂 Open when you need a hug #3</div>
+        <div class="letter" onclick="openLetter(this,'hug4')">🫂 Open when you need a hug #4</div>              
+        <div class="letter" onclick="openLetter(this,'lonely6')">🌫️ Open when you feel lonely #6</div>
+        <div class="letter" onclick="openLetter(this,'lonely7')">🌫️ Open when you feel lonely #7</div>
+        <div class="letter" onclick="openLetter(this,'lonely8')">🌫️ Open when you feel lonely #8</div>             
+        <div class="letter" onclick="openLetter(this,'tired2')">🪫 Open when you feel tired #2</div>
+        <div class="letter" onclick="openLetter(this,'tired3')">🪫 Open when you feel tired #3</div>             
+        <div class="letter" onclick="openLetter(this,'cry2')">😭 Open when you feel like crying #2</div>
+        <div class="letter" onclick="openLetter(this,'cry3')">😭 Open when you feel like crying #3</div>             
+        <div class="letter" onclick="openLetter(this,'empty2')">🕳️ Open when you feel empty #2</div>
+        <div class="letter" onclick="openLetter(this,'empty3')">🕳️ Open when you feel empty #3</div>              
+        <div class="letter" onclick="openLetter(this,'hope1')">✨ Open when you need hope</div>
+        <div class="letter" onclick="openLetter(this,'strength1')">💪 Open when you need strength</div>
+        <div class="letter" onclick="openLetter(this,'patience1')">🕊️ Open when you need patience</div>
+        <div class="letter" onclick="openLetter(this,'calm1')">🌿 Open when you need calm</div>
+        <div class="letter" onclick="openLetter(this,'love1')">🤍 Open when you need love</div>
+              
       </div>
     </div>
 
+    <!-- RIGHT: READING BOX -->
+    <div class="reading-panel">
+      <h2 class="open-title">📖 Read</h2>
 
-    <br>
-    <button class="glass back-btn" onclick="showMore()">← Back</button>
-  </section>
+      <div class="letter-box glass">
+        <p id="letterText">Select a letter from the left 🤍</p>
+      </div>
+      <textarea id="replyText" placeholder="Write your reply here 🤍"></textarea>
+      <button class="glass" onclick="sendReply()">Send Reply 💌</button>
+      <p id="replyStatus"></p>
 
+    </div>
+
+  </div>
+
+  <br>
+  <button class="glass back-btn" onclick="showMore()">← Back</button>
+</section>
 
 
   <!-- ===== Express PAGE ===== -->
@@ -227,13 +300,63 @@
 
       <div class="feeling-buttons">
         <button onclick="sendFeeling('missing')">🤍<span>Missing you</span></button>
-        <button onclick="sendFeeling('need')">🫂<span>Need you</span></button>
-        <button onclick="sendFeeling('thinking')">🌙<span>Thinking of you</span></button>
-        <button onclick="sendFeeling('proud')">😔<span>I m Sadd</span></button>
+        <button onclick="sendFeeling('thinking')">💭<span>Thinking of you</span></button>
+        <button onclick="sendFeeling('close')">🫶<span>Feeling close to you</span></button>
+        <button onclick="sendFeeling('presence')">🧲<span>Wanting your presence</span></button>
+        <button onclick="sendFeeling('longing')">🌙<span>Longing for you</span></button>
+        <button onclick="sendFeeling('attached')">🪶<span>Feeling attached</span></button>
+        <button onclick="sendFeeling('fullheart')">💖<span>Heart feels full</span></button>
+        <button onclick="sendFeeling('voice')">🎧<span>Craving your voice</span></button>
+        <button onclick="sendFeeling('warm')">🔥<span>Feeling warm inside</span></button>
+        <button onclick="sendFeeling('connected')">🫀<span>Emotionally connected</span></button>
+
+        <button onclick="sendFeeling('need')">🫂<span>Need you right now</span></button>
+        <button onclick="sendFeeling('comfort')">🧸<span>Want comfort</span></button>
+        <button onclick="sendFeeling('insecure')">🥺<span>Feeling insecure</span></button>
+        <button onclick="sendFeeling('reassure')">🫶<span>Need reassurance</span></button>
+        <button onclick="sendFeeling('dependent')">🪢<span>Feeling dependent</span></button>
+        <button onclick="sendFeeling('hug')">🤗<span>Want a hug</span></button>
+        <button onclick="sendFeeling('small')">🫧<span>Feeling small</span></button>
+        <button onclick="sendFeeling('support')">🛟<span>Need emotional support</span></button>
+
+        <button onclick="sendFeeling('low')">🌧️<span>Feeling low</span></button>
+        <button onclick="sendFeeling('tired')">🪫<span>Mentally tired</span></button>
+        <button onclick="sendFeeling('drained')">🫠<span>Feeling drained</span></button>
+        <button onclick="sendFeeling('sad')">😔<span>Sad without a reason</span></button>
+        <button onclick="sendFeeling('empty')">🕳️<span>Feeling empty</span></button>
+        <button onclick="sendFeeling('overwhelmed')">🧱<span>Overwhelmed</span></button>
+        <button onclick="sendFeeling('lonely')">🌫️<span>Feeling lonely</span></button>
+        <button onclick="sendFeeling('exhausted')">🛌<span>Emotionally exhausted</span></button>
+
+        <button onclick="sendFeeling('overthinking')">🌀<span>Overthinking</span></button>
+        <button onclick="sendFeeling('mind')">🧠<span>Mind won’t shut up</span></button>
+        <button onclick="sendFeeling('anxious')">😰<span>Feeling anxious</span></button>
+        <button onclick="sendFeeling('doubt')">❓<span>Doubting myself</span></button>
+        <button onclick="sendFeeling('confused')">🧩<span>Feeling confused</span></button>
+        <button onclick="sendFeeling('lost')">💭<span>Lost in thoughts</span></button>
+        <button onclick="sendFeeling('restless')">⚡<span>Emotionally restless</span></button>
+
+        <button onclick="sendFeeling('calm')">☀️<span>Feeling calm</span></button>
+        <button onclick="sendFeeling('safe')">🛡️<span>Feeling safe</span></button>
+        <button onclick="sendFeeling('peace')">🌿<span>At peace</span></button>
+        <button onclick="sendFeeling('settled')">⚖️<span>Emotionally settled</span></button>
+        <button onclick="sendFeeling('balanced')">🌊<span>Feeling balanced</span></button>
+        <button onclick="sendFeeling('quietHappy')">😌<span>Quietly happy</span></button>
+
+        <button onclick="sendFeeling('happy')">😄<span>Feeling happy</span></button>
+        <button onclick="sendFeeling('smile')">😊<span>Smiling because of you</span></button>
         <button onclick="sendFeeling('grateful')">🌸<span>Grateful for you</span></button>
-        <button onclick="sendFeeling('naughty')">💋<span>Feelin Naughtyy</span></button>
-        <button onclick="sendFeeling('grateful')">🌸<span>Grateful for you</span></button>
-        <button onclick="sendFeeling('grateful')">🌸<span>Grateful for you</span></button>
+        <button onclick="sendFeeling('hopeful')">✨<span>Feeling hopeful</span></button>
+        <button onclick="sendFeeling('lucky')">🍀<span>Feeling lucky</span></button>
+
+        <button onclick="sendFeeling('irritated')">😤<span>Feeling irritated</span></button>
+        <button onclick="sendFeeling('frustrated')">😣<span>Feeling frustrated</span></button>
+        <button onclick="sendFeeling('tense')">🔥<span>Emotionally tense</span></button>
+        <button onclick="sendFeeling('vent')">🗯️<span>Need to let things out</span></button>
+
+        <button onclick="sendFeeling('naughty')">💋<span>Feeling naughty</span></button>
+        <button onclick="sendFeeling('flirty')">😏<span>Feeling flirty</span></button>
+
       </div>
     
       <p id="feelingStatus" class="feeling-status hidden"></p>

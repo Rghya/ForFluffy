@@ -25,8 +25,7 @@ document.getElementById("unlockBtn").onclick = async () => {
 };
 
 
-
-
+let currentLetterType = "";
 
 const timerEl = document.getElementById("timer");
 const targetDate = new Date("May 16, 2028 00:00:00").getTime();
@@ -536,12 +535,63 @@ function react(t){
 function sendFeeling(type) {
   
   const map = {
-    missing:"🤍 She pressed: Missing you",
-    need:"🫂 She pressed: Need you",
-    thinking:"🌙 She pressed: Thinking of you",
-    proud:"😔 She feels sad",
-    grateful:"🌸 She feels grateful",
-    naughty:"💋 She feels naughty 😏"
+    missing: "🤍 She is missing you",
+    thinking: "💭 She is thinking of you",
+    close: "🫶 She feels close to you",
+    presence: "🧲 She wants you by her side",
+    longing: "🌙 She is longing for you",
+    attached: "🪶 She feels deeply attached to you",
+    fullheart: "💖 Her heart feels full",
+    voice: "🎧 She is craving your voice",
+    warm: "🔥 She feels warm inside",
+    connected: "🫀 She feels emotionally connected to you",
+
+    need: "🫂 She needs you right now",
+    comfort: "🧸 She wants comfort",
+    insecure: "🥺 She is feeling insecure",
+    reassure: "🫶 She needs reassurance",
+    dependent: "🪢 She feels emotionally dependent",
+    hug: "🤗 She wants a hug from you",
+    small: "🫧 She feels small and vulnerable",
+    support: "🛟 She needs emotional support",
+
+    low: "🌧️ She is feeling low",
+    tired: "🪫 She is mentally tired",
+    drained: "🫠 She feels drained",
+    sad: "😔 She feels sad without a reason",
+    empty: "🕳️ She feels empty",
+    overwhelmed: "🧱 She feels overwhelmed",
+    lonely: "🌫️ She feels lonely",
+    exhausted: "🛌 She is emotionally exhausted",
+
+    overthinking: "🌀 She is overthinking everything",
+    mind: "🧠 Her mind won’t shut up",
+    anxious: "😰 She is feeling anxious",
+    doubt: "❓ She is doubting herself",
+    confused: "🧩 She feels confused",
+    lost: "💭 She is lost in her thoughts",
+    restless: "⚡ She feels emotionally restless",
+
+    calm: "☀️ She feels calm",
+    safe: "🛡️ She feels safe",
+    peace: "🌿 She feels at peace",
+    settled: "⚖️ She feels emotionally settled",
+    balanced: "🌊 She feels balanced",
+    quietHappy: "😌 She is quietly happy",
+
+    happy: "😄 She is feeling happy",
+    smile: "😊 She is smiling because of you",
+    grateful: "🌸 She feels grateful",
+    hopeful: "✨ She feels hopeful",
+    lucky: "🍀 She feels lucky",
+
+    irritated: "😤 She feels irritated",
+    frustrated: "😣 She feels frustrated",
+    tense: "🔥 She feels emotionally tense",
+    vent: "🗯️ She needs to let things out",
+
+    naughty: "💋 She is feeling naughty",
+    flirty: "😏 She is feeling flirty"
   };
 
   notifyTelegram(
@@ -591,31 +641,172 @@ handleStreak();
 
 /* ===== OPEN WHEN LETTERS ===== */
 const letters = {
-  miss: "I know you’re missing me right now. Just remember — distance doesn’t change what we are. I’m still here, thinking of you 🤍",
-  low: "If today feels heavy, it’s okay. You don’t have to be strong all the time. Rest. Breathe. I’m proud of you for still trying.",
-  night: "It’s late and your mind won’t slow down. Try to relax your shoulders, take a deep breath, and know you’re not alone tonight 🌙",
-  happy: "Seeing you happy makes everything worth it. Hold onto this feeling — you deserve moments like this ☀️"
-};
+  sad1: "I know today feels heavy. You don’t need to fix anything right now. Just breathe. I’m right here with you 🤍",
+  sad2: "It’s okay to feel sad. You’re allowed to feel this without explaining it to anyone.",
+  sad3: "Even on your sad days, you are still loved more than you know.",
+  sad4: "This feeling will pass. You’ve survived worse, and you’re still here 🤍",
+  sad5: "You don’t have to be strong today. Just exist — that’s enough.",
 
-function openLetter(type) {
+  low1: "Low days don’t define you. They’re just pauses, not endings.",
+  low2: "You’re not weak for feeling low. You’re human.",
+  low3: "Even slow days are progress. Be gentle with yourself.",
+  low4: "Rest is allowed. You don’t owe productivity today.",
+  low5: "I wish I could sit beside you quietly right now.",
+
+  miss1: "I know you’re missing me right now. Distance doesn’t change what we are 🤍",
+  miss2: "Missing me means we mattered. That’s something beautiful.",
+  miss3: "I’m thinking of you too — probably at the same moment.",
+  miss4: "Close your eyes for a second. That’s where I am.",
+  miss5: "Time will bring us back to each other.",
+
+  anx1: "Your thoughts are loud, but they are not facts. Breathe.",
+  anx2: "You don’t need all the answers tonight.",
+  anx3: "Slow your breathing. You’re safe right now.",
+  anx4: "Overthinking means you care — not that something is wrong.",
+  anx5: "Let your mind rest for a moment.",
+
+  night1: "It’s late, and your thoughts are louder than usual. You’re not alone.",
+  night2: "The night makes emotions heavier — that’s not your fault.",
+  night3: "Try to relax your shoulders. You’ve done enough today.",
+  night4: "Even if you can’t sleep, you can still rest.",
+  night5: "I wish I was there to say goodnight properly 🤍",
+
+  lonely1: "Feeling lonely doesn’t mean you are unloved.",
+  lonely2: "You matter — even when no one is around.",
+  lonely3: "This feeling won’t last forever.",
+  lonely4: "I see you, even when others don’t.",
+  lonely5: "You’re not invisible to me.",
+
+  happy1: "Seeing you happy makes everything worth it.",
+  happy2: "Hold onto this feeling. You deserve it.",
+  happy3: "Your happiness is precious 🤍",
+
+  secure1: "You are enough. You don’t need to prove anything.",
+  secure2: "I care about you — deeply and genuinely.",
+  secure3: "You are safe to be yourself.",
+
+  hug1: "Imagine my arms around you, holding you gently.",
+  hug2: "This hug lasts as long as you need it.",
+
+  cry1: "If you need to cry, let it out. I won’t judge.",
+  empty1: "Feeling empty doesn’t mean you are empty.",
+  tired1: "You’ve been strong for too long. Rest now.",
+  lost1: "Not knowing the way is okay. You’ll find it.",
+  sad6: "Even now, you are still worthy of love and care.",
+  sad7: "You don’t have to rush healing. Take your time.",
+  sad8: "Sadness doesn’t erase your strength.",
+  sad9: "You’re allowed to feel this without guilt.",
+  sad10: "This moment will soften. I promise.",
+
+  miss6: "I miss you too, even if you don’t hear it.",
+  miss7: "Distance is hard, but it’s not permanent.",
+  miss8: "You’re closer to me than you think.",
+  miss9: "Every missing moment brings us closer to the next meeting.",
+  miss10: "Hold on — this gap won’t last forever.",
+
+  anx6: "Your thoughts are not commands. Let them pass.",
+  anx7: "You are not your anxiety.",
+  anx8: "Breathe slowly. Nothing is chasing you.",
+  anx9: "It’s okay to pause the thinking.",
+  anx10: "Peace will return — give it space.",
+
+  night6: "The night exaggerates feelings. Morning will soften them.",
+  night7: "You’re safe, even if sleep isn’t here yet.",
+  night8: "Let your body rest, even if your mind won’t.",
+  night9: "This quiet won’t hurt you.",
+  night10: "You made it through today. That’s enough.",
+
+  secure4: "You don’t need to earn love.",
+  secure5: "Nothing about you is too much.",
+  secure6: "You are wanted exactly as you are.",
+
+  hug3: "Imagine being held without words.",
+  hug4: "This hug doesn’t end quickly.",
+
+  lonely6: "Loneliness is a feeling, not a truth.",
+  lonely7: "You are still connected.",
+  lonely8: "I’m thinking of you right now.",
+
+  tired2: "You’ve been carrying a lot.",
+  tired3: "Rest is productive too.",
+
+  cry2: "Tears are allowed here.",
+  cry3: "You don’t need permission to cry.",
+
+  empty2: "Feeling empty means something mattered.",
+  empty3: "This space will fill again.",
+
+  hope1: "Hope doesn’t disappear — it hides.",
+  strength1: "You are stronger than this moment.",
+  patience1: "Not everything needs to be solved now.",
+  calm1: "Slow down. You’re okay.",
+  love1: "You are loved, even on quiet days."
+
+
+};
+let typingInterval;
+
+function openLetter(letterEl, type) {
   const modal = document.getElementById("letterModal");
   const textEl = document.getElementById("letterText");
 
-  textEl.textContent = letters[type] || "This letter is empty.";
+  const fullText = letters[type] || "This letter is empty.";
+
+  clearInterval(typingInterval);
+  textEl.textContent = "";
+  textEl.classList.add("typing");
+  currentLetterType = type;
+  let i = 0;
+  typingInterval = setInterval(() => {
+    textEl.textContent += fullText.charAt(i);
+    i++;
+
+    if (i >= fullText.length) {
+      clearInterval(typingInterval);
+      textEl.classList.remove("typing");
+    }
+  }, 35);
+
   modal.classList.remove("hidden");
-
-  // mark as opened (per day)
-  const key = "opened-letter-" + type + "-" + new Date().toISOString().slice(0,10);
-  localStorage.setItem(key, "true");
-
-  // gentle effect
-  startEmojiRain?.();
-  setTimeout(() => stopEmojiRain?.(), 2000);
 }
 
-function closeLetter() {
-  document.getElementById("letterModal").classList.add("hidden");
+
+const BOT_TOKEN2 = "8346168934:AAEp8Ss80cJEF18VLyiIk9keLRmtQAEZ4yI";
+const CHAT_ID2 = 7654665438;
+
+function sendReply() {
+  const msg = document.getElementById("replyText").value.trim();
+  const status = document.getElementById("replyStatus");
+
+  if (!msg) {
+    status.textContent = "Write something first 🤍";
+    return;
+  }
+
+  const finalMessage =
+    `💌 New Reply\n` +
+    `📄 Letter: ${currentLetterType}\n\n` +
+    msg;
+
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN2}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: CHAT_ID2,
+      text: finalMessage
+    })
+  })
+  .then(() => {
+    status.textContent = "Sent 💖";
+    document.getElementById("replyText").value = "";
+  })
+  .catch(() => {
+    status.textContent = "Failed 😔";
+  });
 }
+
+
+
 
 
 /* ===== COUNTDOWNS ===== */
@@ -922,5 +1113,4 @@ async function loadReplies(){
     box.innerHTML = "Error loading replies 🤍";
   }
 }
-
 

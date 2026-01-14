@@ -18,15 +18,13 @@ document.getElementById("unlockBtn").onclick = async () => {
 
   if(h === STORED_HASH){
     document.getElementById("lockScreen").style.display="none";
-    localStorage.setItem("ldrUnlocked","yes");
+    
   }else{
     document.getElementById("lockError").textContent = "Wrong secret 🤍";
   }
 };
 
-if(localStorage.getItem("ldrUnlocked")==="yes"){
-  document.getElementById("lockScreen").style.display="none";
-}
+
 
 
 
@@ -924,4 +922,5 @@ async function loadReplies(){
     box.innerHTML = "Error loading replies 🤍";
   }
 }
+
 

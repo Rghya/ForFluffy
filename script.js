@@ -1,28 +1,28 @@
-// const STORED_HASH =
-// "3e05eb8f839be339e0bf3ace43e303a383805b2019a5e10fd5749c340f8ce5ed"; 
-// // 👆 this hash = "password"
+const STORED_HASH =
+"3e05eb8f839be339e0bf3ace43e303a383805b2019a5e10fd5749c340f8ce5ed"; 
+// 👆 this hash = "password"
 
-// async function hashText(text){
-//   const buf = await crypto.subtle.digest(
-//     "SHA-256",
-//     new TextEncoder().encode(text)
-//   );
-//   return [...new Uint8Array(buf)]
-//     .map(b => b.toString(16).padStart(2,"0"))
-//     .join("");
-// }
+async function hashText(text){
+  const buf = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(text)
+  );
+  return [...new Uint8Array(buf)]
+    .map(b => b.toString(16).padStart(2,"0"))
+    .join("");
+}
 
-// document.getElementById("unlockBtn").onclick = async () => {
-//   const val = document.getElementById("lockInput").value;
-//   const h = await hashText(val);
+document.getElementById("unlockBtn").onclick = async () => {
+  const val = document.getElementById("lockInput").value;
+  const h = await hashText(val);
 
-//   if(h === STORED_HASH){
-//     document.getElementById("lockScreen").style.display="none";
+  if(h === STORED_HASH){
+    document.getElementById("lockScreen").style.display="none";
     
-//   }else{
-//     document.getElementById("lockError").textContent = "Wrong secret 🤍";
-//   }
-// };
+  }else{
+    document.getElementById("lockError").textContent = "Wrong secret 🤍";
+  }
+};
 
 
 let currentLetterType = "";
@@ -1269,3 +1269,4 @@ function renderReplies(msgs, box){
     box.appendChild(div);
   });
 }
+

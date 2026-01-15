@@ -1269,4 +1269,3 @@ function renderReplies(msgs, box){
     box.appendChild(div);
   });
 }
-

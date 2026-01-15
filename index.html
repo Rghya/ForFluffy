@@ -8,17 +8,27 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Irish+Grover&family=Gloria+Hallelujah&family=Inria+Serif&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Limelight&family=Patrick+Hand&family=Sansation:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montez&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="lockScreen" class="lock">
+  <!-- <div id="lockScreen" class="lock">
     <h2>Private Space 🤍</h2>
     <input type="password" id="lockInput" placeholder="Enter secret">
     <button id="unlockBtn">Unlock</button>
     <p id="lockError"></p>
-  </div>
+  </div> -->
 
 
 
@@ -71,7 +81,7 @@
   <section id="replyPage" class="page hidden">
     <h1 class="heading">My Replies 🤍</h1>
 
-    <div id="replyList" class="glass"
+    <div id="replyList" class="receive glass"
          style="width:min(90vw,520px);margin:auto;padding:16px">
       Loading replies…
     </div>
@@ -279,7 +289,7 @@
         <p id="letterText">Select a letter from the left 🤍</p>
       </div>
       <textarea id="replyText" placeholder="Write your reply here 🤍"></textarea>
-      <button class="glass" onclick="sendReply()">Send Reply 💌</button>
+      <button class="send glass" onclick="sendReply()">Send Reply 💌</button>
       <p id="replyStatus"></p>
 
     </div>
@@ -425,18 +435,35 @@
   </section>
 
 
-  <!-- ===== STICKY MUSIC BAR ===== -->
-  <div id="musicBar" class="glass">
-    <iframe
-      id="spotifyEmbed"
-      width="100%"
-      height="80"
-      frameborder="0"
-      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-      loading="lazy">
-    </iframe>
+  <div id="musicBar" class="glass romantic-bar">
+    <div class="player">
+
+      <!-- Cover Art -->
+      <img id="coverArt" class="cover" alt="Song cover">
+
+      <!-- Play / Pause -->
+      <button id="playBtn" class="play-btn">♡</button>
+
+      <!-- Abstract waves -->
+      <div class="wave">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-container" onclick="seek(event)">
+        <div id="progress"></div>
+      </div>
+
+      <!-- Time -->
+      <span id="time">0:00</span>
+
+      <!-- Audio -->
+      <audio id="audioPlayer"></audio>
+
+    </div>
   </div>
-  
+
+  <script src="https://unpkg.com/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

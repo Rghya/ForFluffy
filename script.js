@@ -1,28 +1,28 @@
-const STORED_HASH =
-"3e05eb8f839be339e0bf3ace43e303a383805b2019a5e10fd5749c340f8ce5ed"; 
-// 👆 this hash = "password"
+// const STORED_HASH =
+// "3e05eb8f839be339e0bf3ace43e303a383805b2019a5e10fd5749c340f8ce5ed"; 
+// // 👆 this hash = "password"
 
-async function hashText(text){
-  const buf = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(text)
-  );
-  return [...new Uint8Array(buf)]
-    .map(b => b.toString(16).padStart(2,"0"))
-    .join("");
-}
+// async function hashText(text){
+//   const buf = await crypto.subtle.digest(
+//     "SHA-256",
+//     new TextEncoder().encode(text)
+//   );
+//   return [...new Uint8Array(buf)]
+//     .map(b => b.toString(16).padStart(2,"0"))
+//     .join("");
+// }
 
-document.getElementById("unlockBtn").onclick = async () => {
-  const val = document.getElementById("lockInput").value;
-  const h = await hashText(val);
+// document.getElementById("unlockBtn").onclick = async () => {
+//   const val = document.getElementById("lockInput").value;
+//   const h = await hashText(val);
 
-  if(h === STORED_HASH){
-    document.getElementById("lockScreen").style.display="none";
+//   if(h === STORED_HASH){
+//     document.getElementById("lockScreen").style.display="none";
     
-  }else{
-    document.getElementById("lockError").textContent = "Wrong secret 🤍";
-  }
-};
+//   }else{
+//     document.getElementById("lockError").textContent = "Wrong secret 🤍";
+//   }
+// };
 
 
 let currentLetterType = "";
@@ -101,7 +101,7 @@ function showReplyPage(){
 function showOW(){
   hideAllPages();
   owPage.classList.remove("hidden");
-  startEmojiRain(cuteEmoji);
+  // startEmojiRain(cuteEmoji);
 }
 
 function showGrowth(){
@@ -120,20 +120,20 @@ function showNote() {
   startEmojiRain(celebEmoji);
   hideAllPages();
   notePage.classList.remove("hidden");
-  stopHearts();
+ 
   stopFirework();
 }
 
 function showSpecial() {
   hideAllPages();
   specialPage.classList.remove("hidden");
-  stopHearts();
+  
 }
 
 function showMore() {
   hideAllPages();
   khaasPage.classList.remove("hidden");
-  stopHearts();
+  startHearts();
   stopEmojiRain();
 }
 
@@ -159,7 +159,7 @@ function startHearts() {
     heartsContainer.appendChild(heart);
 
     setTimeout(() => heart.remove(), 7000);
-  }, 300);
+  }, 1000);
 }
 
 function stopHearts() {
@@ -200,7 +200,7 @@ function startEmojiRain(emojiList){
 
     emojiRainBox.appendChild(e);
     
-  }, 280);
+  }, 850);
 }
 
 function stopEmojiRain(){
@@ -237,33 +237,120 @@ loadDailyNote();
 
 let songg = "";
 
+/* ===== LOAD DAILY SONG FROM CSV ===== */
 async function loadDailySong() {
-  const res = await fetch("daily-songs.csv");
-  const text = await res.text();
-  const rows = text.trim().split("\n").slice(1);
+  try {
+    const res = await fetch("daily-songs.csv");
+    const text = await res.text();
+    const rows = text.trim().split("\n").slice(1);
 
-  const today = new Date().toISOString().slice(0, 10);
+    const today = new Date().toISOString().slice(0, 10);
 
-  for (let row of rows) {
-    const [date, ...songs] = row.split(",");
-    if (date.trim() === today) {
-      songg = songs.join(",").trim();
-      break;
+    for (let row of rows) {
+      const [date, song] = row.split(",");
+      if (date.trim() === today) {
+        songg = song.trim();
+        break;
+      }
     }
+
+    if (!songg) return;
+
+    loadLocalSong(songg);
+  } catch (err) {
+    console.error("Song load failed", err);
   }
-
-  loadSpotifyPlaylist(songg); // ✅ CALL HERE
 }
 
-function loadSpotifyPlaylist(link) {
-  const embed = link.replace(
-    "open.spotify.com/",
-    "open.spotify.com/embed/"
-  );
-  document.getElementById("spotifyEmbed").src = embed;
+/* ===== LOAD LOCAL SONG ===== */
+function loadLocalSong(filename) {
+  const audio = document.getElementById("audioPlayer");
+  const cover = document.getElementById("coverArt");
+
+  audio.src = `song/${filename}`;
+  audio.load();
+
+  /* Read embedded cover */
+  jsmediatags.read(audio.src, {
+    onSuccess: function(tag) {
+      const pic = tag.tags.picture;
+      if (pic) {
+        const data = pic.data;
+        const format = pic.format;
+
+        let base64 = "";
+        for (let i = 0; i < data.length; i++) {
+          base64 += String.fromCharCode(data[i]);
+        }
+
+        cover.src = `data:${format};base64,${btoa(base64)}`;
+      }
+    },
+    onError: function() {
+      cover.src = "fallback.jpg"; // optional
+    }
+  });
 }
 
+
+/* ===== CUSTOM PLAYER CONTROLS ===== */
+const audio = document.getElementById("audioPlayer");
+const playBtn = document.getElementById("playBtn");
+const progress = document.getElementById("progress");
+const waves = document.querySelectorAll(".wave span");
+const time = document.getElementById("time");
+
+/* Play / Pause */
+playBtn.onclick = () => {
+  if (!audio.src) return;
+
+  if (audio.paused) {
+    audio.play();
+    playBtn.textContent = "❚❚";
+    playBtn.classList.add("playing");
+    waves.forEach(w => w.style.animationPlayState = "running");
+  } else {
+    audio.pause();
+    playBtn.textContent = "♡";
+    playBtn.classList.remove("playing");
+    waves.forEach(w => w.style.animationPlayState = "paused");
+  }
+};
+
+/* Progress update */
+audio.ontimeupdate = () => {
+  if (!audio.duration) return;
+
+  const percent = (audio.currentTime / audio.duration) * 100;
+  progress.style.width = percent + "%";
+
+  const m = Math.floor(audio.currentTime / 60);
+  const s = Math.floor(audio.currentTime % 60).toString().padStart(2, "0");
+  time.textContent = `${m}:${s}`;
+};
+
+/* Click to seek */
+function seek(e) {
+  if (!audio.duration) return;
+
+  const rect = e.currentTarget.getBoundingClientRect();
+  const percent = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = percent * audio.duration;
+}
+
+/* Reset UI when song ends */
+audio.onended = () => {
+  playBtn.textContent = "♡";
+  playBtn.classList.remove("playing");
+  waves.forEach(w => w.style.animationPlayState = "paused");
+};
+
+/* Initial state */
+waves.forEach(w => w.style.animationPlayState = "paused");
+
+/* Start */
 loadDailySong();
+
 
 
 
@@ -459,9 +546,9 @@ async function loadSpecialFromJSON() {
       historyEl.textContent = item.desc;
       challengeEl.textContent = item.challenge;
     } else {
-      eventEl.textContent = "Nothing Special Today ✨";
-      historyEl.textContent = "Even ordinary days matter 🤍";
-      challengeEl.textContent = "Just be present today.";
+      eventEl.textContent = "Fluffyy and Popooo togetherr Today ✨";
+      historyEl.textContent = "Whatss moree speciall thann us havinn eachh otherrr 🤍";
+      challengeEl.textContent = "Lovee mee!!";
     }
 
   } catch (e) {
@@ -1057,9 +1144,72 @@ function celebrateFor(seconds = 5) {
 const REPLY_BOT_TOKEN = "8493536361:AAGhjUtdlotUPBUrBykJ0YY-keTP7Lhf100";
 const REPLY_CHAT_ID = 7654665438;
 
+// async function loadReplies(){
+//   const box = document.getElementById("replyList");
+//   box.innerHTML = "Loading replies…";
+
+//   try {
+//     const res = await fetch(
+//       `https://api.telegram.org/bot${REPLY_BOT_TOKEN}/getUpdates`
+//     );
+//     const data = await res.json();
+
+//     if(!data.ok){
+//       box.innerHTML = "Failed to load replies 🤍";
+//       return;
+//     }
+
+//     const msgs = data.result
+//       .filter(u =>
+//         u.message &&
+//         u.message.chat.id === REPLY_CHAT_ID &&
+//         u.message.text
+//       )
+//       .map(u => ({
+//         text: u.message.text,
+//         time: new Date(u.message.date * 1000)
+//       }))
+//       .reverse();
+
+//     if(msgs.length === 0){
+//       box.innerHTML = "No replies yet 🤍";
+//       return;
+//     }
+
+//     box.innerHTML = "";
+
+//     msgs.forEach(m => {
+//       const div = document.createElement("div");
+//       div.style.marginBottom = "12px";
+//       div.style.paddingBottom = "8px";
+//       div.style.borderBottom =
+//         "1px solid rgba(255,255,255,0.4)";
+
+//       div.innerHTML = `
+//         <div style="font-size:15px">${m.text}</div>
+//         <div style="font-size:11px;opacity:.6">
+//           ${m.time.toLocaleString()}
+//         </div>
+//       `;
+
+//       box.appendChild(div);
+//     });
+
+//   } catch(e){
+//     console.error(e);
+//     box.innerHTML = "Error loading replies 🤍";
+//   }
+// }
+
+
+
+
+
 async function loadReplies(){
   const box = document.getElementById("replyList");
   box.innerHTML = "Loading replies…";
+
+  let stored = JSON.parse(localStorage.getItem("savedReplies") || "[]");
 
   try {
     const res = await fetch(
@@ -1072,7 +1222,7 @@ async function loadReplies(){
       return;
     }
 
-    const msgs = data.result
+    const newMsgs = data.result
       .filter(u =>
         u.message &&
         u.message.chat.id === REPLY_CHAT_ID &&
@@ -1080,37 +1230,42 @@ async function loadReplies(){
       )
       .map(u => ({
         text: u.message.text,
-        time: new Date(u.message.date * 1000)
-      }))
-      .reverse();
+        time: u.message.date * 1000
+      }));
 
-    if(msgs.length === 0){
-      box.innerHTML = "No replies yet 🤍";
-      return;
-    }
+    // merge + remove duplicates
+    const all = [...stored, ...newMsgs].filter(
+      (v,i,a)=>a.findIndex(t=>t.text===v.text && t.time===v.time)===i
+    );
 
-    box.innerHTML = "";
+    localStorage.setItem("savedReplies", JSON.stringify(all));
 
-    msgs.forEach(m => {
-      const div = document.createElement("div");
-      div.style.marginBottom = "12px";
-      div.style.paddingBottom = "8px";
-      div.style.borderBottom =
-        "1px solid rgba(255,255,255,0.4)";
-
-      div.innerHTML = `
-        <div style="font-size:15px">${m.text}</div>
-        <div style="font-size:11px;opacity:.6">
-          ${m.time.toLocaleString()}
-        </div>
-      `;
-
-      box.appendChild(div);
-    });
+    renderReplies(all.reverse(), box);
 
   } catch(e){
     console.error(e);
-    box.innerHTML = "Error loading replies 🤍";
+    renderReplies(stored.reverse(), box);
   }
 }
 
+function renderReplies(msgs, box){
+  if(msgs.length === 0){
+    box.innerHTML = "No replies yet 🤍";
+    return;
+  }
+
+  box.innerHTML = "";
+  msgs.forEach(m=>{
+    const div = document.createElement("div");
+    div.style.marginBottom="12px";
+    div.style.paddingBottom="8px";
+    div.style.borderBottom="1px solid rgba(255,255,255,0.4)";
+    div.innerHTML=`
+      <div style="font-size:15px">${m.text}</div>
+      <div style="font-size:11px;opacity:.6">
+        ${new Date(m.time).toLocaleString()}
+      </div>
+    `;
+    box.appendChild(div);
+  });
+}

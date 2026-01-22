@@ -121,7 +121,7 @@ body {
 /* Note box */
 .note {
   width: max(90vw, 520px);
-  margin: 0 auto;
+  margin: 10px auto;
   padding: 20px;
   color: var(--peach-dark);
   font-size: 16px;
@@ -855,7 +855,7 @@ h2.open-title {
 }
 
 /* ===== CALM ROOM ===== */
-.calm-box{
+.calm2-box{
   width:min(90vw,520px);
   margin:24px auto;
   padding:24px;
@@ -863,14 +863,14 @@ h2.open-title {
   color:#a63a6f;
 }
 
-.calm-options{
+.calm2-options{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:14px;
   margin-top:16px;
 }
 
-.calm-options button{
+.calm2-options button{
   padding:16px;
   border:none;
   border-radius:18px;
@@ -879,20 +879,8 @@ h2.open-title {
   cursor:pointer;
 }
 
-.breath-circle{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  margin:0 auto 16px;
-  background:rgba(255,255,255,.6);
-  animation:breathe 10s ease-in-out forwards;
-}
 
-@keyframes breathe{
-  0%{transform:scale(1)}
-  40%{transform:scale(1.4)}
-  100%{transform:scale(1)}
-}
+
 
 textarea{
   width:100%;
@@ -902,4 +890,386 @@ textarea{
   padding:10px;
   margin-top:12px;
   font-family:inherit;
+}
+
+/* ===== CALM PAGE ===== */
+
+.calm-wrap{
+  width:min(90vw,420px);
+  margin:auto;
+  padding:26px 20px;
+  text-align:center;
+}
+
+.calm-title{
+  font-family:'Irish Grover',cursive;
+  color:#a63a6f;
+  margin-bottom:10px;
+}
+
+.calm-sub{
+  font-family:'Inria Serif',serif;
+  color:#6b2949;
+  font-size:15px;
+  line-height:1.6;
+  margin-bottom:18px;
+}
+
+/* breathing ring */
+.breath-ring{
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  margin:20px auto;
+  background:rgba(255,255,255,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation:breathCycle 8s infinite;
+}
+
+.breath-ring span{
+  font-family:'Patrick Hand',cursive;
+  font-size:26px;
+  color:#a63a6f;
+}
+
+@keyframes breathCycle{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.35)}
+  60%{transform:scale(1.35)}
+  100%{transform:scale(1)}
+}
+
+.calm-guide{
+  font-family:'Patrick Hand',cursive;
+  font-size:18px;
+  color:#8f2f5c;
+  margin-bottom:14px;
+}
+
+.calm-btn{
+  width:100%;
+  padding:14px;
+  font-size:20px;
+  font-family:'Patrick Hand',cursive;
+  color:#a63a6f;
+  border:none;
+  cursor:pointer;
+}
+
+/* ===== WRITE & RELEASE PAGE ===== */
+
+.write-wrap{
+  width:min(90vw,520px);
+  margin:auto;
+  padding:26px 22px;
+  text-align:center;
+}
+
+.write-title{
+  font-family:'Irish Grover',cursive;
+  color:#a63a6f;
+  margin-bottom:8px;
+}
+
+.write-sub{
+  font-family:'Inria Serif',serif;
+  color:#6b2949;
+  font-size:15px;
+  line-height:1.6;
+  margin-bottom:16px;
+}
+
+#writeBox{
+  width:100%;
+  min-height:160px;
+  padding:14px;
+  border-radius:14px;
+  border:none;
+  resize:none;
+  font-family:'Inria Serif',serif;
+  font-size:15px;
+  line-height:1.6;
+  color:#4a1f35;
+  background:rgba(255,255,255,.6);
+}
+
+.write-btn{
+  width:100%;
+  padding:14px;
+  margin-top:14px;
+  font-family:'Patrick Hand',cursive;
+  font-size:20px;
+  color:#a63a6f;
+  border:none;
+  cursor:pointer;
+}
+
+#writeStatus{
+  margin-top:10px;
+  font-size:14px;
+  opacity:.8;
+}
+
+.write-area{
+  position:relative;
+}
+
+#dustLayer{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+/* ===== REALISTIC DUST ===== */
+
+.dust{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:radial-gradient(circle,#a63a6f 0%,transparent 70%);
+  opacity:0.25;
+  filter:blur(0.5px);
+  animation:dustDrift 3.8s ease-out forwards;
+}
+
+@keyframes dustDrift{
+  0%{
+    transform:translate(0,0) scale(1);
+    opacity:0.35;
+  }
+  100%{
+    transform:
+      translate(
+        calc(-60px + 120px * var(--x)),
+        -160px
+      )
+      scale(0.1);
+    opacity:0;
+  }
+}
+
+/* ===== REASSURANCE PAGE ===== */
+
+.reassure-wrap{
+  width:min(90vw,420px);
+  margin:auto;
+  padding:28px 22px;
+  text-align:center;
+}
+
+.reassure-title{
+  font-family:'Irish Grover',cursive;
+  color:#a63a6f;
+  margin-bottom:14px;
+}
+
+.reassure-box{
+  min-height:120px;
+  padding:18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#reassureText{
+  font-family:'Inria Serif',serif;
+  font-size:16px;
+  line-height:1.6;
+  color:#4a1f35;
+}
+
+.reassure-btn{
+  width:100%;
+  padding:14px;
+  margin-top:16px;
+  font-family:'Patrick Hand',cursive;
+  font-size:20px;
+  color:#a63a6f;
+  border:none;
+  cursor:pointer;
+}
+
+/* ===== PERSPECTIVE SHIFT PAGE ===== */
+
+.perspective-wrap{
+  width:min(90vw,440px);
+  margin:auto;
+  padding:28px 22px;
+  text-align:center;
+}
+
+.perspective-title{
+  font-family:'Irish Grover',cursive;
+  color:#a63a6f;
+  margin-bottom:14px;
+}
+
+.perspective-box{
+  min-height:120px;
+  padding:18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#perspectiveText{
+  font-family:'Inria Serif',serif;
+  font-size:16px;
+  line-height:1.6;
+  color:#4a1f35;
+  opacity:0;
+  transition:opacity .6s ease;
+}
+
+.perspective-btn{
+  width:100%;
+  padding:14px;
+  margin-top:16px;
+  font-family:'Patrick Hand',cursive;
+  font-size:20px;
+  color:#a63a6f;
+  border:none;
+  cursor:pointer;
+}
+
+
+#notePage .note textarea{
+  width:100%;
+  min-height:160px;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  resize:none;
+  font-family:inherit;
+}
+
+#notePage button{
+  margin-top:12px;
+}
+
+/* ===== MICRO CONNECTION PAGE ===== */
+
+.mc-wrap{
+  width:min(90vw,420px);
+  margin:auto;
+  padding:28px 22px;
+  text-align:center;
+}
+
+.mc-title{
+  font-family:'Irish Grover',cursive;
+  color:#a63a6f;
+  margin-bottom:10px;
+}
+
+.mc-sub{
+  font-family:'Inria Serif',serif;
+  color:#6b2949;
+  font-size:15px;
+  line-height:1.6;
+  margin-bottom:18px;
+}
+
+.mc-actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.mc-btn{
+  width:100%;
+  padding:14px;
+  font-family:'Patrick Hand',cursive;
+  font-size:20px;
+  color:#a63a6f;
+  border:none;
+  cursor:pointer;
+}
+
+#mcStatus{
+  margin-top:14px;
+  font-size:15px;
+  color:#8f2f5c;
+  min-height:20px;
+}
+
+.energy-wrap{
+  width:min(90vw,520px);
+  margin:20px auto;
+  padding:20px;
+  text-align:center;
+  color:#a63a6f;
+}
+
+.energy-title{
+  font-family:'Irish Grover',cursive;
+  font-size:26px;
+  margin-bottom:10px;
+}
+
+.energy-sub{
+  font-size:14px;
+  opacity:.8;
+  margin-bottom:16px;
+}
+
+.energy-zone{
+  height:160px;
+  border-radius:20px;
+  background:rgba(255,255,255,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-family:'Patrick Hand',cursive;
+  cursor:pointer;
+  user-select:none;
+  transition:transform .08s;
+}
+
+.energy-zone:active{
+  transform:scale(.95);
+}
+
+.energy-bar{
+  margin:14px 0;
+  height:10px;
+  background:rgba(255,255,255,.4);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+#energyFill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff7aa2,#a63a6f);
+  transition:width .1s;
+}
+
+.energy-text{
+  margin-top:10px;
+  font-size:15px;
+}
+
+.energy-done{
+  width:100%;
+  margin-top:16px;
+  padding:14px;
+  border:none;
+  font-family:'Gloria Hallelujah',cursive;
+}
+
+
+.button.glass.stop{
+  width:auto;
+  height: auto;
+  
 }

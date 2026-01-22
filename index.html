@@ -62,6 +62,7 @@
       <button class="glass" onclick="showNote()">AJJ KA NOTE</button>
       <button class="glass" onclick="showSpecial()">AJJ KA SPECIAL</button>
       <button class="glass" onclick="showMore()">KHAAS OPTIONS</button>
+      
     </div>
   </section>
 
@@ -72,6 +73,19 @@
     <div class="note glass" id="dailyNote">
       Loading today’s note…
     </div>
+    <div class="note glass">
+      <h3 style="margin-bottom:10px;color:#a63a6f">How was your day? 🤍</h3>
+
+      <textarea id="dayShareText"
+        placeholder="Tell me everything about today..."
+        style="width:100%;min-height:160px;border:none;border-radius:12px;padding:10px;font-family:inherit;"></textarea>
+
+      <button class="glass" onclick="sendDayShare()">Send to him 💌</button>
+
+      <p id="dayShareStatus"
+         style="margin-top:8px;font-size:13px;color:#a63a6f"></p>
+    </div>
+
 
     <br>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
@@ -83,9 +97,9 @@
 
 
  <section id="repairPage" class="page hidden">
-    <div class="glass calm-box" id="calmMenu">
+    <div class="glass calm2-box" id="calm2Menu">
       <p>How do you want to calm down?</p>
-      <div class="calm-options">
+      <div class="calm2-options">
         <button onclick="showCalm()">🌬️ Calm Body</button>
         <button onclick="showWrite()">📝 Write & Release</button>
         <button onclick="showReassurance()">🤍 Reassurance</button>
@@ -96,7 +110,7 @@
     </div>
 
     <!-- CALM CONTENT -->
-    <div class="glass calm-box hidden" id="calmContent"></div>
+    <div class="glass calm2-box hidden" id="calm2Content"></div>
     <br>
     <button class="glass back-btn" onclick="showMore()">← Back</button>
   </section>
@@ -104,7 +118,28 @@
   
 
   <section id="calmPage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    
+    <div class="glass calm-wrap">
+      <h2 class="calm-title">🌬️ Slow down</h2>
+
+      <p class="calm-sub">
+        You don’t have to talk.  
+        You don’t have to fix anything.  
+        Just breathe with me.
+      </p>
+    
+      <div class="breath-ring" id="breathRing">
+        <span id="breathText">Inhale</span>
+      </div>
+    
+      <p class="calm-guide" id="breathGuide">
+        Inhale through your nose
+      </p>
+    
+      <button class="glass calm-btn" onclick="restartBreathing()">
+        Start again
+      </button>
+    </div>
 
     
 
@@ -113,16 +148,46 @@
   </section>
 
   <section id="writePage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    <div class="glass write-wrap">
+      <h2 class="write-title">📝 Let it out</h2>
 
+      <p class="write-sub">
+        Say everything you can’t say out loud.  
+        This will disappear when you release it.
+      </p>
     
+      <textarea
+        id="writeBox"
+        placeholder="Type anything… anger, hurt, confusion, all of it."
+      ></textarea>
+      <div id="dustLayer"></div>
+
+      <button class="glass write-btn" onclick="releaseWrite()">
+        Release
+      </button>
+    
+      <p id="writeStatus" class="soft hidden">
+        It’s gone 🤍
+      </p>
+    </div>
 
     <br>
     <button class="glass back-btn" onclick="showRepairPage()">← Back</button>
   </section>
 
   <section id="reassurancePage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    <div class="glass reassure-wrap">
+      <h2 class="reassure-title">🤍 I’m here</h2>
+
+      <div class="reassure-box">
+        <p id="reassureText" class="typing"></p>
+      </div>
+    
+      <button class="glass reassure-btn" onclick="nextReassure()">
+        stay with me
+      </button>
+    </div>
+    
 
     
 
@@ -131,7 +196,18 @@
   </section>
 
   <section id="perspectivePage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    <div class="glass perspective-wrap">
+      <h2 class="perspective-title">🧠 A softer view</h2>
+
+      <div class="perspective-box">
+        <p id="perspectiveText"></p>
+      </div>
+    
+      <button class="glass perspective-btn" onclick="nextPerspective()">
+        see it differently
+      </button>
+    </div>
+
 
     
 
@@ -140,7 +216,33 @@
   </section>
 
   <section id="mcPage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    <div class="glass mc-wrap">
+      <h2 class="mc-title">🔗 Let’s reconnect</h2>
+
+      <p class="mc-sub">
+        This is a small bridge between us.  
+        Just one step is enough.
+      </p>
+    
+      <div class="mc-actions">
+      
+        <button class="glass mc-btn" onclick="sendPingMC()">
+          Send a 🫶 to him
+        </button>
+      
+        <button class="glass mc-btn" onclick="waitTogether()">
+          Wait together (10s)
+        </button>
+      
+        <button class="glass mc-btn" onclick="promiseConnect()">
+          We’ll talk later 🤍
+        </button>
+      
+      </div>
+    
+      <p id="mcStatus" class="soft"></p>
+    </div>
+
 
     
 
@@ -149,7 +251,31 @@
   </section>
 
   <section id="energyPage" class="page hidden">
-    <h1 class="heading">AJJ KA NOTE</h1>
+    <div class="glass energy-wrap">
+      <h2 class="energy-title">⚡ Let it out</h2>
+
+      <p class="energy-sub">
+        Hit the screen. Breathe hard.  
+        This space can take it.
+      </p>
+    
+      <div class="energy-zone" id="energyZone">
+        TAP / HIT
+      </div>
+    
+      <div class="energy-bar">
+        <div id="energyFill"></div>
+      </div>
+    
+      <p id="energyText" class="energy-text">
+        Start releasing…
+      </p>
+    
+      <button class="glass energy-done" onclick="finishEnergy()">
+        I feel lighter 🤍
+      </button>
+    </div>
+
     <br>
     <button class="glass back-btn" onclick="showRepairPage()">← Back</button>
   </section>
@@ -480,10 +606,12 @@
     <br>
     <button class="glass back-btn" onclick="showExpress()">Express!!</button>
     <button class="glass back-btn" onclick="showOW()">Open Whens!!</button>
-    <button class="glass back-btn" onclick="showCount()">CountDowns!!</button>
     <button class="glass back-btn" onclick="showGrowth()">Growth Timeline!!</button>
-    <button class="glass back-btn" onclick="showReplyPage()">His Replies!!</button>
     <button class="glass back-btn" onclick="showRepairPage()">We are not OKKI</button>
+    <button class="glass back-btn" onclick="showCount()">CountDowns!!</button>
+    
+    <button class="glass back-btn" onclick="showReplyPage()">His Replies!!</button>
+    <br>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
   </section>
 

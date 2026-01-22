@@ -55,6 +55,40 @@ setInterval(() => {
   `;
 }, 1000);
 
+async function checkMC(){
+  const res = await fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({ action:"mcCheck" })
+  });
+
+  const j = await res.json();
+  const s = document.getElementById("mcStatus");
+
+  if(!s) return;
+
+  if(j.state === "waiting"){
+    s.textContent = "Sent… he’ll feel it 🤍";
+  }
+
+  if(j.state === "felt"){
+    s.textContent = "He felt it 🤍";
+  }
+}
+
+
+function clearMC(){
+  fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({ action:"mcClear" })
+  });
+}
+
+
+
+
+
 
 /* ===== PAGE NAVIGATION (SPA) ===== */
 const homePage = document.getElementById("homePage");
@@ -120,6 +154,7 @@ function showPerspective() {
 function showMc() {
   hideAllPages();
   connectionPage.classList.remove("hidden");
+  checkMC();
   
 }
 
@@ -151,6 +186,12 @@ function showOW(){
   hideAllPages();
   owPage.classList.remove("hidden");
   // startEmojiRain(cuteEmoji);
+}
+
+function stopp(){
+  stopHearts();
+  stopFirework();
+  stopEmojiRain();
 }
 
 function showGrowth(){
@@ -1233,3 +1274,284 @@ function renderReplies(msgs, box){
   });
 }
 
+
+/* ===== CALM PAGE BREATHING ===== */
+
+let breathState = 0;
+let breathInterval;
+
+function startBreathing(){
+  const text = document.getElementById("breathText");
+  const guide = document.getElementById("breathGuide");
+  if(!text || !guide) return;
+
+  clearInterval(breathInterval);
+
+  const steps = [
+    ["Inhale", "Inhale through your nose"],
+    ["Hold", "Hold gently"],
+    ["Exhale", "Slowly exhale through mouth"],
+    ["Hold", "Rest here"]
+  ];
+
+  breathState = 0;
+  text.textContent = steps[0][0];
+  guide.textContent = steps[0][1];
+
+  breathInterval = setInterval(()=>{
+    breathState = (breathState + 1) % steps.length;
+    text.textContent = steps[breathState][0];
+    guide.textContent = steps[breathState][1];
+  },2000);
+}
+
+function restartBreathing(){
+  startBreathing();
+}
+
+/* auto start when page opens */
+const calmObserver = new MutationObserver(()=>{
+  if(!document.getElementById("calmPage").classList.contains("hidden")){
+    startBreathing();
+  }
+});
+
+calmObserver.observe(document.getElementById("calmPage"),{
+  attributes:true,
+  attributeFilter:["class"]
+});
+
+/* ===== WRITE & RELEASE LOGIC ===== */
+function releaseWrite(){
+  const box = document.getElementById("writeBox");
+  const dustLayer = document.getElementById("dustLayer");
+  const status = document.getElementById("writeStatus");
+
+  if(!box.value.trim()) return;
+
+  const rect = box.getBoundingClientRect();
+  dustLayer.innerHTML = "";
+
+  const count = 80; // soft density
+
+  for(let i=0;i<count;i++){
+    const d = document.createElement("div");
+    d.className="dust";
+
+    const size = Math.random()*4 + 2;
+    d.style.width = size+"px";
+    d.style.height = size+"px";
+
+    d.style.left = Math.random()*rect.width+"px";
+    d.style.top = Math.random()*rect.height+"px";
+
+    d.style.setProperty("--x", Math.random());
+
+    d.style.animationDuration =
+      3 + Math.random()*2 + "s";
+
+    dustLayer.appendChild(d);
+  }
+
+  box.value="";
+  status.classList.remove("hidden");
+
+  setTimeout(()=>{
+    dustLayer.innerHTML="";
+    status.classList.add("hidden");
+  },5000);
+}
+
+/* ===== REASSURANCE LOGIC ===== */
+
+const reassuranceLines = [
+  "I know this feels heavy right now.",
+  "But I’m not going anywhere.",
+  "We can take this slow.",
+  "You are not too much.",
+  "You are safe with me.",
+  "We will be okay, even if not right now.",
+  "I choose you, even on hard days."
+];
+
+let reassureIdx = 0;
+let typeInterval;
+
+function typeReassure(text){
+  const el = document.getElementById("reassureText");
+  if(!el) return;
+
+  clearInterval(typeInterval);
+  el.textContent = "";
+  el.classList.add("typing");
+
+  let i = 0;
+  typeInterval = setInterval(()=>{
+    el.textContent += text.charAt(i);
+    i++;
+    if(i >= text.length){
+      clearInterval(typeInterval);
+      el.classList.remove("typing");
+    }
+  },45);
+}
+
+function nextReassure(){
+  reassureIdx = (reassureIdx + 1) % reassuranceLines.length;
+  typeReassure(reassuranceLines[reassureIdx]);
+}
+
+/* auto start when page opens */
+const reassureObserver = new MutationObserver(()=>{
+  const page = document.getElementById("reassurancePage");
+  if(!page) return;
+
+  if(!page.classList.contains("hidden")){
+    typeReassure(reassuranceLines[reassureIdx]);
+  }
+});
+
+reassureObserver.observe(
+  document.getElementById("reassurancePage"),
+  { attributes:true, attributeFilter:["class"] }
+);
+
+
+/* ===== PERSPECTIVE SHIFT LOGIC ===== */
+
+const perspectives = [
+  "This is a hard moment, not a broken relationship.",
+  "Both of you are hurting, not fighting.",
+  "Strong connections have repair moments like this.",
+  "Feelings feel permanent, but they are waves.",
+  "This moment will soften.",
+  "Love doesn’t disappear during conflict.",
+  "You’re allowed to take space and still be close.",
+  "This doesn’t erase the good you share."
+];
+
+let p = 0;
+
+function nextPerspective(){
+  const el = document.getElementById("perspectiveText");
+  if(!el) return;
+
+  el.style.opacity = 0;
+
+  setTimeout(()=>{
+    el.textContent = perspectives[p];
+    el.style.opacity = 1;
+    p = (p + 1) % perspectives.length;
+  },300);
+}
+
+/* auto show first when page opens */
+const perspectiveObserver = new MutationObserver(()=>{
+  const page = document.getElementById("perspectivePage");
+  if(!page) return;
+
+  if(!page.classList.contains("hidden")){
+    p = 0;
+    nextPerspective();
+  }
+});
+
+perspectiveObserver.observe(
+  document.getElementById("perspectivePage"),
+  { attributes:true, attributeFilter:["class"] }
+);
+
+function sendDayShare(){
+  const text = document.getElementById("dayShareText").value.trim();
+  const status = document.getElementById("dayShareStatus");
+
+  if(!text){
+    status.textContent = "Write something first 🤍";
+    return;
+  }
+
+  const message =
+    `📝 Her Day Update\n🕒 ${new Date().toLocaleString()}\n\n${text}`;
+
+  fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "sendFeeling",   // same as your other bot calls
+      data: { text: message }
+    })
+  })
+  .then(() => {
+    status.textContent = "Sent to him 🤍";
+    document.getElementById("dayShareText").value = "";
+  })
+  .catch(() => {
+    status.textContent = "Failed 😔";
+  });
+}
+
+/* ===== MUTUAL MICRO CONNECTION ===== */
+
+function sendPingMC(){
+  clearMC();
+  fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({ action:"mcPing" })
+  });
+
+  document.getElementById("mcStatus").textContent =
+    "Sent… he’ll feel it 🤍";
+}
+
+function waitTogether(){
+  clearMC();
+  const s = document.getElementById("mcStatus");
+  let n = 10;
+  s.textContent = "Waiting together… 10";
+
+  const i = setInterval(()=>{
+    n--;
+    s.textContent = "Waiting together… " + n;
+    if(n <= 0){
+      clearInterval(i);
+      s.textContent = "Still connected 🤍";
+    }
+  },1000);
+}
+
+function promiseConnect(){
+  clearMC();
+  notifyTelegram("🤍 She promised to reconnect later");
+  document.getElementById("mcStatus").textContent =
+    "Promise sent 🤍";
+}
+
+
+
+let energy = 0;
+const maxEnergy = 100;
+
+const zone = document.getElementById("energyZone");
+const fill = document.getElementById("energyFill");
+const txt = document.getElementById("energyText");
+
+zone.onclick = () => {
+  energy += 4;
+  if(energy > maxEnergy) energy = maxEnergy;
+
+  fill.style.width = energy + "%";
+
+  if(energy < 30) txt.textContent = "Let it out…";
+  else if(energy < 60) txt.textContent = "Good… keep going…";
+  else if(energy < 90) txt.textContent = "Almost there…";
+  else txt.textContent = "Release complete 🤍";
+
+  zone.style.transform = `scale(${0.95 + Math.random()*0.1})`;
+};
+
+function finishEnergy(){
+  energy = 0;
+  fill.style.width = "0%";
+  txt.textContent = "Your body feels calmer now 🤍";
+}

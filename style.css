@@ -854,3 +854,52 @@ h2.open-title {
   font-style: normal;
 }
 
+/* ===== CALM ROOM ===== */
+.calm-box{
+  width:min(90vw,520px);
+  margin:24px auto;
+  padding:24px;
+  text-align:center;
+  color:#a63a6f;
+}
+
+.calm-options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:16px;
+}
+
+.calm-options button{
+  padding:16px;
+  border:none;
+  border-radius:18px;
+  font-size:16px;
+  background:rgba(255,255,255,.55);
+  cursor:pointer;
+}
+
+.breath-circle{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  margin:0 auto 16px;
+  background:rgba(255,255,255,.6);
+  animation:breathe 10s ease-in-out forwards;
+}
+
+@keyframes breathe{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.4)}
+  100%{transform:scale(1)}
+}
+
+textarea{
+  width:100%;
+  height:80px;
+  border:none;
+  border-radius:12px;
+  padding:10px;
+  margin-top:12px;
+  font-family:inherit;
+}

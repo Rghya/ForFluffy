@@ -1,28 +1,29 @@
-const STORED_HASH =
-"3e05eb8f839be339e0bf3ace43e303a383805b2019a5e10fd5749c340f8ce5ed"; 
-// 👆 this hash = "password"
+const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
 
-async function hashText(text){
-  const buf = await crypto.subtle.digest(
-    "SHA-256",
-    new TextEncoder().encode(text)
-  );
-  return [...new Uint8Array(buf)]
-    .map(b => b.toString(16).padStart(2,"0"))
-    .join("");
-}
 
 document.getElementById("unlockBtn").onclick = async () => {
   const val = document.getElementById("lockInput").value;
-  const h = await hashText(val);
 
-  if(h === STORED_HASH){
+  const res = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "unlock",
+      data: { password: val }
+    })
+  });
+
+  const json = await res.json();
+
+  if(json.ok){
     document.getElementById("lockScreen").style.display="none";
-    
-  }else{
+  } else {
     document.getElementById("lockError").textContent = "Wrong secret 🤍";
   }
 };
+
+
+
 
 
 let currentLetterType = "";
@@ -66,21 +67,67 @@ const countPage = document.getElementById("countPage");
 const moodPage = document.getElementById("moodPage");
 const growthPage = document.getElementById('growthPage');
 const replyPage = document.getElementById("replyPage");
+const repairPage = document.getElementById("repairPage");
+const calmPage = document.getElementById("calmPage");
+const writePage = document.getElementById("writePage");
+const reassurancePage = document.getElementById("reassurancePage");
+const perspectivePage = document.getElementById("perspectivePage");
+const connectionPage = document.getElementById("mcPage");
+const energyPage = document.getElementById("energyPage");
 
 
 function hideAllPages() {
-  homePage.classList.add("hidden");
-  notePage.classList.add("hidden");
-  specialPage.classList.add("hidden");
-  khaasPage.classList.add("hidden");
-  expressPage.classList.add("hidden");
-  owPage.classList.add("hidden");
-  countPage.classList.add("hidden");
-  growthPage.classList.add("hidden");
-  replyPage.classList.add("hidden");
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.add("hidden");
+  });
 
+  stopFirework();
+  stopEmojiRain();
+  
 }
 
+function showRepairPage() {
+  hideAllPages();
+  repairPage.classList.remove("hidden");
+  
+}
+
+
+function showCalm() {
+  hideAllPages();
+  calmPage.classList.remove("hidden");
+  
+}
+
+function showWrite() {
+  hideAllPages();
+  writePage.classList.remove("hidden");
+  
+}
+
+function showReassurance() {
+  hideAllPages();
+  reassurancePage.classList.remove("hidden");
+  
+}
+
+function showPerspective() {
+  hideAllPages();
+  perspectivePage.classList.remove("hidden");
+  
+}
+
+function showMc() {
+  hideAllPages();
+  connectionPage.classList.remove("hidden");
+  
+}
+
+function showEnergy() {
+  hideAllPages();
+  energyPage.classList.remove("hidden");
+  
+}
 
 function showHome() {
   hideAllPages();
@@ -96,6 +143,8 @@ function showReplyPage(){
   startEmojiRain(love2Emoji);
   loadReplies();
 }
+
+
 
 
 function showOW(){
@@ -858,8 +907,6 @@ function openLetter(letterEl, type) {
 }
 
 
-const BOT_TOKEN2 = "8346168934:AAEp8Ss80cJEF18VLyiIk9keLRmtQAEZ4yI";
-const CHAT_ID2 = 7654665438;
 
 function sendReply() {
   const msg = document.getElementById("replyText").value.trim();
@@ -871,16 +918,14 @@ function sendReply() {
   }
 
   const finalMessage =
-    `💌 New Reply\n` +
-    `📄 Letter: ${currentLetterType}\n\n` +
-    msg;
+    `💌 New Reply\n📄 Letter: ${currentLetterType}\n\n${msg}`;
 
-  fetch(`https://api.telegram.org/bot${BOT_TOKEN2}/sendMessage`, {
+  fetch(WORKER_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      chat_id: CHAT_ID2,
-      text: finalMessage
+      action: "sendReply",
+      data: { text: finalMessage }
     })
   })
   .then(() => {
@@ -891,6 +936,7 @@ function sendReply() {
     status.textContent = "Failed 😔";
   });
 }
+
 
 
 
@@ -1116,18 +1162,13 @@ for (let i = 1; i <= completed; i++) {
   list.appendChild(li);
 }
 
-const BOT_TOKEN = "8422558341:AAE-qPlcuSBB-NLJNRTZOHVokG0lN07kHS8";
-const CHAT_ID = 7654665438;
-
 function notifyTelegram(message){
-  fetch(`https://api.telegram.org/bot8422558341:AAE-qPlcuSBB-NLJNRTZOHVokG0lN07kHS8/sendMessage`, {
+  return fetch(WORKER_URL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      chat_id: CHAT_ID,
-      text: message
+      action: "sendFeeling",
+      data: { text: message }
     })
   });
 }
@@ -1140,113 +1181,35 @@ function celebrateFor(seconds = 5) {
   setTimeout(stopFirework, seconds * 1000);
 }
 
-
-const REPLY_BOT_TOKEN = "8493536361:AAGhjUtdlotUPBUrBykJ0YY-keTP7Lhf100";
-const REPLY_CHAT_ID = 7654665438;
-
-// async function loadReplies(){
-//   const box = document.getElementById("replyList");
-//   box.innerHTML = "Loading replies…";
-
-//   try {
-//     const res = await fetch(
-//       `https://api.telegram.org/bot${REPLY_BOT_TOKEN}/getUpdates`
-//     );
-//     const data = await res.json();
-
-//     if(!data.ok){
-//       box.innerHTML = "Failed to load replies 🤍";
-//       return;
-//     }
-
-//     const msgs = data.result
-//       .filter(u =>
-//         u.message &&
-//         u.message.chat.id === REPLY_CHAT_ID &&
-//         u.message.text
-//       )
-//       .map(u => ({
-//         text: u.message.text,
-//         time: new Date(u.message.date * 1000)
-//       }))
-//       .reverse();
-
-//     if(msgs.length === 0){
-//       box.innerHTML = "No replies yet 🤍";
-//       return;
-//     }
-
-//     box.innerHTML = "";
-
-//     msgs.forEach(m => {
-//       const div = document.createElement("div");
-//       div.style.marginBottom = "12px";
-//       div.style.paddingBottom = "8px";
-//       div.style.borderBottom =
-//         "1px solid rgba(255,255,255,0.4)";
-
-//       div.innerHTML = `
-//         <div style="font-size:15px">${m.text}</div>
-//         <div style="font-size:11px;opacity:.6">
-//           ${m.time.toLocaleString()}
-//         </div>
-//       `;
-
-//       box.appendChild(div);
-//     });
-
-//   } catch(e){
-//     console.error(e);
-//     box.innerHTML = "Error loading replies 🤍";
-//   }
-// }
-
-
-
-
-
 async function loadReplies(){
   const box = document.getElementById("replyList");
   box.innerHTML = "Loading replies…";
 
-  let stored = JSON.parse(localStorage.getItem("savedReplies") || "[]");
-
   try {
-    const res = await fetch(
-      `https://api.telegram.org/bot${REPLY_BOT_TOKEN}/getUpdates`
-    );
-    const data = await res.json();
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "fetchReplies",
+        data: {}
+      })
+    });
 
-    if(!data.ok){
+    const json = await res.json();
+
+    if(!json.ok){
       box.innerHTML = "Failed to load replies 🤍";
       return;
     }
 
-    const newMsgs = data.result
-      .filter(u =>
-        u.message &&
-        u.message.chat.id === REPLY_CHAT_ID &&
-        u.message.text
-      )
-      .map(u => ({
-        text: u.message.text,
-        time: u.message.date * 1000
-      }));
-
-    // merge + remove duplicates
-    const all = [...stored, ...newMsgs].filter(
-      (v,i,a)=>a.findIndex(t=>t.text===v.text && t.time===v.time)===i
-    );
-
-    localStorage.setItem("savedReplies", JSON.stringify(all));
-
-    renderReplies(all.reverse(), box);
+    renderReplies(json.messages.reverse(), box);
 
   } catch(e){
     console.error(e);
-    renderReplies(stored.reverse(), box);
+    box.innerHTML = "Error loading replies 🤍";
   }
 }
+
 
 function renderReplies(msgs, box){
   if(msgs.length === 0){
@@ -1269,3 +1232,4 @@ function renderReplies(msgs, box){
     box.appendChild(div);
   });
 }
+

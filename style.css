@@ -43,7 +43,7 @@ body {
 .bg-overlay {
     position: fixed;
     inset: 0;
-    background: url(./assets/bg.png) repeat;
+    background: url(./assets/bg2.png) repeat;
     opacity: 0.5;
     z-index: 0;
     background-repeat: no-repeat;
@@ -1271,5 +1271,5 @@ textarea{
 .button.glass.stop{
   width:auto;
   height: auto;
-  
+
 }

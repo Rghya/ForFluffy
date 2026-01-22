@@ -22,6 +22,18 @@ const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
 //   }
 // };
 
+(function randomBackground(){
+  const bgs = [
+    "assets/bg1.png",
+    "assets/bg2.png",
+    "assets/bg3.png",
+    "assets/bg4.png",
+    "assets/bg5.png"
+  ];
+
+  const bg = bgs[Math.floor(Math.random() * bgs.length)];
+  document.querySelector(".bg-overlay").style.backgroundImage = `url(${bg})`;
+})();
 
 
 

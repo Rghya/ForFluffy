@@ -380,7 +380,7 @@ async function loadDailyNote() {
     const rows = text.split("\n").slice(1);
 
     const today = new Date().toISOString().slice(0, 10);
-    let note = "No note for today 🤍";
+    let note = "I was a lil busy Love, but will make up for it okkii. Hopee ya understand 🤍";
 
     rows.forEach(row => {
       const [date, msg] = row.split(",");
@@ -390,7 +390,7 @@ async function loadDailyNote() {
     document.getElementById("dailyNote").textContent = note;
   } catch {
     document.getElementById("dailyNote").textContent =
-      "Failed to load note 🤍";
+      "Failed to load note. Try once more honey 🤍";
   }
 }
 
@@ -419,7 +419,7 @@ async function loadDailySong() {
 
     loadLocalSong(songg);
   } catch (err) {
-    console.error("Song load failed", err);
+    console.error("Song load failed. Reload the page fluffy", err);
   }
 }
 
@@ -641,46 +641,7 @@ function stopFirework() {
 
 
 
-// /* ===== AJJ KA SPECIAL (JSON BASED) ===== */
 
-// async function loadSpecial() {
-//   const emojiEl = document.getElementById("specialEmoji");
-//   const titleEl = document.getElementById("specialTitle");
-//   const descEl = document.getElementById("specialDesc");
-//   const challengeEl = document.getElementById("specialChallenge");
-
-//   try {
-//     const res = await fetch("specials.json", { cache: "no-store" });
-//     const data = await res.json();
-
-//     const today = new Date();
-//     const key =
-//       String(today.getMonth() + 1).padStart(2, "0") +
-//       "-" +
-//       String(today.getDate()).padStart(2, "0");
-
-//     if (data[key]) {
-//       const item = data[key];
-//       emojiEl.textContent = item.emoji;
-//       titleEl.textContent = item.title;
-//       descEl.textContent = item.desc;
-//       challengeEl.textContent = "🌟 Challenge: " + item.challenge;
-//     } else {
-//       emojiEl.textContent = "✨";
-//       titleEl.textContent = "Nothing Special Today";
-//       descEl.textContent =
-//         "Even ordinary days are important. Take care 🤍";
-//       challengeEl.textContent = "";
-//     }
-
-//   } catch (e) {
-//     titleEl.textContent = "Unable to load special";
-//     descEl.textContent = "Check your internet or file setup.";
-//     challengeEl.textContent = "";
-//   }
-// }
-
-// loadSpecial();
 
 
 async function loadSpecialFromJSON() {
@@ -715,7 +676,7 @@ async function loadSpecialFromJSON() {
   } catch (e) {
     console.error(e);
     document.getElementById("specialEvent").textContent =
-      "Failed to load special";
+      "Failed to load special. Dont worryy reload the page lovee";
   }
 }
 
@@ -889,7 +850,7 @@ handleStreak();
 
 /* ===== OPEN WHEN LETTERS ===== */
 const letters = {
-  sad1: "I know today feels heavy. You don’t need to fix anything right now. Just breathe. I’m right here with you 🤍",
+  sad1: "I know today feels heavy. Ya don’t need to fix anything right now. Just breathe. I’m right here with ya 🤍. Juss send me a msg and when i get time i will be there to hear ya okkii lovee. Take it easy Darlinn",
   sad2: "It’s okay to feel sad. You’re allowed to feel this without explaining it to anyone.",
   sad3: "Even on your sad days, you are still loved more than you know.",
   sad4: "This feeling will pass. You’ve survived worse, and you’re still here 🤍",
@@ -1025,7 +986,7 @@ function sendReply() {
   const status = document.getElementById("replyStatus");
 
   if (!msg) {
-    status.textContent = "Write something first 🤍";
+    status.textContent = "Write something first Fluffy🤍";
     return;
   }
 
@@ -1045,7 +1006,7 @@ function sendReply() {
     document.getElementById("replyText").value = "";
   })
   .catch(() => {
-    status.textContent = "Failed 😔";
+    status.textContent = "Failed 😔 butt dont worryy try once moree honeyy";
   });
 }
 
@@ -1060,6 +1021,21 @@ function sendReply() {
   const startedDate = new Date("2025-09-29");   // relationship start
   const lastCallDate = new Date("2026-01-12");  // last call
   const nextPlanDate = new Date("2026-02-14");  // next meet / plan
+  const lastheldhandsDate = new Date("2025-12-05");
+  const lastVideoDate = new Date("2026-01-23");
+  const lastSpicyDate = new Date("2026-02-14");
+  // const Date = new Date("2026-02-14");
+  // const Date = new Date("2026-02-14");
+  // const Date = new Date("2026-02-14");
+  // const Date = new Date("2026-02-14");
+  // const Date = new Date("2026-02-14");
+
+
+
+
+
+
+
 
   const today = new Date();
   today.setHours(0,0,0,0);
@@ -1073,6 +1049,15 @@ function sendReply() {
 
   document.getElementById("cdLastCall").textContent =
     daysBetween(lastCallDate, today) + " days";
+
+  document.getElementById("cdLastVCall").textContent =
+    daysBetween(lastVideoDate, today) + " days";
+
+  document.getElementById("cdLastIntimate").textContent =
+    daysBetween(lastSpicyDate, today) + " days";
+
+  document.getElementById("cdLastHeld").textContent =
+    daysBetween(lastheldhandsDate, today) + " days";
 
   const until = daysBetween(today, nextPlanDate);
   document.getElementById("cdNext").textContent =
@@ -1310,7 +1295,7 @@ async function loadReplies(){
     const json = await res.json();
 
     if(!json.ok){
-      box.innerHTML = "Failed to load replies 🤍";
+      box.innerHTML = "Error loading replies. Dontt Panicc lovee reloadd or tell me to send a replyy okkii🤍";
       return;
     }
 
@@ -1318,7 +1303,7 @@ async function loadReplies(){
 
   } catch(e){
     console.error(e);
-    box.innerHTML = "Error loading replies 🤍";
+    box.innerHTML = "Error loading replies. Dontt Panicc lovee reloadd or tell me to send a replyy okkii🤍";
   }
 }
 
@@ -1436,16 +1421,64 @@ function releaseWrite(){
 /* ===== REASSURANCE LOGIC ===== */
 
 const reassuranceLines = [
-  "I know this feels heavy right now.",
-  "But I’m not going anywhere.",
-  "We can take this slow.",
-  "You are not too much.",
-  "You are safe with me.",
-  "We will be okay, even if not right now.",
-  "I choose you, even on hard days."
+  "Fluffy, ya don’t have to be strong right now okki.",
+  "Ya are safe here, always okki.",
+  "Darlin, even your silence makes sense to me.",
+  "Ya are not too much, not today, not ever.",
+  "It’s okki if ya feel tired of everything.",
+  "Love, I’m not going anywhere, breathe.",
+  "Ya don’t need to explain yourself to be loved.",
+  "Even on messy days, ya are still enough okki.",
+  "Honey, your heart is allowed to rest.",
+  "Ya are doing better than ya think.",
+  "It’s okki to slow down, sweetie.",
+  "Ya don’t have to fix anything tonight.",
+  "Fluffy, I see how hard ya are trying.",
+  "Ya are allowed to feel weak sometimes okki.",
+  "Baby, this moment will not break ya.",
+  "Ya are safe to feel everything here.",
+  "Darlin, your feelings are not a burden.",
+  "Ya don’t need permission to rest.",
+  "Even if ya feel lost, ya are not alone okki.",
+  "Love, ya are still loved on quiet days.",
+  "It’s okki to take space and still be close.",
+  "Ya don’t need to earn care, honey.",
+  "Your softness is not a weakness okki.",
+  "Sweetie, ya are held even when ya don’t feel it.",
+  "Ya can take this one breath at a time.",
+  "It’s okki if today is just survival.",
+  "Fluffy, ya are not failing, ya are feeling.",
+  "Ya are allowed to pause without guilt.",
+  "Even now, ya are enough okki.",
+  "Baby, your heart is still safe here.",
+  "Ya don’t have to carry everything alone.",
+  "It’s okki if ya cry and don’t know why.",
+  "Darlin, ya matter even when ya’re quiet.",
+  "Ya don’t need to rush healing okki.",
+  "This heaviness will soften, love.",
+  "Ya are not broken, just tired.",
+  "Sweetie, your presence itself is enough.",
+  "It’s okki to not be okki today.",
+  "Ya are still lovable on hard days.",
+  "Honey, ya are doing your best.",
+  "Ya don’t need to be perfect to be cared for.",
+  "It’s okki to ask for nothing and still receive.",
+  "Fluffy, ya are safe to feel small here.",
+  "Ya are not alone in this moment.",
+  "Even your slow days count okki.",
+  "Darlin, ya are held gently, always.",
+  "Ya are allowed to rest without fear.",
+  "It’s okki to lean a little.",
+  "Baby, ya are still chosen."
 ];
 
-let reassureIdx = 0;
+
+// load seen list
+let seenReassure = JSON.parse(localStorage.getItem("seenReassure")) || [];
+let remaining = reassuranceLines.filter(
+  l => !seenReassure.includes(l)
+);
+
 let typeInterval;
 
 function typeReassure(text){
@@ -1468,17 +1501,27 @@ function typeReassure(text){
 }
 
 function nextReassure(){
-  reassureIdx = (reassureIdx + 1) % reassuranceLines.length;
-  typeReassure(reassuranceLines[reassureIdx]);
+  // if all used → reset cycle
+  if(remaining.length === 0){
+    seenReassure = [];
+    remaining = [...reassuranceLines];
+  }
+
+  const line = remaining.shift(); // take first unused
+  seenReassure.push(line);
+
+  localStorage.setItem("seenReassure", JSON.stringify(seenReassure));
+
+  typeReassure(line);
 }
 
-/* auto start when page opens */
+/* auto show when page opens */
 const reassureObserver = new MutationObserver(()=>{
   const page = document.getElementById("reassurancePage");
   if(!page) return;
 
   if(!page.classList.contains("hidden")){
-    typeReassure(reassuranceLines[reassureIdx]);
+    nextReassure(); // always show new one
   }
 });
 
@@ -1488,41 +1531,98 @@ reassureObserver.observe(
 );
 
 
+
 /* ===== PERSPECTIVE SHIFT LOGIC ===== */
 
 const perspectives = [
-  "This is a hard moment, not a broken relationship.",
-  "Both of you are hurting, not fighting.",
-  "Strong connections have repair moments like this.",
-  "Feelings feel permanent, but they are waves.",
-  "This moment will soften.",
-  "Love doesn’t disappear during conflict.",
-  "You’re allowed to take space and still be close.",
-  "This doesn’t erase the good you share."
+  "This is a hard moment, not a hard life okki.",
+  "Fluffy, feelings feel loud but they pass.",
+  "Ya are tired, not broken.",
+  "This moment doesn’t define your story.",
+  "Love, pain is a wave, not the ocean.",
+  "Ya are reacting to hurt, not failing.",
+  "This is repair, not damage okki.",
+  "Honey, emotions feel permanent but they aren’t.",
+  "Ya can pause without quitting.",
+  "This discomfort is temporary okki.",
+  "Sweetie, even storms move on.",
+  "Ya are allowed to take space and still be loved.",
+  "This is a chapter, not the ending.",
+  "Darlin, growth feels uncomfortable sometimes.",
+  "Ya are learning, not losing.",
+  "This moment is loud, not forever.",
+  "Fluffy, rest is part of progress.",
+  "Ya don’t need to solve everything tonight.",
+  "This feeling will shrink with time okki.",
+  "Honey, your heart is stretching, not breaking.",
+  "Ya are safe even when uncertain.",
+  "This is a pause, not a collapse.",
+  "Darlin, healing is not linear.",
+  "Ya are allowed to go slow.",
+  "This is stress talking, not truth.",
+  "Fluffy, your mind is tired, not right.",
+  "Ya don’t need answers right now okki.",
+  "This moment will look different later.",
+  "Love, emotions exaggerate at night.",
+  "Ya are still on your path.",
+  "This is tension, not separation.",
+  "Fluffy, closeness doesn’t vanish in silence.",
+  "Ya are adjusting, not failing.",
+  "This feeling is a signal, not a sentence.",
+  "Sweetie, nothing important is lost.",
+  "Ya are allowed to reset.",
+  "This is a wave passing through.",
+  "Gurly, tomorrow will feel softer.",
+  "Ya don’t have to decide anything now.",
+  "This is a moment of care, not danger.",
+  "Baby, emotions don’t predict the future.",
+  "Ya are still connected, even in distance.",
+  "This is discomfort, not doom okki.",
+  "Love, love doesn’t disappear in hard times.",
+  "Ya are allowed to breathe before thinking.",
+  "This moment is heavy, not permanent.",
+  "Darlin, clarity comes after rest.",
+  "Ya are safe to slow down.",
+  "This is part of healing, not the opposite.",
+  "Honey, this will make sense later okki."
 ];
 
-let p = 0;
+
+// load seen perspectives
+let seenPersp = JSON.parse(localStorage.getItem("seenPerspectives")) || [];
+let remainingPersp = perspectives.filter(
+  p => !seenPersp.includes(p)
+);
 
 function nextPerspective(){
   const el = document.getElementById("perspectiveText");
   if(!el) return;
 
+  // reset when all used
+  if(remainingPersp.length === 0){
+    seenPersp = [];
+    remainingPersp = [...perspectives];
+  }
+
+  const line = remainingPersp.shift();
+  seenPersp.push(line);
+
+  localStorage.setItem("seenPerspectives", JSON.stringify(seenPersp));
+
   el.style.opacity = 0;
 
   setTimeout(()=>{
-    el.textContent = perspectives[p];
+    el.textContent = line;
     el.style.opacity = 1;
-    p = (p + 1) % perspectives.length;
   },300);
 }
 
-/* auto show first when page opens */
+/* auto show new one when page opens */
 const perspectiveObserver = new MutationObserver(()=>{
   const page = document.getElementById("perspectivePage");
   if(!page) return;
 
   if(!page.classList.contains("hidden")){
-    p = 0;
     nextPerspective();
   }
 });
@@ -1531,35 +1631,6 @@ perspectiveObserver.observe(
   document.getElementById("perspectivePage"),
   { attributes:true, attributeFilter:["class"] }
 );
-
-function sendDayShare(){
-  const text = document.getElementById("dayShareText").value.trim();
-  const status = document.getElementById("dayShareStatus");
-
-  if(!text){
-    status.textContent = "Write something first 🤍";
-    return;
-  }
-
-  const message =
-    `📝 Her Day Update\n🕒 ${new Date().toLocaleString()}\n\n${text}`;
-
-  fetch(WORKER_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action: "sendFeeling",   // same as your other bot calls
-      data: { text: message }
-    })
-  })
-  .then(() => {
-    status.textContent = "Sent to him 🤍";
-    document.getElementById("dayShareText").value = "";
-  })
-  .catch(() => {
-    status.textContent = "Failed 😔";
-  });
-}
 
 /* ===== MUTUAL MICRO CONNECTION ===== */
 
@@ -1801,3 +1872,35 @@ function exportWithWhiteBG() {
   return temp.toDataURL("image/jpeg", 0.9);
 }
 
+
+function sendSpecialReply(){
+  const text = document.getElementById("specialReplyText").value.trim();
+  const status = document.getElementById("specialReplyStatus");
+
+  if(!text){
+    status.textContent = "Write something first 🤍";
+    return;
+  }
+
+  const message =
+    `💬 Special Page Reply\n🕒 ${new Date().toLocaleString()}\n\n${text}`;
+
+  fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "sendFeeling",
+      data: { text: message }
+    })
+  })
+  .then(() => {
+    status.textContent = "Sent to him 🤍";
+    document.getElementById("specialReplyText").value = "";
+
+    // ✅ UNLOCK challenge ONLY after successful send
+    document.getElementById("challengeCard").classList.remove("locked");
+  })
+  .catch(() => {
+    status.textContent = "Failed 😔 DOntt worryy fluffyy tryyy againn!!";
+  });
+}

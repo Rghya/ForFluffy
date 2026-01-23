@@ -1,36 +1,78 @@
 const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
 
 
-document.getElementById("unlockBtn").onclick = async () => {
-  const val = document.getElementById("lockInput").value;
+// document.getElementById("unlockBtn").onclick = async () => {
+//   const val = document.getElementById("lockInput").value;
 
-  const res = await fetch(WORKER_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action: "unlock",
-      data: { password: val }
-    })
-  });
+//   const res = await fetch(WORKER_URL, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       action: "unlock",
+//       data: { password: val }
+//     })
+//   });
 
-  const json = await res.json();
+//   const json = await res.json();
 
-  if(json.ok){
-    document.getElementById("lockScreen").style.display="none";
-  } else {
-    document.getElementById("lockError").textContent = "Wrong secret 🤍";
-  }
-};
+//   if(json.ok){
+//     document.getElementById("lockScreen").style.display="none";
+//   } else {
+//     document.getElementById("lockError").textContent = "Wrong secret 🤍";
+//   }
+// };
 
 (function randomBackground(){
   const bgs = [
     "assets/bg1.png",
-    "assets/bg2.png",
     "assets/bg3.png",
     "assets/bg4.png",
     "assets/bg5.png",
     "assets/bg6.png",
-    "assets/bg7.png"
+    "assets/bg7.png",
+    "assets/bg8.png",
+    "assets/bg9.png",
+    "assets/bg10.png",
+    "assets/bg11.png",
+    "assets/bg12.png",
+    "assets/bg13.png",
+    "assets/bg14.png",
+    "assets/bg15.png",
+    "assets/bg16.png",
+    "assets/bg17.png",
+    "assets/bg18.png",
+    "assets/bg19.png",
+    "assets/bg20.png",
+    "assets/bg21.png",
+    "assets/bg22.png",
+    "assets/bg23.png",
+    "assets/bg24.png",
+    "assets/bg25.png",
+    "assets/bg26.png",
+    "assets/bg27.png",
+    "assets/bg28.png",
+    "assets/bg29.png",
+    "assets/bg30.png",
+    "assets/bg31.png",
+    "assets/bg32.png",
+    "assets/bg33.png",
+    "assets/bg34.png",
+    "assets/bg35.png",
+    "assets/bg36.png",
+    "assets/bg37.png",
+    "assets/bg38.png",
+    "assets/bg39.png",
+    "assets/bg40.png",
+    "assets/bg41.png",
+    "assets/bg42.png",
+    "assets/bg43.png",
+    "assets/bg44.png",
+    "assets/bg45.png",
+    "assets/bg46.png",
+    "assets/bg47.png"
+    // "assets/bg48.png",
+    // "assets/bg49.png",
+
 
   ];
 
@@ -1715,7 +1757,7 @@ function finishEnergy(){
 
   window.saveDoodle = function () {
     const img = exportWithWhiteBG();
-    
+
     fetch(WORKER_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1758,4 +1800,3 @@ function exportWithWhiteBG() {
 
   return temp.toDataURL("image/jpeg", 0.9);
 }
-

@@ -1,26 +1,26 @@
 const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
 
 
-document.getElementById("unlockBtn").onclick = async () => {
-  const val = document.getElementById("lockInput").value;
+// document.getElementById("unlockBtn").onclick = async () => {
+//   const val = document.getElementById("lockInput").value;
 
-  const res = await fetch(WORKER_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action: "unlock",
-      data: { password: val }
-    })
-  });
+//   const res = await fetch(WORKER_URL, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       action: "unlock",
+//       data: { password: val }
+//     })
+//   });
 
-  const json = await res.json();
+//   const json = await res.json();
 
-  if(json.ok){
-    document.getElementById("lockScreen").style.display="none";
-  } else {
-    document.getElementById("lockError").textContent = "Wrong secret 🤍";
-  }
-};
+//   if(json.ok){
+//     document.getElementById("lockScreen").style.display="none";
+//   } else {
+//     document.getElementById("lockError").textContent = "Wrong secret 🤍";
+//   }
+// };
 
 (function randomBackground(){
   const bgs = [
@@ -1631,6 +1631,38 @@ perspectiveObserver.observe(
   document.getElementById("perspectivePage"),
   { attributes:true, attributeFilter:["class"] }
 );
+
+
+
+function sendDayShare(){
+  const text = document.getElementById("dayShareText").value.trim();
+  const status = document.getElementById("dayShareStatus");
+
+  if(!text){
+    status.textContent = "Write something first 🤍";
+    return;
+  }
+
+  const message =
+    `📝 Her Day Update\n🕒 ${new Date().toLocaleString()}\n\n${text}`;
+
+  fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "sendFeeling",   // same as your other bot calls
+      data: { text: message }
+    })
+  })
+  .then(() => {
+    status.textContent = "Sent to him 🤍";
+    document.getElementById("dayShareText").value = "";
+  })
+  .catch(() => {
+    status.textContent = "Failed 😔";
+  });
+}
+
 
 /* ===== MUTUAL MICRO CONNECTION ===== */
 

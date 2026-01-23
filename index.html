@@ -80,7 +80,7 @@
         placeholder="Tell me everything about today..."
         style="width:100%;min-height:160px;border:none;border-radius:12px;padding:10px;font-family:inherit;"></textarea>
 
-      <button class="glass" onclick="sendDayShare()">Send to him 💌</button>
+      <button class="glass back-btn" onclick="sendDayShare()">Send to him 💌</button>
 
       <p id="dayShareStatus"
          style="margin-top:8px;font-size:13px;color:#a63a6f"></p>
@@ -149,8 +149,8 @@
       <h2 class="calm-title">🌬️ Slow down</h2>
 
       <p class="calm-sub">
-        You don’t have to talk.  
-        You don’t have to fix anything.  
+        Ya don’t have to talk.  
+        Ya don’t have to fix anything.  
         Just breathe with me.
       </p>
     
@@ -162,9 +162,7 @@
         Inhale through your nose
       </p>
     
-      <button class="glass calm-btn" onclick="restartBreathing()">
-        Start again
-      </button>
+      
     </div>
 
     
@@ -179,7 +177,7 @@
 
       <p class="write-sub">
         Say everything you can’t say out loud.  
-        This will disappear when you release it.
+        This will disappear when ya release it.
       </p>
     
       <textarea
@@ -308,19 +306,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   <!-- ===== Reply PAGE ===== -->
   <section id="replyPage" class="page hidden">
     <h1 class="heading">My Replies 🤍</h1>
@@ -416,6 +401,21 @@
         <span class="cd-label">Days since last call</span>
         <span class="cd-value" id="cdLastCall">--</span>
       </div>
+
+      <div class="countdown-item">
+        <span class="cd-label">Days since last Video call</span>
+        <span class="cd-value" id="cdLastVCall">--</span>
+      </div>
+
+      <div class="countdown-item">
+        <span class="cd-label">Days since Intimate </span>
+        <span class="cd-value" id="cdLastIntimate">--</span>
+      </div>
+
+      <div class="countdown-item">
+        <span class="cd-label">Days since last held hands</span>
+        <span class="cd-value" id="cdLastHeld">--</span>
+      </div>
     
       <div class="countdown-item">
         <span class="cd-label">Days until next plan</span>
@@ -441,52 +441,52 @@
 
       <div class="letter-list">
         <div class="letter" onclick="openLetter(this,'sad1')">😔 Open when you’re sad #1</div>
-        <div class="letter" onclick="openLetter(this,'sad2')">😔 Open when you’re sad #2</div>
+        <!-- <div class="letter" onclick="openLetter(this,'sad2')">😔 Open when you’re sad #2</div>
         <div class="letter" onclick="openLetter(this,'sad3')">😔 Open when you’re sad #3</div>
         <div class="letter" onclick="openLetter(this,'sad4')">😔 Open when you’re sad #4</div>
-        <div class="letter" onclick="openLetter(this,'sad5')">😔 Open when you’re sad #5</div>
-        <div class="letter" onclick="openLetter(this,'low1')">🌧️ Open when you feel low #1</div>
-        <div class="letter" onclick="openLetter(this,'low2')">🌧️ Open when you feel low #2</div>
+        <div class="letter" onclick="openLetter(this,'sad5')">😔 Open when you’re sad #5</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'low1')">🌧️ Open when you feel low #1</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'low2')">🌧️ Open when you feel low #2</div>
         <div class="letter" onclick="openLetter(this,'low3')">🌧️ Open when you feel low #3</div>
         <div class="letter" onclick="openLetter(this,'low4')">🌧️ Open when you feel low #4</div>
-        <div class="letter" onclick="openLetter(this,'low5')">🌧️ Open when you feel low #5</div>
-        <div class="letter" onclick="openLetter(this,'miss1')">💭 Open when you miss me #1</div>
-        <div class="letter" onclick="openLetter(this,'miss2')">💭 Open when you miss me #2</div>
+        <div class="letter" onclick="openLetter(this,'low5')">🌧️ Open when you feel low #5</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'miss1')">💭 Open when you miss me #1</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'miss2')">💭 Open when you miss me #2</div>
         <div class="letter" onclick="openLetter(this,'miss3')">💭 Open when you miss me #3</div>
         <div class="letter" onclick="openLetter(this,'miss4')">💭 Open when you miss me #4</div>
-        <div class="letter" onclick="openLetter(this,'miss5')">💭 Open when you miss me #5</div>
-        <div class="letter" onclick="openLetter(this,'anx1')">🌀 Open when you’re overthinking #1</div>
-        <div class="letter" onclick="openLetter(this,'anx2')">🌀 Open when you’re overthinking #2</div>
+        <div class="letter" onclick="openLetter(this,'miss5')">💭 Open when you miss me #5</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'anx1')">🌀 Open when you’re overthinking #1</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'anx2')">🌀 Open when you’re overthinking #2</div>
         <div class="letter" onclick="openLetter(this,'anx3')">🌀 Open when you’re overthinking #3</div>
         <div class="letter" onclick="openLetter(this,'anx4')">🌀 Open when you’re overthinking #4</div>
-        <div class="letter" onclick="openLetter(this,'anx5')">🌀 Open when you’re overthinking #5</div>
-        <div class="letter" onclick="openLetter(this,'night1')">🌙 Open when you can’t sleep #1</div>
-        <div class="letter" onclick="openLetter(this,'night2')">🌙 Open when you can’t sleep #2</div>
+        <div class="letter" onclick="openLetter(this,'anx5')">🌀 Open when you’re overthinking #5</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'night1')">🌙 Open when you can’t sleep #1</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'night2')">🌙 Open when you can’t sleep #2</div>
         <div class="letter" onclick="openLetter(this,'night3')">🌙 Open when you can’t sleep #3</div>
         <div class="letter" onclick="openLetter(this,'night4')">🌙 Open when you can’t sleep #4</div>
-        <div class="letter" onclick="openLetter(this,'night5')">🌙 Open when you can’t sleep #5</div>
-        <div class="letter" onclick="openLetter(this,'lonely1')">🌫️ Open when you feel lonely #1</div>
-        <div class="letter" onclick="openLetter(this,'lonely2')">🌫️ Open when you feel lonely #2</div>
+        <div class="letter" onclick="openLetter(this,'night5')">🌙 Open when you can’t sleep #5</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'lonely1')">🌫️ Open when you feel lonely #1</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'lonely2')">🌫️ Open when you feel lonely #2</div>
         <div class="letter" onclick="openLetter(this,'lonely3')">🌫️ Open when you feel lonely #3</div>
         <div class="letter" onclick="openLetter(this,'lonely4')">🌫️ Open when you feel lonely #4</div>
-        <div class="letter" onclick="openLetter(this,'lonely5')">🌫️ Open when you feel lonely #5</div>
-        <div class="letter" onclick="openLetter(this,'happy1')">☀️ Open when you’re happy #1</div>
-        <div class="letter" onclick="openLetter(this,'happy2')">☀️ Open when you’re happy #2</div>
-        <div class="letter" onclick="openLetter(this,'happy3')">☀️ Open when you’re happy #3</div>
-        <div class="letter" onclick="openLetter(this,'secure1')">🫶 Open when you need reassurance #1</div>
-        <div class="letter" onclick="openLetter(this,'secure2')">🫶 Open when you need reassurance #2</div>
-        <div class="letter" onclick="openLetter(this,'secure3')">🫶 Open when you need reassurance #3</div>
-        <div class="letter" onclick="openLetter(this,'hug1')">🫂 Open when you need a hug #1</div>
-        <div class="letter" onclick="openLetter(this,'hug2')">🫂 Open when you need a hug #2</div>
-        <div class="letter" onclick="openLetter(this,'cry1')">😭 Open when you feel like crying</div>
-        <div class="letter" onclick="openLetter(this,'empty1')">🕳️ Open when you feel empty</div>
-        <div class="letter" onclick="openLetter(this,'tired1')">🪫 Open when you feel exhausted</div>
-        <div class="letter" onclick="openLetter(this,'lost1')">❓ Open when you feel lost</div>
-        <div class="letter" onclick="openLetter(this,'sad6')">😔 Open when you’re sad #6</div>
+        <div class="letter" onclick="openLetter(this,'lonely5')">🌫️ Open when you feel lonely #5</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'happy1')">☀️ Open when you’re happy #1</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'happy2')">☀️ Open when you’re happy #2</div>
+        <div class="letter" onclick="openLetter(this,'happy3')">☀️ Open when you’re happy #3</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'secure1')">🫶 Open when you need reassurance #1</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'secure2')">🫶 Open when you need reassurance #2</div>
+        <div class="letter" onclick="openLetter(this,'secure3')">🫶 Open when you need reassurance #3</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'hug1')">🫂 Open when you need a hug #1</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'hug2')">🫂 Open when you need a hug #2</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'cry1')">😭 Open when you feel like crying</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'empty1')">🕳️ Open when you feel empty</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'tired1')">🪫 Open when you feel exhausted</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'lost1')">❓ Open when you feel lost</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'sad6')">😔 Open when you’re sad #6</div>
         <div class="letter" onclick="openLetter(this,'sad7')">😔 Open when you’re sad #7</div>
         <div class="letter" onclick="openLetter(this,'sad8')">😔 Open when you’re sad #8</div>
-        <div class="letter" onclick="openLetter(this,'sad9')">😔 Open when you’re sad #9</div>
-        <div class="letter" onclick="openLetter(this,'sad10')">😔 Open when you’re sad #10</div>      
+        <div class="letter" onclick="openLetter(this,'sad9')">😔 Open when you’re sad #9</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'sad10')">😔 Open when you’re sad #10</div>      
         <div class="letter" onclick="openLetter(this,'miss6')">💭 Open when you miss me #6</div>
         <div class="letter" onclick="openLetter(this,'miss7')">💭 Open when you miss me #7</div>
         <div class="letter" onclick="openLetter(this,'miss8')">💭 Open when you miss me #8</div>
@@ -503,8 +503,8 @@
         <div class="letter" onclick="openLetter(this,'night9')">🌙 Open when you can’t sleep #9</div>
         <div class="letter" onclick="openLetter(this,'night10')">🌙 Open when you can’t sleep #10</div>      
         <div class="letter" onclick="openLetter(this,'secure4')">🫶 Open when you need reassurance #4</div>
-        <div class="letter" onclick="openLetter(this,'secure5')">🫶 Open when you need reassurance #5</div>
-        <div class="letter" onclick="openLetter(this,'secure6')">🫶 Open when you need reassurance #6</div>    
+        <div class="letter" onclick="openLetter(this,'secure5')">🫶 Open when you need reassurance #5</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'secure6')">🫶 Open when you need reassurance #6</div>    
         <div class="letter" onclick="openLetter(this,'hug3')">🫂 Open when you need a hug #3</div>
         <div class="letter" onclick="openLetter(this,'hug4')">🫂 Open when you need a hug #4</div>              
         <div class="letter" onclick="openLetter(this,'lonely6')">🌫️ Open when you feel lonely #6</div>
@@ -516,11 +516,11 @@
         <div class="letter" onclick="openLetter(this,'cry3')">😭 Open when you feel like crying #3</div>             
         <div class="letter" onclick="openLetter(this,'empty2')">🕳️ Open when you feel empty #2</div>
         <div class="letter" onclick="openLetter(this,'empty3')">🕳️ Open when you feel empty #3</div>              
-        <div class="letter" onclick="openLetter(this,'hope1')">✨ Open when you need hope</div>
-        <div class="letter" onclick="openLetter(this,'strength1')">💪 Open when you need strength</div>
-        <div class="letter" onclick="openLetter(this,'patience1')">🕊️ Open when you need patience</div>
-        <div class="letter" onclick="openLetter(this,'calm1')">🌿 Open when you need calm</div>
-        <div class="letter" onclick="openLetter(this,'love1')">🤍 Open when you need love</div>
+        <div class="letter" onclick="openLetter(this,'hope1')">✨ Open when you need hope</div>-->
+        <!-- <div class="letter" onclick="openLetter(this,'strength1')">💪 Open when you need strength</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'patience1')">🕊️ Open when you need patience</div>  -->
+        <!-- <div class="letter" onclick="openLetter(this,'calm1')">🌿 Open when you need calm</div> -->
+        <!-- <div class="letter" onclick="openLetter(this,'love1')">🤍 Open when you need love</div> -->
               
       </div>
     </div>
@@ -656,10 +656,28 @@
         <p id="specialEvent" class="hidden-card"></p>
       </div>
 
-      <div id="historyCard" class="special-card locked" onclick="unlock(this,'challengeCard')">
+      <div id="historyCard" class="special-card locked" onclick="unlock(this,'specialReplyCard')">
         <h3>📅 On This Day</h3>
         <p id="specialHistory" class="hidden-card"></p>
       </div>
+
+      <div id="specialReplyCard" class="special-card">
+
+        <h3>💬 Your Reply</h3>
+
+        <textarea
+          id="specialReplyText"
+          placeholder="Write your reply here 🤍"
+          style="width:100%;min-height:90px;border:none;border-radius:12px;padding:10px;font-family:inherit;margin-top:8px;"
+        ></textarea>
+
+        
+      
+        <p id="specialReplyStatus" style="margin-top:6px;font-size:13px"></p>
+      </div>
+
+
+
 
       <div id="challengeCard" class="special-card locked">
         <h3>🌟 Today’s Challenge</h3>
@@ -677,7 +695,9 @@
       </div>
 
     </div>
-
+    <button class="glass back-btn" onclick="sendSpecialReply()">
+          Send to him 💌
+    </button>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
   </section>
 
@@ -714,4 +734,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-

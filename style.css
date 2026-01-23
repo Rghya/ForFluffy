@@ -39,6 +39,9 @@ body {
   margin:10px 0;
 }
 
+
+
+
 /* Background */
 .bg-overlay {
     position: fixed;
@@ -48,7 +51,7 @@ body {
     z-index: 0;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 140% 160%;
+    background-size: 100% 140%;
 }
 
 /* Pages */
@@ -1327,4 +1330,18 @@ textarea{
 }
 #brushColor::-webkit-color-swatch-wrapper {
   padding: 0;
+}
+
+
+/* FIX: allow reply card inputs to work */
+#specialReplyCard {
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+#specialReplyCard textarea,
+#specialReplyCard button {
+  pointer-events: auto !important;
+  display: block;
+  width: 100%;
 }

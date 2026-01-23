@@ -23,12 +23,12 @@
 </head>
 <body>
 
-  <div id="lockScreen" class="lock">
+  <!-- <div id="lockScreen" class="lock">
     <h2>Private Space 🤍</h2>
     <input type="password" id="lockInput" placeholder="Enter secret">
     <button id="unlockBtn">Unlock</button>
     <p id="lockError"></p>
-  </div>
+  </div> -->
 
 
 
@@ -89,6 +89,32 @@
 
     <br>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
+  </section>
+
+  <!-- ===== DOODLE PAGE ===== -->
+<!-- ===== DOODLE PAGE ===== -->
+  <section id="doodlePage" class="page hidden">
+    <h1 class="heading">Draw something for me 🤍</h1>
+  
+    <div class="glass doodle-wrap">
+      <canvas id="doodleCanvas"></canvas>
+    
+      <div class="doodle-toolbar">
+        <input type="color" id="brushColor" value="#a63a6f">
+        <input type="range" id="brushSize" min="1" max="20" value="5">
+      
+        <button onclick="setTool('pen')">✏️</button>
+        <button onclick="setTool('eraser')">🧽</button>
+        <button onclick="undoStroke()">↩️</button>
+        <button onclick="clearDoodle()">🗑️</button>
+        <button onclick="saveDoodle()">💌</button>
+      </div>
+    
+      <p id="doodleStatus"></p>
+    </div>
+  
+    <br>
+    <button class="glass back-btn" onclick="showMore()">← Back</button>
   </section>
 
 
@@ -609,7 +635,7 @@
     <button class="glass back-btn" onclick="showGrowth()">Growth Timeline!!</button>
     <button class="glass back-btn" onclick="showRepairPage()">We are not OKKI</button>
     <button class="glass back-btn" onclick="showCount()">CountDowns!!</button>
-    
+    <button class="glass back-btn" onclick="showDoodle()">Doodle!!</button>
     <button class="glass back-btn" onclick="showReplyPage()">His Replies!!</button>
     <br>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
@@ -688,4 +714,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-

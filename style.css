@@ -797,7 +797,7 @@ h2.open-title {
   background: none;
   border: none;
   cursor: pointer;
-  color: #ff8497;
+  color: #fbff04;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 .play-btn.playing {
@@ -1272,4 +1272,59 @@ textarea{
   width:auto;
   height: auto;
 
+}
+
+
+.doodle-wrap{
+  width:min(90vw,480px);
+  margin:auto;
+  padding:20px;
+  text-align:center;
+}
+
+#doodleCanvas{
+  width:100%;
+  height:300px;
+  background:white;
+  border-radius:16px;
+  touch-action:none;
+  cursor:crosshair;
+}
+
+.doodle-toolbar{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+  justify-content:center;
+  align-items:center;
+}
+
+.doodle-toolbar button{
+  border:none;
+  padding:8px 10px;
+  border-radius:10px;
+  font-size:18px;
+  background:rgba(255,255,255,.7);
+  cursor:pointer;
+}
+
+#doodleStatus{
+  margin-top:10px;
+  color:#a63a6f;
+}
+#brushColor{
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #a63a6f;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+}
+#brushColor::-webkit-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+#brushColor::-webkit-color-swatch-wrapper {
+  padding: 0;
 }

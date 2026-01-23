@@ -1,26 +1,26 @@
 const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
 
 
-document.getElementById("unlockBtn").onclick = async () => {
-  const val = document.getElementById("lockInput").value;
+// document.getElementById("unlockBtn").onclick = async () => {
+//   const val = document.getElementById("lockInput").value;
 
-  const res = await fetch(WORKER_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action: "unlock",
-      data: { password: val }
-    })
-  });
+//   const res = await fetch(WORKER_URL, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       action: "unlock",
+//       data: { password: val }
+//     })
+//   });
 
-  const json = await res.json();
+//   const json = await res.json();
 
-  if(json.ok){
-    document.getElementById("lockScreen").style.display="none";
-  } else {
-    document.getElementById("lockError").textContent = "Wrong secret 🤍";
-  }
-};
+//   if(json.ok){
+//     document.getElementById("lockScreen").style.display="none";
+//   } else {
+//     document.getElementById("lockError").textContent = "Wrong secret 🤍";
+//   }
+// };
 
 (function randomBackground(){
   const bgs = [
@@ -29,7 +29,9 @@ document.getElementById("unlockBtn").onclick = async () => {
     "assets/bg3.png",
     "assets/bg4.png",
     "assets/bg5.png",
-    "assets/bg6.png"
+    "assets/bg6.png",
+    "assets/bg7.png"
+
   ];
 
   const bg = bgs[Math.floor(Math.random() * bgs.length)];
@@ -121,7 +123,7 @@ const reassurancePage = document.getElementById("reassurancePage");
 const perspectivePage = document.getElementById("perspectivePage");
 const connectionPage = document.getElementById("mcPage");
 const energyPage = document.getElementById("energyPage");
-
+const doodlePage = document.getElementById("doodlePage");
 
 function hideAllPages() {
   document.querySelectorAll(".page").forEach(p => {
@@ -137,6 +139,20 @@ function showRepairPage() {
   hideAllPages();
   repairPage.classList.remove("hidden");
   
+}
+
+function showDoodle(){
+  hideAllPages();
+  doodlePage.classList.remove("hidden");
+
+  setTimeout(() => {
+    const c = document.getElementById("doodleCanvas");
+    if (c) {
+      const rect = c.getBoundingClientRect();
+      c.width = rect.width;
+      c.height = 300;
+    }
+  }, 50);
 }
 
 
@@ -262,7 +278,7 @@ function startHearts() {
     heartsContainer.appendChild(heart);
 
     setTimeout(() => heart.remove(), 7000);
-  }, 1000);
+  }, 1500);
 }
 
 function stopHearts() {
@@ -1569,3 +1585,176 @@ function finishEnergy(){
   txt.textContent = "Your body feels calmer now 🤍";
 }
 
+
+
+/* ===== PROFESSIONAL DOODLE ===== */
+/* =====================================================
+   🎨 DOODLE SYSTEM (SAFE, NAMESPACED, WORKING)
+===================================================== */
+
+(function () {
+  const doodleCanvas = document.getElementById("doodleCanvas");
+  if (!doodleCanvas) return; // page not loaded yet
+
+  const doodleCtx = doodleCanvas.getContext("2d");
+
+  const brushColor = document.getElementById("brushColor");
+  const brushSize = document.getElementById("brushSize");
+  const statusText = document.getElementById("doodleStatus");
+
+  let drawing = false;
+  let tool = "pen";
+  let strokes = [];
+  let currentStroke = [];
+
+  /* ===== SETUP CANVAS ===== */
+  function setupCanvas() {
+    const rect = doodleCanvas.getBoundingClientRect();
+    doodleCanvas.width = rect.width;
+    doodleCanvas.height = 300;
+
+    doodleCtx.lineCap = "round";
+    doodleCtx.lineJoin = "round";
+    redraw();
+  }
+
+  window.addEventListener("resize", setupCanvas);
+  setupCanvas();
+
+  /* ===== TOOL SELECT ===== */
+  window.setTool = function (t) {
+    tool = t;
+  };
+
+  /* ===== POSITION ===== */
+  function getPos(e) {
+    const rect = doodleCanvas.getBoundingClientRect();
+    if (e.touches) {
+      return {
+        x: e.touches[0].clientX - rect.left,
+        y: e.touches[0].clientY - rect.top
+      };
+    }
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  }
+
+  /* ===== DRAW EVENTS ===== */
+  function startDraw(e) {
+    e.preventDefault();
+    drawing = true;
+    currentStroke = [getPos(e)];
+  }
+
+  function draw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    currentStroke.push(getPos(e));
+    redraw();
+  }
+
+  function stopDraw(e) {
+    if (!drawing) return;
+    e.preventDefault();
+
+    strokes.push({
+      tool,
+      color: brushColor.value,
+      size: brushSize.value,
+      points: [...currentStroke]
+    });
+
+    drawing = false;
+    currentStroke = [];
+  }
+
+  /* ===== RENDER ===== */
+  function drawStroke(stroke) {
+    const pts = stroke.points;
+    if (pts.length < 2) return;
+
+    doodleCtx.beginPath();
+    doodleCtx.lineWidth = stroke.size;
+    doodleCtx.strokeStyle =
+      stroke.tool === "eraser" ? "#fff" : stroke.color;
+
+    doodleCtx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length; i++) {
+      doodleCtx.lineTo(pts[i].x, pts[i].y);
+    }
+    doodleCtx.stroke();
+  }
+
+  function redraw() {
+    doodleCtx.clearRect(0, 0, doodleCanvas.width, doodleCanvas.height);
+
+    for (const s of strokes) drawStroke(s);
+
+    if (currentStroke.length) {
+      drawStroke({
+        tool,
+        color: brushColor.value,
+        size: brushSize.value,
+        points: currentStroke
+      });
+    }
+  }
+
+  /* ===== ACTIONS ===== */
+  window.undoStroke = function () {
+    strokes.pop();
+    redraw();
+  };
+
+  window.clearDoodle = function () {
+    strokes = [];
+    redraw();
+  };
+
+  window.saveDoodle = function () {
+    const img = exportWithWhiteBG();
+    
+    fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "sendDoodle",
+        data: { image: img }
+      })
+    })
+      .then(() => (statusText.textContent = "Sent to him 🤍"))
+      .catch(() => (statusText.textContent = "Failed 😔"));
+  };
+
+
+  /* ===== EVENTS ===== */
+  doodleCanvas.addEventListener("mousedown", startDraw);
+  doodleCanvas.addEventListener("mousemove", draw);
+  doodleCanvas.addEventListener("mouseup", stopDraw);
+  doodleCanvas.addEventListener("mouseleave", stopDraw);
+
+  doodleCanvas.addEventListener("touchstart", startDraw, { passive: false });
+  doodleCanvas.addEventListener("touchmove", draw, { passive: false });
+  doodleCanvas.addEventListener("touchend", stopDraw);
+})();
+
+
+
+function exportWithWhiteBG() {
+  const temp = document.createElement("canvas");
+  temp.width = doodleCanvas.width;
+  temp.height = doodleCanvas.height;
+
+  const tctx = temp.getContext("2d");
+
+  // white background
+  tctx.fillStyle = "#ffffff";
+  tctx.fillRect(0, 0, temp.width, temp.height);
+
+  // draw real canvas on top
+  tctx.drawImage(doodleCanvas, 0, 0);
+
+  return temp.toDataURL("image/jpeg", 0.9);
+}

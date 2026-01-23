@@ -1,26 +1,26 @@
 const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
 
 
-// document.getElementById("unlockBtn").onclick = async () => {
-//   const val = document.getElementById("lockInput").value;
+document.getElementById("unlockBtn").onclick = async () => {
+  const val = document.getElementById("lockInput").value;
 
-//   const res = await fetch(WORKER_URL, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       action: "unlock",
-//       data: { password: val }
-//     })
-//   });
+  const res = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "unlock",
+      data: { password: val }
+    })
+  });
 
-//   const json = await res.json();
+  const json = await res.json();
 
-//   if(json.ok){
-//     document.getElementById("lockScreen").style.display="none";
-//   } else {
-//     document.getElementById("lockError").textContent = "Wrong secret 🤍";
-//   }
-// };
+  if(json.ok){
+    document.getElementById("lockScreen").style.display="none";
+  } else {
+    document.getElementById("lockError").textContent = "Wrong secret 🤍";
+  }
+};
 
 (function randomBackground(){
   const bgs = [
@@ -1758,3 +1758,4 @@ function exportWithWhiteBG() {
 
   return temp.toDataURL("image/jpeg", 0.9);
 }
+

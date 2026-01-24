@@ -372,6 +372,8 @@ body {
   font-weight: 700;
   /* font-size: 50px; */
   font-style: normal;
+  overflow: auto;
+  height: 300px;
 }
 
 
@@ -1345,3 +1347,4 @@ textarea{
   display: block;
   width: 100%;
 }
+

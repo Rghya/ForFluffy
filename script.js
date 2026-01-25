@@ -1,3 +1,9 @@
+// SO if you decide to update the following things then change those too
+// New song added:add in the scroll bar+dailysongcsv
+// New bg added : add in const bgs
+
+
+
 const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
 
 
@@ -17,6 +23,9 @@ document.getElementById("unlockBtn").onclick = async () => {
 
   if(json.ok){
     document.getElementById("lockScreen").style.display="none";
+
+    autoPlayDailySong();
+
   } else {
     document.getElementById("lockError").textContent = "Wrong secret 🤍";
   }
@@ -418,6 +427,7 @@ async function loadDailySong() {
     if (!songg) return;
 
     loadLocalSong(songg);
+    
   } catch (err) {
     console.error("Song load failed. Reload the page fluffy", err);
   }
@@ -1935,5 +1945,176 @@ function sendSpecialReply(){
   .catch(() => {
     status.textContent = "Failed 😔 DOntt worryy fluffyy tryyy againn!!";
   });
+}
+
+
+
+const ALL_SONGS = [
+  { file:"1.m4a", name:"Saibo" },
+  { file:"2.m4a", name:"Tum Tak" },
+  { file:"3.m4a", name:"Dooron Dooron (Unplugged)" },
+  { file:"4.m4a", name:"Iktara" },
+  { file:"5.m4a", name:"Ishq Sufiyana (Male)" },
+  { file:"6.m4a", name:"Itni Si Baat Hai" },
+  { file:"7.m4a", name:"Jaan Nisar" },
+  { file:"8.m4a", name:"Mera Mann Kehne Laga" },
+  { file:"9.m4a", name:"Qaafirana" },
+  { file:"10.m4a", name:"Te Amo (Duet)" },
+
+  { file:"11.mp3", name:"A Thousand Years" },
+  { file:"12.mp3", name:"Aabad Barbaad" },
+  { file:"14.mp3", name:"Maula Mere Maula" },
+  { file:"15.mp3", name:"Me Gustas Tu" },
+  { file:"16.mp3", name:"Meethi Boliyan" },
+  { file:"17.mp3", name:"Nadaaniyan" },
+  { file:"18.mp3", name:"O Rangrez" },
+  { file:"19.mp3", name:"O Re Piya" },
+  { file:"20.mp3", name:"Oda Lage" },
+  { file:"21.mp3", name:"Pakeezah" },
+  { file:"22.mp3", name:"Phir Kabhi" },
+  { file:"23.mp3", name:"Raabta" },
+  { file:"24.mp3", name:"Raat Bhar (De De Pyaar De)" },
+  { file:"25.mp3", name:"Raat Bhar (Heropanti)" },
+  { file:"26.mp3", name:"Rang Lageya" },
+  { file:"27.mp3", name:"Sahiba" },
+  { file:"28.mp3", name:"Sajan Jahan" },
+  { file:"29.mp3", name:"Sau Aasmaan" },
+  { file:"30.mp3", name:"Say Yes To Heaven" },
+  { file:"31.mp3", name:"Shayad" },
+  { file:"32.mp3", name:"Shinunoga E-Wa" },
+  { file:"33.mp3", name:"Sparkle (Movie Ver.)" },
+  { file:"34.mp3", name:"Suzume (feat. Toaka)" },
+  { file:"35.mp3", name:"Taare Ginn" },
+  { file:"36.mp3", name:"Teenage Dream" },
+  { file:"37.mp3", name:"Tera Fitoor" },
+  { file:"38.mp3", name:"Tere Bina" },
+  { file:"39.mp3", name:"Teri Deewani" },
+  { file:"40.mp3", name:"Teri Yaadon Mein" },
+  { file:"41.mp3", name:"Those Eyes" },
+  { file:"42.mp3", name:"Timro Pratiksa" },
+  { file:"43.mp3", name:"Tose Naina" },
+  { file:"44.mp3", name:"Tu Hi Hai" },
+  { file:"45.mp3", name:"Tu Jaane Na" },
+  { file:"46.mp3", name:"Tu Meri Duniya" },
+  { file:"47.mp3", name:"Until I Found You" },
+  { file:"48.mp3", name:"Vazhithunaiye" },
+  { file:"49.mp3", name:"Yeh Fitoor Mera" },
+  { file:"50.mp3", name:"Your Eyes" },
+  { file:"52.mp3", name:"I Wanna Be Yours" },
+  { file:"53.mp3", name:"I Don't See Nobody But You" },
+  { file:"54.mp3", name:"Humsafar" },
+  { file:"55.mp3", name:"Hosanna" },
+  { file:"59.mp3", name:"Her" },
+  { file:"62.mp3", name:"Mann Ki Lagan" },
+  { file:"63.mp3", name:"Khuda Jaane" },
+  { file:"64.mp3", name:"Khairiyat" },
+  { file:"65.mp3", name:"Kaise Hua" },
+  { file:"66.mp3", name:"Jhol (Acoustic)" },
+  { file:"67.mp3", name:"Iktara (Reprise)" },
+  { file:"69.mp3", name:"Mann Mera" },
+
+  { file:"81.mp3", name:"Die With A Smile" },
+  { file:"82.mp3", name:"Dandelions" },
+  { file:"85.mp3", name:"Darkhaast" },
+  { file:"89.mp3", name:"Dooron Dooron" },
+  { file:"93.mp3", name:"Golden Brown (Sped Up)" },
+  { file:"94.mp3", name:"Golden Hour" },
+  { file:"99.mp3", name:"Golden Brown (Slowed)" },
+  { file:"100.mp3", name:"Faasle" },
+  { file:"122.mp3", name:"Dagabaaz Re" },
+  { file:"125.mp3", name:"Apocalypse" },
+  { file:"135.mp3", name:"CO2" },
+  { file:"143.mp3", name:"Atlantis" },
+  { file:"145.mp3", name:"Cinnamon Girl" },
+  { file:"147.mp3", name:"Blue" },
+  { file:"153.mp3", name:"Buddhu Sa Mann" },
+  { file:"163.mp3", name:"Ami Tomake" },
+  { file:"222.mp3", name:"Aaj Bhi (From Om Shanti Om)" },
+  { file:"225.mp3", name:"I Love You" },
+  { file:"236.mp3", name:"Chaar Kadam" },
+  { file:"253.mp3", name:"Hoshwalon Ko Khabar Kya" },
+  { file:"264.mp3", name:"Aankhon Se Batana" },
+  { file:"265.mp3", name:"Bulleya" },
+  { file:"331.mp3", name:"Kho Gaye Hum Kahan" },
+  { file:"332.mp3", name:"Khudaya Khair" },
+  { file:"335.mp3", name:"Nazm Nazm" },
+  { file:"345.mp3", name:"Radha" },
+  { file:"349.mp3", name:"Saware" },
+  { file:"346.mp3", name:"Sooraj Dooba Hain" },
+  { file:"365.mp3", name:"Abhi Kuch Dino Se" },
+  { file:"366.mp3", name:"Pee Loon" },
+  { file:"395.mp3", name:"Ok Jaanu Title Track" },
+  { file:"452.mp3", name:"Dil Diyan Gallan" },
+  { file:"663.mp3", name:"Aradhya" },
+  { file:"666.mp3", name:"Pehli Nazar Mein" },
+  { file:"720.mp3", name:"Zehnaseeb" },
+  { file:"752.mp3", name:"Chand Sifarish" },
+  { file:"755.mp3", name:"Sweetheart" },
+  { file:"792.mp3", name:"Zaalima" },
+  { file:"794.mp3", name:"Uff Teri Adaa" }
+];
+
+
+
+function toggleSongMenu(){
+  document.getElementById("songMenu").classList.toggle("hidden");
+}
+let filteredSongs = [...ALL_SONGS];
+
+function buildSongMenu(list = filteredSongs){
+  const box = document.getElementById("songList");
+  box.innerHTML = "";
+
+  if(list.length === 0){
+    box.innerHTML = "<p style='opacity:.6'>No song found 🤍</p>";
+    return;
+  }
+
+  list.forEach(s=>{
+    const div = document.createElement("div");
+    div.className = "song-item";
+    div.textContent = s.name;
+
+    div.onclick = ()=>{
+      loadLocalSong(s.file);
+      audio.play();
+      playBtn.textContent = "❚❚";
+      playBtn.classList.add("playing");
+      document.getElementById("songMenu").classList.add("hidden");
+    };
+
+    box.appendChild(div);
+  });
+}
+
+function filterSongs(q){
+  q = q.toLowerCase();
+  filteredSongs = ALL_SONGS.filter(s =>
+    s.name.toLowerCase().includes(q)
+  );
+  buildSongMenu();
+}
+
+buildSongMenu();
+
+function autoPlayDailySong(){
+  const tryPlay = () => {
+    audio.play()
+      .then(() => {
+        playBtn.textContent = "❚❚";
+        playBtn.classList.add("playing");
+        waves.forEach(w => w.style.animationPlayState = "running");
+        document.removeEventListener("click", tryPlay);
+      })
+      .catch(() => {
+        // browser blocked autoplay, wait for user tap
+      });
+  };
+
+  // try immediately
+  tryPlay();
+
+  // fallback: first user interaction
+  document.addEventListener("click", tryPlay, { once: true });
 }
 

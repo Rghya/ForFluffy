@@ -29,7 +29,7 @@
     <button id="unlockBtn">Unlock</button>
     <p id="lockError"></p>
   </div>
-
+  
 
 
   <div class="hearts"></div>
@@ -702,8 +702,12 @@
   </section>
 
 
+
   <div id="musicBar" class="glass romantic-bar">
     <div class="player">
+
+      
+
 
       <!-- Cover Art -->
       <img id="coverArt" class="cover" alt="Song cover">
@@ -724,26 +728,31 @@
       <!-- Time -->
       <span id="time">0:00</span>
 
+      <div class="song-menu-toggle" onclick="toggleSongMenu()">⬆️</div>
+
       <!-- Audio -->
       <audio id="audioPlayer"></audio>
 
     </div>
+  </div>
+  
 
-    <button id="openSongs">🎵 Choose a song</button>
+  <div id="songMenu" class="song-menu hidden">
+    <h3>Choose your mood 🤍</h3>
 
-<div id="songModal" class="song-modal">
-  <div class="song-box">
-    <h3>Pick what your heart wants</h3>
+    <input 
+      id="songSearch" 
+      type="text" 
+      placeholder="Search song..." 
+      oninput="filterSongs(this.value)"
+    >
+
     <div id="songList"></div>
-    <button id="closeSongs">Close</button>
   </div>
-</div>
 
-<audio id="audioPlayer" controls></audio>
-  </div>
+
 
   <script src="https://unpkg.com/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
-

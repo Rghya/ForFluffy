@@ -372,8 +372,6 @@ body {
   font-weight: 700;
   /* font-size: 50px; */
   font-style: normal;
-  overflow: auto;
-  height: 300px;
 }
 
 
@@ -1348,3 +1346,69 @@ textarea{
   width: 100%;
 }
 
+
+.song-menu-toggle{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:rgba(255,255,255,.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.song-menu{
+  position:fixed;
+  bottom:70px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(92vw,520px);
+  max-height:320px;
+  background:rgba(255,255,255,.9);
+  border-radius:20px;
+  padding:16px;
+  overflow-y:auto;
+  z-index:9999;
+  animation:slideUp .3s ease;
+}
+
+.song-menu h3{
+  margin-bottom:12px;
+  font-family:'Patrick Hand',cursive;
+  color:#a63a6f;
+}
+
+.song-item{
+  padding:10px 14px;
+  border-radius:12px;
+  margin-bottom:8px;
+  background:#ffd6e7;
+  cursor:pointer;
+  font-family:'Single Day',cursive;
+  color:#a63a6f;
+}
+
+.song-item:hover{
+  background:#ffb6d1;
+}
+
+@keyframes slideUp{
+  from{transform:translateX(-50%) translateY(30px);opacity:0}
+  to{transform:translateX(-50%) translateY(0);opacity:1}
+}
+
+
+#songSearch{
+  width:100%;
+  padding:12px 14px;
+  border-radius:14px;
+  border:none;
+  margin-bottom:12px;
+  font-family:'Single Day',cursive;
+  font-size:16px;
+  outline:none;
+  background:#ffe1ec;
+  color:#a63a6f;
+}

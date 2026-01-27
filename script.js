@@ -1029,11 +1029,11 @@ function sendReply() {
 (function initCountdowns() {
   // ✏️ EDIT THESE DATES ONLY
   const startedDate = new Date("2025-09-29");   // relationship start
-  const lastCallDate = new Date("2026-01-12");  // last call
+  const lastCallDate = new Date("2026-01-25");  // last call
   const nextPlanDate = new Date("2026-02-14");  // next meet / plan
-  const lastheldhandsDate = new Date("2025-12-05");
-  const lastVideoDate = new Date("2026-01-23");
-  const lastSpicyDate = new Date("2026-02-14");
+  const lastheldhandsDate = new Date("2025-01-27");
+  const lastVideoDate = new Date("2026-01-25");
+  const lastSpicyDate = new Date("2026-01-27");
   // const Date = new Date("2026-02-14");
   // const Date = new Date("2026-02-14");
   // const Date = new Date("2026-02-14");
@@ -2117,4 +2117,5 @@ function autoPlayDailySong(){
   // fallback: first user interaction
   document.addEventListener("click", tryPlay, { once: true });
 }
+
 

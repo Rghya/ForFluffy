@@ -1412,3 +1412,21 @@ textarea{
   background:#ffe1ec;
   color:#a63a6f;
 }
+
+
+#presenceBox{
+  position:fixed;
+  top:12px;
+  right:14px;
+
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(6px);
+
+  padding:6px 12px;
+  border-radius:14px;
+
+  font-size:12px;
+  color:#fff;
+
+  z-index:9999;
+}

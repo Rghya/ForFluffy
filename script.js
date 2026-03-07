@@ -5,8 +5,8 @@
 
 
 const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
-
-
+let pairId = localStorage.getItem("pairId") || null;
+let user = localStorage.getItem("user") || null;
 document.getElementById("unlockBtn").onclick = async () => {
   const val = document.getElementById("lockInput").value;
 
@@ -24,11 +24,56 @@ document.getElementById("unlockBtn").onclick = async () => {
   if(json.ok){
     document.getElementById("lockScreen").style.display="none";
 
-    autoPlayDailySong();
+    if(!user){
+      document.getElementById("loginScreen").classList.remove("hidden");
+    }else{
+      autoPlayDailySong();
+    }
 
   } else {
     document.getElementById("lockError").textContent = "Wrong secret 🤍";
   }
+};
+
+
+document.getElementById("loginBtn").onclick = async () => {
+
+  const name = document.getElementById("loginName").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
+  const err = document.getElementById("loginError");
+
+  if(!name || !pass){
+    err.textContent = "Enter login details 🤍";
+    return;
+  }
+
+  const res = await fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      action:"login",
+      data:{ name, pass }
+    })
+  });
+
+  const json = await res.json();
+
+  if(json.ok){
+
+    user = json.user;
+    pairId = json.pairId;
+
+    localStorage.setItem("user", user);
+    localStorage.setItem("pairId", pairId);
+
+    document.getElementById("loginScreen").classList.add("hidden");
+
+    autoPlayDailySong();
+
+  }else{
+    err.textContent = "Wrong login 🤍";
+  }
+
 };
 
 (function randomBackground(){
@@ -380,8 +425,8 @@ function stopEmojiRain(){
 }
 
 
+let csvNote = "";
 
-/* ===== DAILY NOTE FROM CSV ===== */
 async function loadDailyNote() {
   try {
     const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vRm6s1CaOpMWhPKj-DLE_nTVildXV-iWq3LvkuvKNzJyK27iteTUQv5uT5tjk411dTvaN7PwySYIw1m/pub?output=csv");
@@ -389,21 +434,52 @@ async function loadDailyNote() {
     const rows = text.split("\n").slice(1);
 
     const today = new Date().toISOString().slice(0, 10);
-    let note = "I was a lil busy Love, but will make up for it okkii. Hopee ya understand 🤍";
+    let note = "I was a lil busy Love, but will make up for it okkii 🤍";
 
     rows.forEach(row => {
       const [date, msg] = row.split(",");
       if (date === today) note = msg;
     });
 
-    document.getElementById("dailyNote").textContent = note;
+    csvNote = note; // store only
   } catch {
-    document.getElementById("dailyNote").textContent =
-      "Failed to load note. Try once more honey 🤍";
+    csvNote = "I’m here even if the note didn’t load 🤍";
   }
 }
 
+
 loadDailyNote();
+
+async function fetchNote(){
+  if(!pairId) return;
+
+  const res = await fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      action:"fetchNote",
+      data:{ pairId }
+    })
+  });
+
+  const j = await res.json();
+
+  if(j.note?.you){
+    document.getElementById("dailyNote").textContent =
+      j.note.you.text;
+  }
+  else if(j.note?.her){
+    document.getElementById("dailyNote").textContent =
+      j.note.her.text;
+  }
+  else{
+    document.getElementById("dailyNote").textContent = csvNote;
+  }
+}
+
+setInterval(fetchNote, 5000);
+
+
 
 let songg = "";
 
@@ -1029,11 +1105,11 @@ function sendReply() {
 (function initCountdowns() {
   // ✏️ EDIT THESE DATES ONLY
   const startedDate = new Date("2025-09-29");   // relationship start
-  const lastCallDate = new Date("2026-01-28");  // last call
+  const lastCallDate = new Date("2026-01-12");  // last call
   const nextPlanDate = new Date("2026-02-14");  // next meet / plan
-  const lastheldhandsDate = new Date("2025-01-27");
-  const lastVideoDate = new Date("2026-01-27");
-  const lastSpicyDate = new Date("2026-01-27");
+  const lastheldhandsDate = new Date("2025-12-05");
+  const lastVideoDate = new Date("2026-01-23");
+  const lastSpicyDate = new Date("2026-02-14");
   // const Date = new Date("2026-02-14");
   // const Date = new Date("2026-02-14");
   // const Date = new Date("2026-02-14");
@@ -1643,7 +1719,6 @@ perspectiveObserver.observe(
 );
 
 
-
 function sendDayShare(){
   const text = document.getElementById("dayShareText").value.trim();
   const status = document.getElementById("dayShareStatus");
@@ -1653,22 +1728,19 @@ function sendDayShare(){
     return;
   }
 
-  const message =
-    `📝 Her Day Update\n🕒 ${new Date().toLocaleString()}\n\n${text}`;
-
-  fetch(WORKER_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action: "sendFeeling",   // same as your other bot calls
-      data: { text: message }
+  fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      action:"saveNote",
+      data:{ pairId, who:user, text }
     })
   })
-  .then(() => {
-    status.textContent = "Sent to him 🤍";
-    document.getElementById("dayShareText").value = "";
+  .then(()=>{
+    status.textContent = "Saved 🤍";
+    document.getElementById("dailyNote").textContent = text; // show instantly
   })
-  .catch(() => {
+  .catch(()=>{
     status.textContent = "Failed 😔";
   });
 }
@@ -2118,5 +2190,55 @@ function autoPlayDailySong(){
   document.addEventListener("click", tryPlay, { once: true });
 }
 
+function sendHeartbeat(){
+  if(!pairId || !user) return;
+
+  fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      action:"heartbeat",
+      data:{ pairId, user }
+    })
+  });
+}
+
+setInterval(sendHeartbeat, 15000);
+sendHeartbeat();
 
 
+async function checkPresence(){
+  if(!pairId || !user) return;
+
+  const res = await fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      action:"presence",
+      data:{ pairId, user }
+    })
+  });
+
+  const j = await res.json();
+  const box = document.getElementById("presenceBox");
+
+  if(!j.last){
+    box.textContent = "Partner offline";
+    return;
+  }
+
+  const diff = Math.floor((Date.now() - j.last)/1000);
+
+  if(diff < 25){
+    box.textContent = "Partner online 🤍";
+  }
+  else if(diff < 60){
+    box.textContent = "Last seen " + diff + "s ago";
+  }
+  else{
+    box.textContent = "Last seen " + Math.floor(diff/60) + "m ago";
+  }
+}
+
+setInterval(checkPresence, 5000);
+checkPresence();

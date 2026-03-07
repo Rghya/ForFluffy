@@ -31,6 +31,20 @@
   </div>
   
 
+  <div id="loginScreen" class="lock hidden">
+
+    <h2>Login 🤍</h2>
+
+    <input id="loginName" placeholder="Your name">
+
+    <input type="password" id="loginPass" placeholder="Password">
+
+    <button id="loginBtn">Login</button>
+
+    <p id="loginError"></p>
+
+  </div>
+
 
   <div class="hearts"></div>
   <canvas id="fireworks"></canvas>
@@ -408,7 +422,7 @@
       </div>
 
       <div class="countdown-item">
-        <span class="cd-label">Days since Boom Boom </span>
+        <span class="cd-label">Days since Intimate </span>
         <span class="cd-value" id="cdLastIntimate">--</span>
       </div>
 
@@ -701,7 +715,9 @@
     <button class="glass back-btn" onclick="showHome()">← Back</button>
   </section>
 
-
+  <div id="presenceBox">
+    Checking connection...
+  </div>
 
   <div id="musicBar" class="glass romantic-bar">
     <div class="player">
@@ -756,4 +772,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-

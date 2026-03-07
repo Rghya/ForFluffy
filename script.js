@@ -2203,7 +2203,7 @@ function sendHeartbeat(){
   });
 }
 
-setInterval(sendHeartbeat, 15000);
+setInterval(sendHeartbeat, 5000);
 sendHeartbeat();
 
 
@@ -2240,5 +2240,5 @@ async function checkPresence(){
   }
 }
 
-setInterval(checkPresence, 5000);
+setInterval(checkPresence, 3000);
 checkPresence();

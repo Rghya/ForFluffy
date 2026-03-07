@@ -451,6 +451,7 @@ async function loadDailyNote() {
 loadDailyNote();
 
 async function fetchNote(){
+
   if(!pairId) return;
 
   const res = await fetch(WORKER_URL,{
@@ -463,17 +464,17 @@ async function fetchNote(){
   });
 
   const j = await res.json();
+  const box = document.getElementById("dailyNote");
 
-  if(j.note?.you){
-    document.getElementById("dailyNote").textContent =
-      j.note.you.text;
-  }
-  else if(j.note?.her){
-    document.getElementById("dailyNote").textContent =
-      j.note.her.text;
-  }
-  else{
-    document.getElementById("dailyNote").textContent = csvNote;
+  const partner =
+    user === localStorage.getItem("user")
+      ? (user === "you" ? "her" : "you")
+      : "her";
+
+  if(j.note?.[partner]){
+    box.textContent = j.note[partner].text;
+  }else{
+    box.textContent = "Waiting for their note 🤍";
   }
 }
 
@@ -1718,8 +1719,8 @@ perspectiveObserver.observe(
   { attributes:true, attributeFilter:["class"] }
 );
 
+async function sendDayShare(){
 
-function sendDayShare(){
   const text = document.getElementById("dayShareText").value.trim();
   const status = document.getElementById("dayShareStatus");
 
@@ -1728,21 +1729,17 @@ function sendDayShare(){
     return;
   }
 
-  fetch(WORKER_URL,{
+  await fetch(WORKER_URL,{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
     body:JSON.stringify({
       action:"saveNote",
       data:{ pairId, who:user, text }
     })
-  })
-  .then(()=>{
-    status.textContent = "Saved 🤍";
-    document.getElementById("dailyNote").textContent = text; // show instantly
-  })
-  .catch(()=>{
-    status.textContent = "Failed 😔";
   });
+
+  status.textContent = "Sent 🤍";
+  document.getElementById("dayShareText").value="";
 }
 
 

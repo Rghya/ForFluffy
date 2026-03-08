@@ -452,7 +452,7 @@ loadDailyNote();
 
 async function fetchNote(){
 
-  if(!pairId) return;
+  if(!pairId || !user) return;
 
   const res = await fetch(WORKER_URL,{
     method:"POST",
@@ -464,7 +464,6 @@ async function fetchNote(){
   });
 
   const j = await res.json();
-
   const box = document.getElementById("dailyNote");
 
   if(!j.note){
@@ -472,17 +471,15 @@ async function fetchNote(){
     return;
   }
 
-  const partner = user === "you" ? "her" : "you";
+  // detect partner automatically
+  let partner = Object.keys(j.note).find(k => k !== user);
 
-  if(j.note[partner]){
+  if(partner && j.note[partner]){
     box.textContent = j.note[partner].text;
   }else{
     box.textContent = "Waiting for note 🤍";
   }
 }
-setInterval(fetchNote, 2000);
-
-
 
 let songg = "";
 

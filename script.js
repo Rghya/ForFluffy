@@ -464,21 +464,23 @@ async function fetchNote(){
   });
 
   const j = await res.json();
+
   const box = document.getElementById("dailyNote");
 
-  const partner =
-    user === localStorage.getItem("user")
-      ? (user === "you" ? "her" : "you")
-      : "her";
+  if(!j.note){
+    box.textContent = "Waiting for note 🤍";
+    return;
+  }
 
-  if(j.note?.[partner]){
+  const partner = user === "you" ? "her" : "you";
+
+  if(j.note[partner]){
     box.textContent = j.note[partner].text;
   }else{
-    box.textContent = "Waiting for their note 🤍";
+    box.textContent = "Waiting for note 🤍";
   }
 }
-
-setInterval(fetchNote, 5000);
+setInterval(fetchNote, 2000);
 
 
 
@@ -1738,11 +1740,11 @@ async function sendDayShare(){
     })
   });
 
-  status.textContent = "Sent 🤍";
   document.getElementById("dayShareText").value="";
+  status.textContent = "Sent 🤍";
+
+  fetchNote();   // refresh immediately
 }
-
-
 /* ===== MUTUAL MICRO CONNECTION ===== */
 
 function sendPingMC(){

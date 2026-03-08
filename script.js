@@ -913,7 +913,7 @@ async function sendFeeling(type){
 
 async function fetchExpress(){
 
-  if(!pairId || !user) return;
+  if(!pairId) return;
 
   const res = await fetch(WORKER_URL,{
     method:"POST",
@@ -926,15 +926,33 @@ async function fetchExpress(){
 
   const j = await res.json();
 
-  if(!j.express) return;
-
-  if(j.express.user === user) return;
-
   const box = document.getElementById("expressDisplay");
 
-  if(box){
-    box.textContent = j.express.text;
+  if(!j.express || j.express.length === 0){
+    box.innerHTML = "No feelings yet 🤍";
+    return;
   }
+
+  box.innerHTML = "";
+
+  j.express.reverse().forEach(f => {
+
+    const div = document.createElement("div");
+
+    const time = new Date(f.time).toLocaleString();
+
+    div.style.marginBottom = "10px";
+    div.style.paddingBottom = "6px";
+    div.style.borderBottom = "1px solid rgba(255,255,255,0.4)";
+
+    div.innerHTML = `
+      <div>${f.text}</div>
+      <div style="font-size:11px;opacity:.6">${time}</div>
+    `;
+
+    box.appendChild(div);
+
+  });
 }
 
 

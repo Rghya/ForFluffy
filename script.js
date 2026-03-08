@@ -355,14 +355,14 @@ function showMore() {
   startHearts();
   stopEmojiRain();
 }
-
 function showExpress() {
   startEmojiRain(susEmoji);
   hideAllPages();
   expressPage.classList.remove("hidden");
   stopHearts();
-}
 
+  fetchExpress();   // load immediately
+}
 
 /* ===== HEART RAIN ===== */
 const heartsContainer = document.querySelector(".hearts");
@@ -911,6 +911,7 @@ async function sendFeeling(type){
   status.classList.remove("hidden");
 }
 
+
 async function fetchExpress(){
 
   if(!pairId) return;
@@ -927,6 +928,7 @@ async function fetchExpress(){
   const j = await res.json();
 
   const box = document.getElementById("expressDisplay");
+  if(!box) return;
 
   if(!j.express || j.express.length === 0){
     box.innerHTML = "No feelings yet 🤍";
@@ -936,7 +938,6 @@ async function fetchExpress(){
   box.innerHTML = "";
 
   j.express.reverse().forEach(f => {
-
     const div = document.createElement("div");
 
     const time = new Date(f.time).toLocaleString();
@@ -951,10 +952,8 @@ async function fetchExpress(){
     `;
 
     box.appendChild(div);
-
   });
 }
-
 
 setInterval(fetchExpress, 3000);
 

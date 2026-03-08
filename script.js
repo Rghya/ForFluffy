@@ -330,15 +330,19 @@ function showCount(){
   hideAllPages();
   countPage.classList.remove("hidden");
 }
+let noteInterval;
 
 function showNote() {
   startEmojiRain(celebEmoji);
   hideAllPages();
   notePage.classList.remove("hidden");
- 
   stopFirework();
-}
 
+  fetchNote(); // load immediately
+
+  clearInterval(noteInterval);
+  noteInterval = setInterval(fetchNote, 5000); // refresh every 5s
+}
 function showSpecial() {
   hideAllPages();
   specialPage.classList.remove("hidden");

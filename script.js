@@ -831,8 +831,10 @@ function react(t){
 }
 
 
-function sendFeeling(type) {
-  
+
+
+async function sendFeeling(type){
+
   const map = {
     missing: "🤍 She is missing you",
     thinking: "💭 She is thinking of you",
@@ -893,18 +895,50 @@ function sendFeeling(type) {
     flirty: "😏 She is feeling flirty"
   };
 
-  notifyTelegram(
-    map[type] + "\n🕒 " + new Date().toLocaleString()
-  );
+  const text = map[type] || type;
+
+  await fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      action:"sendExpress",
+      data:{ pairId, user, text }
+    })
+  });
 
   const status = document.getElementById("feelingStatus");
-  status.textContent = "Sent to him 🤍";
+  status.textContent = "Sent 🤍";
   status.classList.remove("hidden");
-
-  startEmojiRain();
-  setTimeout(stopEmojiRain, 2000);
 }
 
+async function fetchExpress(){
+
+  if(!pairId || !user) return;
+
+  const res = await fetch(WORKER_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      action:"fetchExpress",
+      data:{ pairId }
+    })
+  });
+
+  const j = await res.json();
+
+  if(!j.express) return;
+
+  if(j.express.user === user) return;
+
+  const box = document.getElementById("expressDisplay");
+
+  if(box){
+    box.textContent = j.express.text;
+  }
+}
+
+
+setInterval(fetchExpress, 3000);
 
 function handleStreak() {
   const today = new Date().toISOString().slice(0, 10);

@@ -237,6 +237,8 @@ function showRepairPage() {
 
 }
 
+
+
 function showDoodle() {
   hideAllPages();
   doodlePage.classList.remove("hidden");
@@ -249,6 +251,7 @@ function showDoodle() {
       c.height = 300;
     }
   }, 50);
+  loadDoodles();
 }
 
 
@@ -1872,6 +1875,12 @@ function finishEnergy() {
     };
   }
 
+
+
+
+
+
+
   /* ===== DRAW EVENTS ===== */
   function startDraw(e) {
     e.preventDefault();
@@ -1944,20 +1953,7 @@ function finishEnergy() {
     redraw();
   };
 
-  window.saveDoodle = function () {
-    const img = exportWithWhiteBG();
-
-    fetch(WORKER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "sendDoodle",
-        data: { image: img }
-      })
-    })
-      .then(() => (statusText.textContent = "Sent to him 🤍"))
-      .catch(() => (statusText.textContent = "Failed 😔"));
-  };
+  
 
 
   /* ===== EVENTS ===== */
@@ -1972,6 +1968,77 @@ function finishEnergy() {
 })();
 
 
+function saveDoodleFirebase(){
+
+  const img = exportWithWhiteBG();
+
+  push(ref(db,"doodles"),{
+    user,
+    image: img,
+    time: Date.now()
+  });
+
+}
+
+function loadDoodles(){
+
+  const box = document.getElementById("doodleList");
+
+  onValue(ref(db,"doodles"),(snapshot)=>{
+
+    const data = snapshot.val();
+
+    box.innerHTML="";
+
+    if(!data) return;
+
+    const arr = Object.values(data)
+      .sort((a,b)=>b.time-a.time);
+
+    arr.forEach(d=>{
+
+      const img = document.createElement("img");
+      img.src = d.image;
+      img.className="doodle-thumb";
+
+      img.onclick = ()=>{
+        openDoodleViewer(d.image);
+      };
+
+      box.appendChild(img);
+
+    });
+
+  });
+
+}
+
+
+function openDoodleViewer(src){
+
+  const viewer = document.createElement("div");
+
+  viewer.style.position="fixed";
+  viewer.style.inset="0";
+  viewer.style.background="rgba(0,0,0,.8)";
+  viewer.style.display="flex";
+  viewer.style.alignItems="center";
+  viewer.style.justifyContent="center";
+  viewer.style.zIndex="99999";
+
+  const img = document.createElement("img");
+  img.src = src;
+  img.style.maxWidth="90vw";
+  img.style.maxHeight="90vh";
+  img.style.borderRadius="20px";
+
+  viewer.appendChild(img);
+
+  viewer.onclick = ()=>viewer.remove();
+
+  document.body.appendChild(viewer);
+
+}
 
 function exportWithWhiteBG() {
   const temp = document.createElement("canvas");
@@ -2362,7 +2429,7 @@ function loadExpressLog(){
       div.className="express-entry";
 
       div.textContent =
-        `${m.user}: felt "${m.feeling}" at ${
+        `${m.user} ${m.feeling} at ${
         new Date(m.time).toLocaleString()
         }`;
 

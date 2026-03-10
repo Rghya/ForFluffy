@@ -1476,3 +1476,32 @@ textarea{
   color:white;
   cursor:pointer;
 }
+
+.doodle-layout{
+  width:min(95vw,900px);
+  margin:auto;
+  display:flex;
+  gap:16px;
+}
+
+.doodle-gallery{
+  width:260px;
+  padding:14px;
+  overflow-y:auto;
+}
+
+#doodleList{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.doodle-thumb{
+  width:100%;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.doodle-thumb:hover{
+  transform:scale(1.03);
+}

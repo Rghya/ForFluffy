@@ -113,30 +113,42 @@
 
   <!-- ===== DOODLE PAGE ===== -->
   <!-- ===== DOODLE PAGE ===== -->
-  <section id="doodlePage" class="page hidden">
-    <h1 class="heading">Draw something for me 🤍</h1>
+<section id="doodlePage" class="page hidden">
 
+  <h1 class="heading">Draw something for me 🤍</h1>
+  
+  <div class="doodle-layout">
+  
+    <!-- LEFT: CANVAS -->
     <div class="glass doodle-wrap">
+    
       <canvas id="doodleCanvas"></canvas>
-
+    
       <div class="doodle-toolbar">
         <input type="color" id="brushColor" value="#a63a6f">
         <input type="range" id="brushSize" min="1" max="20" value="5">
-
+      
         <button onclick="setTool('pen')">✏️</button>
         <button onclick="setTool('eraser')">🧽</button>
         <button onclick="undoStroke()">↩️</button>
         <button onclick="clearDoodle()">🗑️</button>
-        <button onclick="saveDoodle()">💌</button>
+        <button onclick="saveDoodleFirebase()">💌</button>
       </div>
-
-      <p id="doodleStatus"></p>
+    
     </div>
+  
+    <!-- RIGHT: SAVED DOODLES -->
+    <div class="glass doodle-gallery">
+      <h3>Our Doodles 🎨</h3>
+      <div id="doodleList"></div>
+    </div>
+  
+  </div>
+  
+  <br>
+  <button class="glass back-btn" onclick="showMore()">← Back</button>
 
-    <br>
-    <button class="glass back-btn" onclick="showMore()">← Back</button>
-  </section>
-
+</section>
 
 
 

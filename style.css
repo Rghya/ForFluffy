@@ -1430,3 +1430,47 @@ textarea{
 
   z-index:9999;
 }
+
+
+
+.express-split{
+  width:min(95vw,900px);
+  height:420px;
+  margin:20px auto;
+  padding:16px;
+  display:flex;
+  gap:16px;
+}
+
+.express-buttons{
+  flex:1;
+  overflow-y:auto;
+  font-family: 'Irish Grover', cursive;
+  color: #a63a6f;
+}
+
+.express-buttons button span {
+  font-size: 20px;
+  margin-top: 6px;
+  color: #a63a6f;
+  font-family: "Single Day", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.express-history{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+#expressHistoryBox{
+  flex:1;
+  overflow-y:auto;
+  padding:14px;
+  background:rgba(255,255,255,0.45);
+  border-radius:14px;
+  text-align:left;
+  
+  font-size:15px;
+  color:#4a1f35;
+}

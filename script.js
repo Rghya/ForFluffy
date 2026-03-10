@@ -356,12 +356,13 @@ function showMore() {
   stopEmojiRain();
 }
 function showExpress() {
+
   startEmojiRain(susEmoji);
   hideAllPages();
   expressPage.classList.remove("hidden");
-  stopHearts();
 
-  fetchExpress();   // load immediately
+  fetchExpress();
+
 }
 
 /* ===== HEART RAIN ===== */
@@ -911,7 +912,6 @@ async function sendFeeling(type){
   status.classList.remove("hidden");
 }
 
-
 async function fetchExpress(){
 
   if(!pairId) return;
@@ -926,8 +926,8 @@ async function fetchExpress(){
   });
 
   const j = await res.json();
+  const box = document.getElementById("expressHistoryBox");
 
-  const box = document.getElementById("expressDisplay");
   if(!box) return;
 
   if(!j.express || j.express.length === 0){
@@ -937,24 +937,30 @@ async function fetchExpress(){
 
   box.innerHTML = "";
 
-  j.express.reverse().forEach(f => {
+  const list = Array.isArray(j.express) ? j.express : [];
+
+  list.reverse().forEach(f => {
+
     const div = document.createElement("div");
 
     const time = new Date(f.time).toLocaleString();
 
-    div.style.marginBottom = "10px";
-    div.style.paddingBottom = "6px";
-    div.style.borderBottom = "1px solid rgba(255,255,255,0.4)";
+    const who = f.user === user ? "You" : f.user;
+
+    div.style.marginBottom = "12px";
+    div.style.paddingBottom = "8px";
+    div.style.borderBottom = "1px solid rgba(0,0,0,0.1)";
 
     div.innerHTML = `
-      <div>${f.text}</div>
+      <b>${who}</b>: ${f.text}
       <div style="font-size:11px;opacity:.6">${time}</div>
     `;
 
     box.appendChild(div);
-  });
-}
 
+  });
+
+}
 setInterval(fetchExpress, 3000);
 
 function handleStreak() {

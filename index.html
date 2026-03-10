@@ -560,86 +560,46 @@
 
 
   <!-- ===== Express PAGE ===== -->
-  <section id="expressPage" class="page hidden">
-    <h1 class="heading">Send me How Ya FEELIN today!!</h1>
+<section id="expressPage" class="page hidden">
+  <h1 class="heading">Send me How Ya FEELIN today!!</h1>
 
-    <div class="send-feeling glass">
-      <h2 class="feeling-title">Send a Feeling 🤍</h2>
+  <div class="express-split send-feeling glass">
+
+    <!-- LEFT: BUTTONS -->
+    <div class="express-buttons">
+
+      <h3>Send Feeling 🤍</h3>
 
       <div class="feeling-buttons">
-        <button onclick="sendFeeling('missing')">🤍<span>Missing you</span></button>
-        <button onclick="sendFeeling('thinking')">💭<span>Thinking of you</span></button>
-        <button onclick="sendFeeling('close')">🫶<span>Feeling close to you</span></button>
-        <button onclick="sendFeeling('presence')">🧲<span>Wanting your presence</span></button>
-        <button onclick="sendFeeling('longing')">🌙<span>Longing for you</span></button>
-        <button onclick="sendFeeling('attached')">🪶<span>Feeling attached</span></button>
-        <button onclick="sendFeeling('fullheart')">💖<span>Heart feels full</span></button>
-        <button onclick="sendFeeling('voice')">🎧<span>Craving your voice</span></button>
-        <button onclick="sendFeeling('warm')">🔥<span>Feeling warm inside</span></button>
-        <button onclick="sendFeeling('connected')">🫀<span>Emotionally connected</span></button>
-
-        <button onclick="sendFeeling('need')">🫂<span>Need you right now</span></button>
-        <button onclick="sendFeeling('comfort')">🧸<span>Want comfort</span></button>
-        <button onclick="sendFeeling('insecure')">🥺<span>Feeling insecure</span></button>
-        <button onclick="sendFeeling('reassure')">🫶<span>Need reassurance</span></button>
-        <button onclick="sendFeeling('dependent')">🪢<span>Feeling dependent</span></button>
-        <button onclick="sendFeeling('hug')">🤗<span>Want a hug</span></button>
-        <button onclick="sendFeeling('small')">🫧<span>Feeling small</span></button>
-        <button onclick="sendFeeling('support')">🛟<span>Need emotional support</span></button>
-
-        <button onclick="sendFeeling('low')">🌧️<span>Feeling low</span></button>
-        <button onclick="sendFeeling('tired')">🪫<span>Mentally tired</span></button>
-        <button onclick="sendFeeling('drained')">🫠<span>Feeling drained</span></button>
-        <button onclick="sendFeeling('sad')">😔<span>Sad without a reason</span></button>
-        <button onclick="sendFeeling('empty')">🕳️<span>Feeling empty</span></button>
-        <button onclick="sendFeeling('overwhelmed')">🧱<span>Overwhelmed</span></button>
-        <button onclick="sendFeeling('lonely')">🌫️<span>Feeling lonely</span></button>
-        <button onclick="sendFeeling('exhausted')">🛌<span>Emotionally exhausted</span></button>
-
-        <button onclick="sendFeeling('overthinking')">🌀<span>Overthinking</span></button>
-        <button onclick="sendFeeling('mind')">🧠<span>Mind won’t shut up</span></button>
-        <button onclick="sendFeeling('anxious')">😰<span>Feeling anxious</span></button>
-        <button onclick="sendFeeling('doubt')">❓<span>Doubting myself</span></button>
-        <button onclick="sendFeeling('confused')">🧩<span>Feeling confused</span></button>
-        <button onclick="sendFeeling('lost')">💭<span>Lost in thoughts</span></button>
-        <button onclick="sendFeeling('restless')">⚡<span>Emotionally restless</span></button>
-
-        <button onclick="sendFeeling('calm')">☀️<span>Feeling calm</span></button>
-        <button onclick="sendFeeling('safe')">🛡️<span>Feeling safe</span></button>
-        <button onclick="sendFeeling('peace')">🌿<span>At peace</span></button>
-        <button onclick="sendFeeling('settled')">⚖️<span>Emotionally settled</span></button>
-        <button onclick="sendFeeling('balanced')">🌊<span>Feeling balanced</span></button>
-        <button onclick="sendFeeling('quietHappy')">😌<span>Quietly happy</span></button>
-
-        <button onclick="sendFeeling('happy')">😄<span>Feeling happy</span></button>
-        <button onclick="sendFeeling('smile')">😊<span>Smiling because of you</span></button>
-        <button onclick="sendFeeling('grateful')">🌸<span>Grateful for you</span></button>
-        <button onclick="sendFeeling('hopeful')">✨<span>Feeling hopeful</span></button>
-        <button onclick="sendFeeling('lucky')">🍀<span>Feeling lucky</span></button>
-
-        <button onclick="sendFeeling('irritated')">😤<span>Feeling irritated</span></button>
-        <button onclick="sendFeeling('frustrated')">😣<span>Feeling frustrated</span></button>
-        <button onclick="sendFeeling('tense')">🔥<span>Emotionally tense</span></button>
-        <button onclick="sendFeeling('vent')">🗯️<span>Need to let things out</span></button>
-
-        <button onclick="sendFeeling('naughty')">💋<span>Feeling naughty</span></button>
-        <button onclick="sendFeeling('flirty')">😏<span>Feeling flirty</span></button>
-
+        <button onclick="sendFeeling('missing')">🤍 Missing you</button>
+        <button onclick="sendFeeling('thinking')">💭 Thinking of you</button>
+        <button onclick="sendFeeling('close')">🫶 Feeling close</button>
+        <button onclick="sendFeeling('presence')">🧲 Wanting presence</button>
+        <button onclick="sendFeeling('longing')">🌙 Longing</button>
+        <button onclick="sendFeeling('attached')">🪶 Attached</button>
+        <button onclick="sendFeeling('happy')">😄 Happy</button>
+        <button onclick="sendFeeling('sad')">😔 Sad</button>
+        <button onclick="sendFeeling('lonely')">🌫️ Lonely</button>
+        <button onclick="sendFeeling('hug')">🤗 Need hug</button>
       </div>
-    
-      <p id="feelingStatus" class="feeling-status hidden"></p>
-    </div>
-    <div id="expressDisplay" class="glass"
-         style="margin-top:20px;padding:12px;
-         max-height:260px;overflow-y:auto">
-    
-      Waiting for feelings 🤍
-      
+
     </div>
 
-    <br>
-    <button class="glass back-btn" onclick="showMore()">← Back</button>
-  </section>
+    <!-- RIGHT: HISTORY -->
+    <div class="express-history">
+
+      <h3>Our Feelings Log</h3>
+
+      <div id="expressHistoryBox"></div>
+
+    </div>
+
+  </div>
+
+  <br>
+  <button class="glass back-btn" onclick="showMore()">← Back</button>
+
+</section>
 
 
 

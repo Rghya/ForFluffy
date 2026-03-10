@@ -2261,58 +2261,58 @@ function autoPlayDailySong() {
   document.addEventListener("click", tryPlay, { once: true });
 }
 
-// function sendHeartbeat() {
-//   if (!pairId || !user) return;
+function sendHeartbeat() {
+  if (!pairId || !user) return;
 
-//   fetch(WORKER_URL, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       action: "heartbeat",
-//       data: { pairId, user }
-//     })
-//   });
-// }
+  fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "heartbeat",
+      data: { pairId, user }
+    })
+  });
+}
 
-// setInterval(sendHeartbeat, 5000);
-// sendHeartbeat();
+setInterval(sendHeartbeat, 5000);
+sendHeartbeat();
 
 
-// async function checkPresence() {
-//   if (!pairId || !user) return;
+async function checkPresence() {
+  if (!pairId || !user) return;
 
-//   const res = await fetch(WORKER_URL, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       action: "presence",
-//       data: { pairId, user }
-//     })
-//   });
+  const res = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "presence",
+      data: { pairId, user }
+    })
+  });
 
-//   const j = await res.json();
-//   const box = document.getElementById("presenceBox");
+  const j = await res.json();
+  const box = document.getElementById("presenceBox");
 
-//   if (!j.last) {
-//     box.textContent = "Partner offline";
-//     return;
-//   }
+  if (!j.last) {
+    box.textContent = "Partner offline";
+    return;
+  }
 
-//   const diff = Math.floor((Date.now() - j.last) / 1000);
+  const diff = Math.floor((Date.now() - j.last) / 1000);
 
-//   if (diff < 25) {
-//     box.textContent = "Partner online 🤍";
-//   }
-//   else if (diff < 60) {
-//     box.textContent = "Last seen " + diff + "s ago";
-//   }
-//   else {
-//     box.textContent = "Last seen " + Math.floor(diff / 60) + "m ago";
-//   }
-// }
+  if (diff < 25) {
+    box.textContent = "Partner online 🤍";
+  }
+  else if (diff < 60) {
+    box.textContent = "Last seen " + diff + "s ago";
+  }
+  else {
+    box.textContent = "Last seen " + Math.floor(diff / 60) + "m ago";
+  }
+}
 
-// setInterval(checkPresence, 3000);
-// checkPresence();
+setInterval(checkPresence, 3000);
+checkPresence();
 
 const EXPRESS_LIST = [
 "missing you",

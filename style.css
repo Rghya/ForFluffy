@@ -1485,9 +1485,10 @@ textarea{
 }
 
 .doodle-gallery{
-  width:260px;
-  padding:14px;
-  overflow-y:auto;
+  width: 260px;
+  height: 400px;
+  padding: 14px;
+  overflow-y: scroll;
 }
 
 #doodleList{

@@ -341,10 +341,10 @@ function showNote() {
   notePage.classList.remove("hidden");
   stopFirework();
 
-  fetchNote(); // load immediately
+  loadNote(); // load immediately
 
   clearInterval(noteInterval);
-  noteInterval = setInterval(fetchNote, 5000); // refresh every 5s
+  noteInterval = setInterval(loadNote, 5000); // refresh every 5s
 }
 function showSpecial() {
   hideAllPages();
@@ -459,37 +459,29 @@ async function loadDailyNote() {
 
 loadDailyNote();
 
-async function fetchNote() {
+function loadNote(){
 
-  if (!pairId || !user) return;
+  const day = new Date().toISOString().slice(0,10);
 
-  const res = await fetch(WORKER_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action: "fetchNote",
-      data: { pairId }
-    })
+  onValue(ref(db,"notes/"+day),(snapshot)=>{
+
+    const data = snapshot.val();
+    const box = document.getElementById("dailyNote");
+
+    if(!data){
+      box.textContent="Waiting for note 🤍";
+      return;
+    }
+
+    const partner = Object.keys(data).find(k=>k!==user);
+
+    if(partner){
+      box.textContent = data[partner].text;
+    }
+
   });
 
-  const j = await res.json();
-  const box = document.getElementById("dailyNote");
-
-  if (!j.note) {
-    box.textContent = "Waiting for note 🤍";
-    return;
-  }
-
-  // detect partner automatically
-  let partner = Object.keys(j.note).find(k => k !== user);
-
-  if (partner && j.note[partner]) {
-    box.textContent = j.note[partner].text;
-  } else {
-    box.textContent = "Waiting for note 🤍";
-  }
 }
-
 let songg = "";
 
 /* ===== LOAD DAILY SONG FROM CSV ===== */
@@ -1729,29 +1721,19 @@ perspectiveObserver.observe(
   { attributes: true, attributeFilter: ["class"] }
 );
 
-async function sendDayShare() {
+function sendDayShare(){
 
   const text = document.getElementById("dayShareText").value.trim();
-  const status = document.getElementById("dayShareStatus");
+  if(!text) return;
 
-  if (!text) {
-    status.textContent = "Write something first 🤍";
-    return;
-  }
+  const day = new Date().toISOString().slice(0,10);
 
-  await fetch(WORKER_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      action: "saveNote",
-      data: { pairId, who: user, text }
-    })
+  set(ref(db,"notes/"+day+"/"+user),{
+    text,
+    time: Date.now()
   });
 
-  document.getElementById("dayShareText").value = "";
-  status.textContent = "Sent 🤍";
-
-  fetchNote();   // refresh immediately
+  document.getElementById("dayShareText").value="";
 }
 /* ===== MUTUAL MICRO CONNECTION ===== */
 
@@ -2313,6 +2295,7 @@ async function checkPresence() {
 
 setInterval(checkPresence, 3000);
 checkPresence();
+
 
 const EXPRESS_LIST = [
 "missing you",

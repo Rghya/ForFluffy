@@ -21,12 +21,12 @@ document.getElementById("unlockBtn").onclick = async () => {
 
   const json = await res.json();
 
-  if(json.ok){
-    document.getElementById("lockScreen").style.display="none";
+  if (json.ok) {
+    document.getElementById("lockScreen").style.display = "none";
 
-    if(!user){
+    if (!user) {
       document.getElementById("loginScreen").classList.remove("hidden");
-    }else{
+    } else {
       autoPlayDailySong();
     }
 
@@ -42,23 +42,23 @@ document.getElementById("loginBtn").onclick = async () => {
   const pass = document.getElementById("loginPass").value.trim();
   const err = document.getElementById("loginError");
 
-  if(!name || !pass){
+  if (!name || !pass) {
     err.textContent = "Enter login details 🤍";
     return;
   }
 
-  const res = await fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      action:"login",
-      data:{ name, pass }
+  const res = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "login",
+      data: { name, pass }
     })
   });
 
   const json = await res.json();
 
-  if(json.ok){
+  if (json.ok) {
 
     user = json.user;
     pairId = json.pairId;
@@ -70,13 +70,13 @@ document.getElementById("loginBtn").onclick = async () => {
 
     autoPlayDailySong();
 
-  }else{
+  } else {
     err.textContent = "Wrong login 🤍";
   }
 
 };
 
-(function randomBackground(){
+(function randomBackground() {
   const bgs = [
     "assets/bg1.png",
     "assets/bg3.png",
@@ -166,33 +166,33 @@ setInterval(() => {
   `;
 }, 1000);
 
-async function checkMC(){
-  const res = await fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({ action:"mcCheck" })
+async function checkMC() {
+  const res = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "mcCheck" })
   });
 
   const j = await res.json();
   const s = document.getElementById("mcStatus");
 
-  if(!s) return;
+  if (!s) return;
 
-  if(j.state === "waiting"){
+  if (j.state === "waiting") {
     s.textContent = "Sent… he’ll feel it 🤍";
   }
 
-  if(j.state === "felt"){
+  if (j.state === "felt") {
     s.textContent = "He felt it 🤍";
   }
 }
 
 
-function clearMC(){
-  fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({ action:"mcClear" })
+function clearMC() {
+  fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "mcClear" })
   });
 }
 
@@ -228,16 +228,16 @@ function hideAllPages() {
 
   stopFirework();
   stopEmojiRain();
-  
+
 }
 
 function showRepairPage() {
   hideAllPages();
   repairPage.classList.remove("hidden");
-  
+
 }
 
-function showDoodle(){
+function showDoodle() {
   hideAllPages();
   doodlePage.classList.remove("hidden");
 
@@ -255,38 +255,38 @@ function showDoodle(){
 function showCalm() {
   hideAllPages();
   calmPage.classList.remove("hidden");
-  
+
 }
 
 function showWrite() {
   hideAllPages();
   writePage.classList.remove("hidden");
-  
+
 }
 
 function showReassurance() {
   hideAllPages();
   reassurancePage.classList.remove("hidden");
-  
+
 }
 
 function showPerspective() {
   hideAllPages();
   perspectivePage.classList.remove("hidden");
-  
+
 }
 
 function showMc() {
   hideAllPages();
   connectionPage.classList.remove("hidden");
   checkMC();
-  
+
 }
 
 function showEnergy() {
   hideAllPages();
   energyPage.classList.remove("hidden");
-  
+
 }
 
 function showHome() {
@@ -297,7 +297,7 @@ function showHome() {
   stopEmojiRain();
 }
 
-function showReplyPage(){
+function showReplyPage() {
   hideAllPages();
   replyPage.classList.remove("hidden");
   startEmojiRain(love2Emoji);
@@ -307,25 +307,25 @@ function showReplyPage(){
 
 
 
-function showOW(){
+function showOW() {
   hideAllPages();
   owPage.classList.remove("hidden");
   // startEmojiRain(cuteEmoji);
 }
 
-function stopp(){
+function stopp() {
   stopHearts();
   stopFirework();
   stopEmojiRain();
 }
 
-function showGrowth(){
+function showGrowth() {
   hideAllPages();
   growthPage.classList.remove("hidden");
   startEmojiRain(surpriseEmoji);
 }
 
-function showCount(){
+function showCount() {
   startEmojiRain(loveEmoji);
   hideAllPages();
   countPage.classList.remove("hidden");
@@ -346,7 +346,7 @@ function showNote() {
 function showSpecial() {
   hideAllPages();
   specialPage.classList.remove("hidden");
-  
+
 }
 
 function showMore() {
@@ -355,16 +355,17 @@ function showMore() {
   startHearts();
   stopEmojiRain();
 }
-function showExpress() {
+let expressInterval;
 
-  startEmojiRain(susEmoji);
+function showExpress(){
   hideAllPages();
   expressPage.classList.remove("hidden");
 
-  fetchExpress();
+  loadExpressLog();                 // load immediately
 
+  clearInterval(expressInterval);
+  expressInterval = setInterval(loadExpressLog, 3000); // refresh every 3s
 }
-
 /* ===== HEART RAIN ===== */
 const heartsContainer = document.querySelector(".hearts");
 let heartInterval;
@@ -396,34 +397,34 @@ const emojiRainBox = document.querySelector(".emoji-rain");
 let emojiRainInterval = null;
 
 // 👉 EDIT THIS LIST ONLY
-const naughtyEmoji = ["🍑","🔞","🥵","💦","👅","💋","👡","👙","🍒","👠"];
-const loveEmoji = ["🤍","💖","💕","💞","💓"];
-const celebEmoji = ["🎉","🎆","✨","🔥","💥"];
-const susEmoji = ["😁","😋","😘","🤗","😚","😉"];
-const love2Emoji = ["🤍","💖","💕","💞","💓","💘","💗","🫶","🥰","😍"];
-const cuteEmoji = ["🌸","🌼","🌷","🧸","🐻","🐰","💫","🍓","🫧","🎀"];
-const surpriseEmoji = ["🤍","💋","🌙","🔥","🥺","🎉","✨","🍒","🫶","😏"];
+const naughtyEmoji = ["🍑", "🔞", "🥵", "💦", "👅", "💋", "👡", "👙", "🍒", "👠"];
+const loveEmoji = ["🤍", "💖", "💕", "💞", "💓"];
+const celebEmoji = ["🎉", "🎆", "✨", "🔥", "💥"];
+const susEmoji = ["😁", "😋", "😘", "🤗", "😚", "😉"];
+const love2Emoji = ["🤍", "💖", "💕", "💞", "💓", "💘", "💗", "🫶", "🥰", "😍"];
+const cuteEmoji = ["🌸", "🌼", "🌷", "🧸", "🐻", "🐰", "💫", "🍓", "🫧", "🎀"];
+const surpriseEmoji = ["🤍", "💋", "🌙", "🔥", "🥺", "🎉", "✨", "🍒", "🫶", "😏"];
 
 
-function startEmojiRain(emojiList){
+function startEmojiRain(emojiList) {
   if (emojiRainInterval) return;
 
-  emojiRainInterval = setInterval(()=>{
+  emojiRainInterval = setInterval(() => {
     const e = document.createElement("div");
     e.className = "emoji-drop";
-    e.textContent = emojiList[Math.floor(Math.random()*emojiList.length)];
+    e.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
 
-    e.style.left = Math.random()*100 + "vw";
-    e.style.fontSize = 16 + Math.random()*28 + "px";
-    e.style.animationDuration = 4 + Math.random()*4 + "s";
-    e.style.opacity = Math.random()*0.6 + 0.4;
+    e.style.left = Math.random() * 100 + "vw";
+    e.style.fontSize = 16 + Math.random() * 28 + "px";
+    e.style.animationDuration = 4 + Math.random() * 4 + "s";
+    e.style.opacity = Math.random() * 0.6 + 0.4;
 
     emojiRainBox.appendChild(e);
-    
+
   }, 850);
 }
 
-function stopEmojiRain(){
+function stopEmojiRain() {
   clearInterval(emojiRainInterval);
   emojiRainInterval = null;
   emojiRainBox.innerHTML = "";
@@ -455,23 +456,23 @@ async function loadDailyNote() {
 
 loadDailyNote();
 
-async function fetchNote(){
+async function fetchNote() {
 
-  if(!pairId || !user) return;
+  if (!pairId || !user) return;
 
-  const res = await fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      action:"fetchNote",
-      data:{ pairId }
+  const res = await fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "fetchNote",
+      data: { pairId }
     })
   });
 
   const j = await res.json();
   const box = document.getElementById("dailyNote");
 
-  if(!j.note){
+  if (!j.note) {
     box.textContent = "Waiting for note 🤍";
     return;
   }
@@ -479,9 +480,9 @@ async function fetchNote(){
   // detect partner automatically
   let partner = Object.keys(j.note).find(k => k !== user);
 
-  if(partner && j.note[partner]){
+  if (partner && j.note[partner]) {
     box.textContent = j.note[partner].text;
-  }else{
+  } else {
     box.textContent = "Waiting for note 🤍";
   }
 }
@@ -508,7 +509,7 @@ async function loadDailySong() {
     if (!songg) return;
 
     loadLocalSong(songg);
-    
+
   } catch (err) {
     console.error("Song load failed. Reload the page fluffy", err);
   }
@@ -524,7 +525,7 @@ function loadLocalSong(filename) {
 
   /* Read embedded cover */
   jsmediatags.read(audio.src, {
-    onSuccess: function(tag) {
+    onSuccess: function (tag) {
       const pic = tag.tags.picture;
       if (pic) {
         const data = pic.data;
@@ -538,7 +539,7 @@ function loadLocalSong(filename) {
         cover.src = `data:${format};base64,${btoa(base64)}`;
       }
     },
-    onError: function() {
+    onError: function () {
       cover.src = "fallback.jpg"; // optional
     }
   });
@@ -774,8 +775,8 @@ async function loadSpecialFromJSON() {
 // load once
 loadSpecialFromJSON();
 
-(function checkDone(){
-  const key = "done-" + new Date().toISOString().slice(0,10);
+(function checkDone() {
+  const key = "done-" + new Date().toISOString().slice(0, 10);
 
   if (localStorage.getItem(key)) {
     document.querySelector(".done-btn")?.remove();
@@ -786,15 +787,15 @@ loadSpecialFromJSON();
 
 
 /* ===== CARD TOGGLE ===== */
-function unlock(card,next){
+function unlock(card, next) {
   card.classList.add("active");
   document.getElementById(next)?.classList.remove("locked");
   celebrate();
 }
 
 /* ===== DAILY CHALLENGE DONE ===== */
-function markDone(){
-  const key = "done-" + new Date().toISOString().slice(0,10);
+function markDone() {
+  const key = "done-" + new Date().toISOString().slice(0, 10);
 
   localStorage.setItem(key, "true");
 
@@ -815,26 +816,26 @@ function markDone(){
   }
 })();
 
-function stopp(){
+function stopp() {
   stopEmojiRain();
   stopHearts();
   stopFirework();
 }
 
 /* ===== REACTIONS ===== */
-function react(t){
-  localStorage.setItem("react-"+Date(),t);
-  if(t==="love")startHearts();
-  if(t==="fire")startFirework();
-  if(t==="meh")startEmojiRain(naughtyEmoji);
-  if(t==="se")startEmojiRain(susEmoji);
-  if(t==="cross")stopp();
+function react(t) {
+  localStorage.setItem("react-" + Date(), t);
+  if (t === "love") startHearts();
+  if (t === "fire") startFirework();
+  if (t === "meh") startEmojiRain(naughtyEmoji);
+  if (t === "se") startEmojiRain(susEmoji);
+  if (t === "cross") stopp();
 }
 
 
 
 
-async function sendFeeling(type){
+async function sendFeeling(type) {
 
   const map = {
     missing: "🤍 She is missing you",
@@ -898,70 +899,16 @@ async function sendFeeling(type){
 
   const text = map[type] || type;
 
-  await fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      action:"sendExpress",
-      data:{ pairId, user, text }
-    })
+  push(ref(db,"expressLogs"),{
+    user,
+    feeling: text,
+    time: Date.now()
   });
 
   const status = document.getElementById("feelingStatus");
   status.textContent = "Sent 🤍";
   status.classList.remove("hidden");
 }
-
-async function fetchExpress(){
-
-  if(!pairId) return;
-
-  const res = await fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      action:"fetchExpress",
-      data:{ pairId }
-    })
-  });
-
-  const j = await res.json();
-  const box = document.getElementById("expressHistoryBox");
-
-  if(!box) return;
-
-  if(!j.express || j.express.length === 0){
-    box.innerHTML = "No feelings yet 🤍";
-    return;
-  }
-
-  box.innerHTML = "";
-
-  const list = Array.isArray(j.express) ? j.express : [];
-
-  list.reverse().forEach(f => {
-
-    const div = document.createElement("div");
-
-    const time = new Date(f.time).toLocaleString();
-
-    const who = f.user === user ? "You" : f.user;
-
-    div.style.marginBottom = "12px";
-    div.style.paddingBottom = "8px";
-    div.style.borderBottom = "1px solid rgba(0,0,0,0.1)";
-
-    div.innerHTML = `
-      <b>${who}</b>: ${f.text}
-      <div style="font-size:11px;opacity:.6">${time}</div>
-    `;
-
-    box.appendChild(div);
-
-  });
-
-}
-setInterval(fetchExpress, 3000);
 
 function handleStreak() {
   const today = new Date().toISOString().slice(0, 10);
@@ -971,14 +918,14 @@ function handleStreak() {
 
   if (!lastVisit) {
     streak = 1; // first ever visit
-  } 
+  }
   else {
     const diffDays =
       (new Date(today) - new Date(lastVisit)) / (1000 * 60 * 60 * 24);
 
     if (diffDays === 1) {
       streak += 1; // continued streak
-    } 
+    }
     else if (diffDays > 1) {
       streak = 1; // streak broken
     }
@@ -1148,13 +1095,13 @@ function sendReply() {
       data: { text: finalMessage }
     })
   })
-  .then(() => {
-    status.textContent = "Sent 💖";
-    document.getElementById("replyText").value = "";
-  })
-  .catch(() => {
-    status.textContent = "Failed 😔 butt dont worryy try once moree honeyy";
-  });
+    .then(() => {
+      status.textContent = "Sent 💖";
+      document.getElementById("replyText").value = "";
+    })
+    .catch(() => {
+      status.textContent = "Failed 😔 butt dont worryy try once moree honeyy";
+    });
 }
 
 
@@ -1185,7 +1132,7 @@ function sendReply() {
 
 
   const today = new Date();
-  today.setHours(0,0,0,0);
+  today.setHours(0, 0, 0, 0);
 
   function daysBetween(a, b) {
     return Math.floor((b - a) / (1000 * 60 * 60 * 24));
@@ -1214,18 +1161,18 @@ function sendReply() {
 
 
 
-(function growthTimeline(){
+(function growthTimeline() {
   /* ✏️ EDIT THIS DATE ONLY */
   const startDate = new Date("2025-09-29");
 
   const today = new Date();
-  today.setHours(0,0,0,0);
+  today.setHours(0, 0, 0, 0);
 
   const daysTogether = Math.floor(
-    (today - startDate) / (1000*60*60*24)
+    (today - startDate) / (1000 * 60 * 60 * 24)
   );
 
-  const todayStr = new Date().toISOString().slice(0,10);
+  const todayStr = new Date().toISOString().slice(0, 10);
 
   let visits = Number(localStorage.getItem("totalVisits")) || 0;
   const lastVisitDate = localStorage.getItem("lastVisitDate");
@@ -1238,10 +1185,10 @@ function sendReply() {
 
 
   /* STREAK */
- 
+
 
   /* HARD DAYS */
-  if(!localStorage.getItem("hardDays")){
+  if (!localStorage.getItem("hardDays")) {
     localStorage.setItem("hardDays", "0");
   }
 
@@ -1252,7 +1199,7 @@ function sendReply() {
   document.getElementById("gtDays").textContent =
     daysTogether + " days";
 
-  
+
   document.getElementById("gtVisits").textContent =
     visits;
 
@@ -1272,8 +1219,8 @@ function sendReply() {
 
   let recap =
     JSON.parse(localStorage.getItem(monthKey)) || {
-      visits:0,
-      hardDays:0
+      visits: 0,
+      hardDays: 0
     };
 
   recap.visits++;
@@ -1284,8 +1231,8 @@ function sendReply() {
 })();
 
 /* ===== HARD DAY BUTTON ===== */
-function addHardDay(){
-  const today = new Date().toISOString().slice(0,10);
+function addHardDay() {
+  const today = new Date().toISOString().slice(0, 10);
   const lastHardDay = localStorage.getItem("lastHardDay");
 
   if (lastHardDay === today) return; // already counted today
@@ -1301,11 +1248,11 @@ function addHardDay(){
   disableHardDayBtn();
 }
 
-function disableHardDayBtn(){
+function disableHardDayBtn() {
   const btn = document.querySelector(".growth-btn");
   if (!btn) return;
 
-  const today = new Date().toISOString().slice(0,10);
+  const today = new Date().toISOString().slice(0, 10);
   const lastHardDay = localStorage.getItem("lastHardDay");
 
   if (lastHardDay === today) {
@@ -1315,13 +1262,13 @@ function disableHardDayBtn(){
   }
 }
 
-(function milestoneSystem(){
+(function milestoneSystem() {
   const startDate = new Date("2025-09-29"); // SAME as growth timeline
   const today = new Date();
-  today.setHours(0,0,0,0);
+  today.setHours(0, 0, 0, 0);
 
   const daysTogether = Math.floor(
-    (today - startDate) / (1000*60*60*24)
+    (today - startDate) / (1000 * 60 * 60 * 24)
   );
 
   const milestoneDays = 90; // ~3 months
@@ -1341,9 +1288,9 @@ function disableHardDayBtn(){
   let history =
     JSON.parse(localStorage.getItem("milestoneHistory")) || [];
 
-  for(let i=1;i<=completed;i++){
-    const label = `Completed ${i*3} months together 🤍`;
-    if(!history.includes(label)){
+  for (let i = 1; i <= completed; i++) {
+    const label = `Completed ${i * 3} months together 🤍`;
+    if (!history.includes(label)) {
       history.push(label);
     }
   }
@@ -1356,7 +1303,7 @@ function disableHardDayBtn(){
   const list = document.getElementById("milestoneList");
   list.innerHTML = "";
 
-  history.forEach(h=>{
+  history.forEach(h => {
     const li = document.createElement("li");
     li.textContent = "✨ " + h;
     list.appendChild(li);
@@ -1368,7 +1315,7 @@ const startDate = new Date("2025-09-29"); // SAME DATE everywhere
 const milestoneDays = 90; // ~3 months
 
 const today = new Date();
-today.setHours(0,0,0,0);
+today.setHours(0, 0, 0, 0);
 
 const daysTogether = Math.floor(
   (today - startDate) / (1000 * 60 * 60 * 24)
@@ -1406,7 +1353,7 @@ for (let i = 1; i <= completed; i++) {
   list.appendChild(li);
 }
 
-function notifyTelegram(message){
+function notifyTelegram(message) {
   return fetch(WORKER_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -1421,11 +1368,11 @@ function notifyTelegram(message){
 
 function celebrateFor(seconds = 5) {
   startFirework();
-  
+
   setTimeout(stopFirework, seconds * 1000);
 }
 
-async function loadReplies(){
+async function loadReplies() {
   const box = document.getElementById("replyList");
   box.innerHTML = "Loading replies…";
 
@@ -1441,33 +1388,33 @@ async function loadReplies(){
 
     const json = await res.json();
 
-    if(!json.ok){
+    if (!json.ok) {
       box.innerHTML = "Error loading replies. Dontt Panicc lovee reloadd or tell me to send a replyy okkii🤍";
       return;
     }
 
     renderReplies(json.messages.reverse(), box);
 
-  } catch(e){
+  } catch (e) {
     console.error(e);
     box.innerHTML = "Error loading replies. Dontt Panicc lovee reloadd or tell me to send a replyy okkii🤍";
   }
 }
 
 
-function renderReplies(msgs, box){
-  if(msgs.length === 0){
+function renderReplies(msgs, box) {
+  if (msgs.length === 0) {
     box.innerHTML = "No replies yet 🤍";
     return;
   }
 
   box.innerHTML = "";
-  msgs.forEach(m=>{
+  msgs.forEach(m => {
     const div = document.createElement("div");
-    div.style.marginBottom="12px";
-    div.style.paddingBottom="8px";
-    div.style.borderBottom="1px solid rgba(255,255,255,0.4)";
-    div.innerHTML=`
+    div.style.marginBottom = "12px";
+    div.style.paddingBottom = "8px";
+    div.style.borderBottom = "1px solid rgba(255,255,255,0.4)";
+    div.innerHTML = `
       <div style="font-size:15px">${m.text}</div>
       <div style="font-size:11px;opacity:.6">
         ${new Date(m.time).toLocaleString()}
@@ -1483,10 +1430,10 @@ function renderReplies(msgs, box){
 let breathState = 0;
 let breathInterval;
 
-function startBreathing(){
+function startBreathing() {
   const text = document.getElementById("breathText");
   const guide = document.getElementById("breathGuide");
-  if(!text || !guide) return;
+  if (!text || !guide) return;
 
   clearInterval(breathInterval);
 
@@ -1501,68 +1448,68 @@ function startBreathing(){
   text.textContent = steps[0][0];
   guide.textContent = steps[0][1];
 
-  breathInterval = setInterval(()=>{
+  breathInterval = setInterval(() => {
     breathState = (breathState + 1) % steps.length;
     text.textContent = steps[breathState][0];
     guide.textContent = steps[breathState][1];
-  },2000);
+  }, 2000);
 }
 
-function restartBreathing(){
+function restartBreathing() {
   startBreathing();
 }
 
 /* auto start when page opens */
-const calmObserver = new MutationObserver(()=>{
-  if(!document.getElementById("calmPage").classList.contains("hidden")){
+const calmObserver = new MutationObserver(() => {
+  if (!document.getElementById("calmPage").classList.contains("hidden")) {
     startBreathing();
   }
 });
 
-calmObserver.observe(document.getElementById("calmPage"),{
-  attributes:true,
-  attributeFilter:["class"]
+calmObserver.observe(document.getElementById("calmPage"), {
+  attributes: true,
+  attributeFilter: ["class"]
 });
 
 /* ===== WRITE & RELEASE LOGIC ===== */
-function releaseWrite(){
+function releaseWrite() {
   const box = document.getElementById("writeBox");
   const dustLayer = document.getElementById("dustLayer");
   const status = document.getElementById("writeStatus");
 
-  if(!box.value.trim()) return;
+  if (!box.value.trim()) return;
 
   const rect = box.getBoundingClientRect();
   dustLayer.innerHTML = "";
 
   const count = 80; // soft density
 
-  for(let i=0;i<count;i++){
+  for (let i = 0; i < count; i++) {
     const d = document.createElement("div");
-    d.className="dust";
+    d.className = "dust";
 
-    const size = Math.random()*4 + 2;
-    d.style.width = size+"px";
-    d.style.height = size+"px";
+    const size = Math.random() * 4 + 2;
+    d.style.width = size + "px";
+    d.style.height = size + "px";
 
-    d.style.left = Math.random()*rect.width+"px";
-    d.style.top = Math.random()*rect.height+"px";
+    d.style.left = Math.random() * rect.width + "px";
+    d.style.top = Math.random() * rect.height + "px";
 
     d.style.setProperty("--x", Math.random());
 
     d.style.animationDuration =
-      3 + Math.random()*2 + "s";
+      3 + Math.random() * 2 + "s";
 
     dustLayer.appendChild(d);
   }
 
-  box.value="";
+  box.value = "";
   status.classList.remove("hidden");
 
-  setTimeout(()=>{
-    dustLayer.innerHTML="";
+  setTimeout(() => {
+    dustLayer.innerHTML = "";
     status.classList.add("hidden");
-  },5000);
+  }, 5000);
 }
 
 /* ===== REASSURANCE LOGIC ===== */
@@ -1628,28 +1575,28 @@ let remaining = reassuranceLines.filter(
 
 let typeInterval;
 
-function typeReassure(text){
+function typeReassure(text) {
   const el = document.getElementById("reassureText");
-  if(!el) return;
+  if (!el) return;
 
   clearInterval(typeInterval);
   el.textContent = "";
   el.classList.add("typing");
 
   let i = 0;
-  typeInterval = setInterval(()=>{
+  typeInterval = setInterval(() => {
     el.textContent += text.charAt(i);
     i++;
-    if(i >= text.length){
+    if (i >= text.length) {
       clearInterval(typeInterval);
       el.classList.remove("typing");
     }
-  },45);
+  }, 45);
 }
 
-function nextReassure(){
+function nextReassure() {
   // if all used → reset cycle
-  if(remaining.length === 0){
+  if (remaining.length === 0) {
     seenReassure = [];
     remaining = [...reassuranceLines];
   }
@@ -1663,18 +1610,18 @@ function nextReassure(){
 }
 
 /* auto show when page opens */
-const reassureObserver = new MutationObserver(()=>{
+const reassureObserver = new MutationObserver(() => {
   const page = document.getElementById("reassurancePage");
-  if(!page) return;
+  if (!page) return;
 
-  if(!page.classList.contains("hidden")){
+  if (!page.classList.contains("hidden")) {
     nextReassure(); // always show new one
   }
 });
 
 reassureObserver.observe(
   document.getElementById("reassurancePage"),
-  { attributes:true, attributeFilter:["class"] }
+  { attributes: true, attributeFilter: ["class"] }
 );
 
 
@@ -1741,12 +1688,12 @@ let remainingPersp = perspectives.filter(
   p => !seenPersp.includes(p)
 );
 
-function nextPerspective(){
+function nextPerspective() {
   const el = document.getElementById("perspectiveText");
-  if(!el) return;
+  if (!el) return;
 
   // reset when all used
-  if(remainingPersp.length === 0){
+  if (remainingPersp.length === 0) {
     seenPersp = [];
     remainingPersp = [...perspectives];
   }
@@ -1758,82 +1705,82 @@ function nextPerspective(){
 
   el.style.opacity = 0;
 
-  setTimeout(()=>{
+  setTimeout(() => {
     el.textContent = line;
     el.style.opacity = 1;
-  },300);
+  }, 300);
 }
 
 /* auto show new one when page opens */
-const perspectiveObserver = new MutationObserver(()=>{
+const perspectiveObserver = new MutationObserver(() => {
   const page = document.getElementById("perspectivePage");
-  if(!page) return;
+  if (!page) return;
 
-  if(!page.classList.contains("hidden")){
+  if (!page.classList.contains("hidden")) {
     nextPerspective();
   }
 });
 
 perspectiveObserver.observe(
   document.getElementById("perspectivePage"),
-  { attributes:true, attributeFilter:["class"] }
+  { attributes: true, attributeFilter: ["class"] }
 );
 
-async function sendDayShare(){
+async function sendDayShare() {
 
   const text = document.getElementById("dayShareText").value.trim();
   const status = document.getElementById("dayShareStatus");
 
-  if(!text){
+  if (!text) {
     status.textContent = "Write something first 🤍";
     return;
   }
 
-  await fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      action:"saveNote",
-      data:{ pairId, who:user, text }
+  await fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action: "saveNote",
+      data: { pairId, who: user, text }
     })
   });
 
-  document.getElementById("dayShareText").value="";
+  document.getElementById("dayShareText").value = "";
   status.textContent = "Sent 🤍";
 
   fetchNote();   // refresh immediately
 }
 /* ===== MUTUAL MICRO CONNECTION ===== */
 
-function sendPingMC(){
+function sendPingMC() {
   clearMC();
-  fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({ action:"mcPing" })
+  fetch(WORKER_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "mcPing" })
   });
 
   document.getElementById("mcStatus").textContent =
     "Sent… he’ll feel it 🤍";
 }
 
-function waitTogether(){
+function waitTogether() {
   clearMC();
   const s = document.getElementById("mcStatus");
   let n = 10;
   s.textContent = "Waiting together… 10";
 
-  const i = setInterval(()=>{
+  const i = setInterval(() => {
     n--;
     s.textContent = "Waiting together… " + n;
-    if(n <= 0){
+    if (n <= 0) {
       clearInterval(i);
       s.textContent = "Still connected 🤍";
     }
-  },1000);
+  }, 1000);
 }
 
-function promiseConnect(){
+function promiseConnect() {
   clearMC();
   notifyTelegram("🤍 She promised to reconnect later");
   document.getElementById("mcStatus").textContent =
@@ -1851,19 +1798,19 @@ const txt = document.getElementById("energyText");
 
 zone.onclick = () => {
   energy += 4;
-  if(energy > maxEnergy) energy = maxEnergy;
+  if (energy > maxEnergy) energy = maxEnergy;
 
   fill.style.width = energy + "%";
 
-  if(energy < 30) txt.textContent = "Let it out…";
-  else if(energy < 60) txt.textContent = "Good… keep going…";
-  else if(energy < 90) txt.textContent = "Almost there…";
+  if (energy < 30) txt.textContent = "Let it out…";
+  else if (energy < 60) txt.textContent = "Good… keep going…";
+  else if (energy < 90) txt.textContent = "Almost there…";
   else txt.textContent = "Release complete 🤍";
 
-  zone.style.transform = `scale(${0.95 + Math.random()*0.1})`;
+  zone.style.transform = `scale(${0.95 + Math.random() * 0.1})`;
 };
 
-function finishEnergy(){
+function finishEnergy() {
   energy = 0;
   fill.style.width = "0%";
   txt.textContent = "Your body feels calmer now 🤍";
@@ -2044,11 +1991,11 @@ function exportWithWhiteBG() {
 }
 
 
-function sendSpecialReply(){
+function sendSpecialReply() {
   const text = document.getElementById("specialReplyText").value.trim();
   const status = document.getElementById("specialReplyStatus");
 
-  if(!text){
+  if (!text) {
     status.textContent = "Write something first 🤍";
     return;
   }
@@ -2064,147 +2011,147 @@ function sendSpecialReply(){
       data: { text: message }
     })
   })
-  .then(() => {
-    status.textContent = "Sent to him 🤍";
-    document.getElementById("specialReplyText").value = "";
+    .then(() => {
+      status.textContent = "Sent to him 🤍";
+      document.getElementById("specialReplyText").value = "";
 
-    // ✅ UNLOCK challenge ONLY after successful send
-    document.getElementById("challengeCard").classList.remove("locked");
-  })
-  .catch(() => {
-    status.textContent = "Failed 😔 DOntt worryy fluffyy tryyy againn!!";
-  });
+      // ✅ UNLOCK challenge ONLY after successful send
+      document.getElementById("challengeCard").classList.remove("locked");
+    })
+    .catch(() => {
+      status.textContent = "Failed 😔 DOntt worryy fluffyy tryyy againn!!";
+    });
 }
 
 
 
 const ALL_SONGS = [
-  { file:"1.m4a", name:"Saibo" },
-  { file:"2.m4a", name:"Tum Tak" },
-  { file:"3.m4a", name:"Dooron Dooron (Unplugged)" },
-  { file:"4.m4a", name:"Iktara" },
-  { file:"5.m4a", name:"Ishq Sufiyana (Male)" },
-  { file:"6.m4a", name:"Itni Si Baat Hai" },
-  { file:"7.m4a", name:"Jaan Nisar" },
-  { file:"8.m4a", name:"Mera Mann Kehne Laga" },
-  { file:"9.m4a", name:"Qaafirana" },
-  { file:"10.m4a", name:"Te Amo (Duet)" },
+  { file: "1.m4a", name: "Saibo" },
+  { file: "2.m4a", name: "Tum Tak" },
+  { file: "3.m4a", name: "Dooron Dooron (Unplugged)" },
+  { file: "4.m4a", name: "Iktara" },
+  { file: "5.m4a", name: "Ishq Sufiyana (Male)" },
+  { file: "6.m4a", name: "Itni Si Baat Hai" },
+  { file: "7.m4a", name: "Jaan Nisar" },
+  { file: "8.m4a", name: "Mera Mann Kehne Laga" },
+  { file: "9.m4a", name: "Qaafirana" },
+  { file: "10.m4a", name: "Te Amo (Duet)" },
 
-  { file:"11.mp3", name:"A Thousand Years" },
-  { file:"12.mp3", name:"Aabad Barbaad" },
-  { file:"14.mp3", name:"Maula Mere Maula" },
-  { file:"15.mp3", name:"Me Gustas Tu" },
-  { file:"16.mp3", name:"Meethi Boliyan" },
-  { file:"17.mp3", name:"Nadaaniyan" },
-  { file:"18.mp3", name:"O Rangrez" },
-  { file:"19.mp3", name:"O Re Piya" },
-  { file:"20.mp3", name:"Oda Lage" },
-  { file:"21.mp3", name:"Pakeezah" },
-  { file:"22.mp3", name:"Phir Kabhi" },
-  { file:"23.mp3", name:"Raabta" },
-  { file:"24.mp3", name:"Raat Bhar (De De Pyaar De)" },
-  { file:"25.mp3", name:"Raat Bhar (Heropanti)" },
-  { file:"26.mp3", name:"Rang Lageya" },
-  { file:"27.mp3", name:"Sahiba" },
-  { file:"28.mp3", name:"Sajan Jahan" },
-  { file:"29.mp3", name:"Sau Aasmaan" },
-  { file:"30.mp3", name:"Say Yes To Heaven" },
-  { file:"31.mp3", name:"Shayad" },
-  { file:"32.mp3", name:"Shinunoga E-Wa" },
-  { file:"33.mp3", name:"Sparkle (Movie Ver.)" },
-  { file:"34.mp3", name:"Suzume (feat. Toaka)" },
-  { file:"35.mp3", name:"Taare Ginn" },
-  { file:"36.mp3", name:"Teenage Dream" },
-  { file:"37.mp3", name:"Tera Fitoor" },
-  { file:"38.mp3", name:"Tere Bina" },
-  { file:"39.mp3", name:"Teri Deewani" },
-  { file:"40.mp3", name:"Teri Yaadon Mein" },
-  { file:"41.mp3", name:"Those Eyes" },
-  { file:"42.mp3", name:"Timro Pratiksa" },
-  { file:"43.mp3", name:"Tose Naina" },
-  { file:"44.mp3", name:"Tu Hi Hai" },
-  { file:"45.mp3", name:"Tu Jaane Na" },
-  { file:"46.mp3", name:"Tu Meri Duniya" },
-  { file:"47.mp3", name:"Until I Found You" },
-  { file:"48.mp3", name:"Vazhithunaiye" },
-  { file:"49.mp3", name:"Yeh Fitoor Mera" },
-  { file:"50.mp3", name:"Your Eyes" },
-  { file:"52.mp3", name:"I Wanna Be Yours" },
-  { file:"53.mp3", name:"I Don't See Nobody But You" },
-  { file:"54.mp3", name:"Humsafar" },
-  { file:"55.mp3", name:"Hosanna" },
-  { file:"59.mp3", name:"Her" },
-  { file:"62.mp3", name:"Mann Ki Lagan" },
-  { file:"63.mp3", name:"Khuda Jaane" },
-  { file:"64.mp3", name:"Khairiyat" },
-  { file:"65.mp3", name:"Kaise Hua" },
-  { file:"66.mp3", name:"Jhol (Acoustic)" },
-  { file:"67.mp3", name:"Iktara (Reprise)" },
-  { file:"69.mp3", name:"Mann Mera" },
+  { file: "11.mp3", name: "A Thousand Years" },
+  { file: "12.mp3", name: "Aabad Barbaad" },
+  { file: "14.mp3", name: "Maula Mere Maula" },
+  { file: "15.mp3", name: "Me Gustas Tu" },
+  { file: "16.mp3", name: "Meethi Boliyan" },
+  { file: "17.mp3", name: "Nadaaniyan" },
+  { file: "18.mp3", name: "O Rangrez" },
+  { file: "19.mp3", name: "O Re Piya" },
+  { file: "20.mp3", name: "Oda Lage" },
+  { file: "21.mp3", name: "Pakeezah" },
+  { file: "22.mp3", name: "Phir Kabhi" },
+  { file: "23.mp3", name: "Raabta" },
+  { file: "24.mp3", name: "Raat Bhar (De De Pyaar De)" },
+  { file: "25.mp3", name: "Raat Bhar (Heropanti)" },
+  { file: "26.mp3", name: "Rang Lageya" },
+  { file: "27.mp3", name: "Sahiba" },
+  { file: "28.mp3", name: "Sajan Jahan" },
+  { file: "29.mp3", name: "Sau Aasmaan" },
+  { file: "30.mp3", name: "Say Yes To Heaven" },
+  { file: "31.mp3", name: "Shayad" },
+  { file: "32.mp3", name: "Shinunoga E-Wa" },
+  { file: "33.mp3", name: "Sparkle (Movie Ver.)" },
+  { file: "34.mp3", name: "Suzume (feat. Toaka)" },
+  { file: "35.mp3", name: "Taare Ginn" },
+  { file: "36.mp3", name: "Teenage Dream" },
+  { file: "37.mp3", name: "Tera Fitoor" },
+  { file: "38.mp3", name: "Tere Bina" },
+  { file: "39.mp3", name: "Teri Deewani" },
+  { file: "40.mp3", name: "Teri Yaadon Mein" },
+  { file: "41.mp3", name: "Those Eyes" },
+  { file: "42.mp3", name: "Timro Pratiksa" },
+  { file: "43.mp3", name: "Tose Naina" },
+  { file: "44.mp3", name: "Tu Hi Hai" },
+  { file: "45.mp3", name: "Tu Jaane Na" },
+  { file: "46.mp3", name: "Tu Meri Duniya" },
+  { file: "47.mp3", name: "Until I Found You" },
+  { file: "48.mp3", name: "Vazhithunaiye" },
+  { file: "49.mp3", name: "Yeh Fitoor Mera" },
+  { file: "50.mp3", name: "Your Eyes" },
+  { file: "52.mp3", name: "I Wanna Be Yours" },
+  { file: "53.mp3", name: "I Don't See Nobody But You" },
+  { file: "54.mp3", name: "Humsafar" },
+  { file: "55.mp3", name: "Hosanna" },
+  { file: "59.mp3", name: "Her" },
+  { file: "62.mp3", name: "Mann Ki Lagan" },
+  { file: "63.mp3", name: "Khuda Jaane" },
+  { file: "64.mp3", name: "Khairiyat" },
+  { file: "65.mp3", name: "Kaise Hua" },
+  { file: "66.mp3", name: "Jhol (Acoustic)" },
+  { file: "67.mp3", name: "Iktara (Reprise)" },
+  { file: "69.mp3", name: "Mann Mera" },
 
-  { file:"81.mp3", name:"Die With A Smile" },
-  { file:"82.mp3", name:"Dandelions" },
-  { file:"85.mp3", name:"Darkhaast" },
-  { file:"89.mp3", name:"Dooron Dooron" },
-  { file:"93.mp3", name:"Golden Brown (Sped Up)" },
-  { file:"94.mp3", name:"Golden Hour" },
-  { file:"99.mp3", name:"Golden Brown (Slowed)" },
-  { file:"100.mp3", name:"Faasle" },
-  { file:"122.mp3", name:"Dagabaaz Re" },
-  { file:"125.mp3", name:"Apocalypse" },
-  { file:"135.mp3", name:"CO2" },
-  { file:"143.mp3", name:"Atlantis" },
-  { file:"145.mp3", name:"Cinnamon Girl" },
-  { file:"147.mp3", name:"Blue" },
-  { file:"153.mp3", name:"Buddhu Sa Mann" },
-  { file:"163.mp3", name:"Ami Tomake" },
-  { file:"222.mp3", name:"Aaj Bhi (From Om Shanti Om)" },
-  { file:"225.mp3", name:"I Love You" },
-  { file:"236.mp3", name:"Chaar Kadam" },
-  { file:"253.mp3", name:"Hoshwalon Ko Khabar Kya" },
-  { file:"264.mp3", name:"Aankhon Se Batana" },
-  { file:"265.mp3", name:"Bulleya" },
-  { file:"331.mp3", name:"Kho Gaye Hum Kahan" },
-  { file:"332.mp3", name:"Khudaya Khair" },
-  { file:"335.mp3", name:"Nazm Nazm" },
-  { file:"345.mp3", name:"Radha" },
-  { file:"349.mp3", name:"Saware" },
-  { file:"346.mp3", name:"Sooraj Dooba Hain" },
-  { file:"365.mp3", name:"Abhi Kuch Dino Se" },
-  { file:"366.mp3", name:"Pee Loon" },
-  { file:"395.mp3", name:"Ok Jaanu Title Track" },
-  { file:"452.mp3", name:"Dil Diyan Gallan" },
-  { file:"663.mp3", name:"Aradhya" },
-  { file:"666.mp3", name:"Pehli Nazar Mein" },
-  { file:"720.mp3", name:"Zehnaseeb" },
-  { file:"752.mp3", name:"Chand Sifarish" },
-  { file:"755.mp3", name:"Sweetheart" },
-  { file:"792.mp3", name:"Zaalima" },
-  { file:"794.mp3", name:"Uff Teri Adaa" }
+  { file: "81.mp3", name: "Die With A Smile" },
+  { file: "82.mp3", name: "Dandelions" },
+  { file: "85.mp3", name: "Darkhaast" },
+  { file: "89.mp3", name: "Dooron Dooron" },
+  { file: "93.mp3", name: "Golden Brown (Sped Up)" },
+  { file: "94.mp3", name: "Golden Hour" },
+  { file: "99.mp3", name: "Golden Brown (Slowed)" },
+  { file: "100.mp3", name: "Faasle" },
+  { file: "122.mp3", name: "Dagabaaz Re" },
+  { file: "125.mp3", name: "Apocalypse" },
+  { file: "135.mp3", name: "CO2" },
+  { file: "143.mp3", name: "Atlantis" },
+  { file: "145.mp3", name: "Cinnamon Girl" },
+  { file: "147.mp3", name: "Blue" },
+  { file: "153.mp3", name: "Buddhu Sa Mann" },
+  { file: "163.mp3", name: "Ami Tomake" },
+  { file: "222.mp3", name: "Aaj Bhi (From Om Shanti Om)" },
+  { file: "225.mp3", name: "I Love You" },
+  { file: "236.mp3", name: "Chaar Kadam" },
+  { file: "253.mp3", name: "Hoshwalon Ko Khabar Kya" },
+  { file: "264.mp3", name: "Aankhon Se Batana" },
+  { file: "265.mp3", name: "Bulleya" },
+  { file: "331.mp3", name: "Kho Gaye Hum Kahan" },
+  { file: "332.mp3", name: "Khudaya Khair" },
+  { file: "335.mp3", name: "Nazm Nazm" },
+  { file: "345.mp3", name: "Radha" },
+  { file: "349.mp3", name: "Saware" },
+  { file: "346.mp3", name: "Sooraj Dooba Hain" },
+  { file: "365.mp3", name: "Abhi Kuch Dino Se" },
+  { file: "366.mp3", name: "Pee Loon" },
+  { file: "395.mp3", name: "Ok Jaanu Title Track" },
+  { file: "452.mp3", name: "Dil Diyan Gallan" },
+  { file: "663.mp3", name: "Aradhya" },
+  { file: "666.mp3", name: "Pehli Nazar Mein" },
+  { file: "720.mp3", name: "Zehnaseeb" },
+  { file: "752.mp3", name: "Chand Sifarish" },
+  { file: "755.mp3", name: "Sweetheart" },
+  { file: "792.mp3", name: "Zaalima" },
+  { file: "794.mp3", name: "Uff Teri Adaa" }
 ];
 
 
 
-function toggleSongMenu(){
+function toggleSongMenu() {
   document.getElementById("songMenu").classList.toggle("hidden");
 }
 let filteredSongs = [...ALL_SONGS];
 
-function buildSongMenu(list = filteredSongs){
+function buildSongMenu(list = filteredSongs) {
   const box = document.getElementById("songList");
   box.innerHTML = "";
 
-  if(list.length === 0){
+  if (list.length === 0) {
     box.innerHTML = "<p style='opacity:.6'>No song found 🤍</p>";
     return;
   }
 
-  list.forEach(s=>{
+  list.forEach(s => {
     const div = document.createElement("div");
     div.className = "song-item";
     div.textContent = s.name;
 
-    div.onclick = ()=>{
+    div.onclick = () => {
       loadLocalSong(s.file);
       audio.play();
       playBtn.textContent = "❚❚";
@@ -2216,7 +2163,7 @@ function buildSongMenu(list = filteredSongs){
   });
 }
 
-function filterSongs(q){
+function filterSongs(q) {
   q = q.toLowerCase();
   filteredSongs = ALL_SONGS.filter(s =>
     s.name.toLowerCase().includes(q)
@@ -2226,7 +2173,7 @@ function filterSongs(q){
 
 buildSongMenu();
 
-function autoPlayDailySong(){
+function autoPlayDailySong() {
   const tryPlay = () => {
     audio.play()
       .then(() => {
@@ -2247,55 +2194,182 @@ function autoPlayDailySong(){
   document.addEventListener("click", tryPlay, { once: true });
 }
 
-function sendHeartbeat(){
-  if(!pairId || !user) return;
+// function sendHeartbeat() {
+//   if (!pairId || !user) return;
 
-  fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      action:"heartbeat",
-      data:{ pairId, user }
-    })
+//   fetch(WORKER_URL, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       action: "heartbeat",
+//       data: { pairId, user }
+//     })
+//   });
+// }
+
+// setInterval(sendHeartbeat, 5000);
+// sendHeartbeat();
+
+
+// async function checkPresence() {
+//   if (!pairId || !user) return;
+
+//   const res = await fetch(WORKER_URL, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({
+//       action: "presence",
+//       data: { pairId, user }
+//     })
+//   });
+
+//   const j = await res.json();
+//   const box = document.getElementById("presenceBox");
+
+//   if (!j.last) {
+//     box.textContent = "Partner offline";
+//     return;
+//   }
+
+//   const diff = Math.floor((Date.now() - j.last) / 1000);
+
+//   if (diff < 25) {
+//     box.textContent = "Partner online 🤍";
+//   }
+//   else if (diff < 60) {
+//     box.textContent = "Last seen " + diff + "s ago";
+//   }
+//   else {
+//     box.textContent = "Last seen " + Math.floor(diff / 60) + "m ago";
+//   }
+// }
+
+// setInterval(checkPresence, 3000);
+// checkPresence();
+
+const EXPRESS_LIST = [
+"missing you",
+"thinking about you",
+"need you",
+"want a hug",
+"want your voice",
+"feeling lonely",
+"feeling sad",
+"feeling tired",
+"overthinking",
+"feeling anxious",
+
+"feeling calm",
+"feeling safe",
+"feeling peaceful",
+
+"feeling happy",
+"smiling because of you",
+"feeling grateful",
+
+"feeling naughty",
+"feeling flirty",
+"want to tease you",
+"feeling playful",
+
+"need reassurance",
+"need comfort",
+"need attention",
+"want you near",
+
+"thinking of our memories",
+"missing your touch",
+"want to see you",
+"wish you were here",
+
+"feeling excited",
+"feeling hopeful",
+"feeling lucky",
+
+"feeling jealous",
+"feeling clingy",
+"want cuddles",
+"want kisses",
+
+"thinking deeply",
+"mind is restless",
+"need quiet",
+
+"feeling proud of us",
+"feeling attached",
+"heart feels full",
+
+"want to talk",
+"want to listen",
+"want to laugh",
+
+"want to stay with you",
+"thinking about future",
+"feeling emotional"
+];
+
+function buildExpressButtons(){
+  const box=document.getElementById("expressButtons");
+  box.innerHTML="";
+
+  EXPRESS_LIST.forEach(f=>{
+    const btn=document.createElement("button");
+    btn.textContent=f;
+    btn.onclick=()=>sendExpressFeeling(f);
+    box.appendChild(btn);
   });
 }
 
-setInterval(sendHeartbeat, 5000);
-sendHeartbeat();
+buildExpressButtons();
 
+function sendExpressFeeling(feeling){
 
-async function checkPresence(){
-  if(!pairId || !user) return;
+  const entry = {
+    user,
+    feeling,
+    time: Date.now()
+  };
 
-  const res = await fetch(WORKER_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      action:"presence",
-      data:{ pairId, user }
-    })
-  });
+  push(ref(db,"expressLogs"),entry);
 
-  const j = await res.json();
-  const box = document.getElementById("presenceBox");
+}
+function sendCustomFeeling(){
+  const txt=document.getElementById("customFeeling").value.trim();
+  if(!txt) return;
 
-  if(!j.last){
-    box.textContent = "Partner offline";
-    return;
-  }
-
-  const diff = Math.floor((Date.now() - j.last)/1000);
-
-  if(diff < 25){
-    box.textContent = "Partner online 🤍";
-  }
-  else if(diff < 60){
-    box.textContent = "Last seen " + diff + "s ago";
-  }
-  else{
-    box.textContent = "Last seen " + Math.floor(diff/60) + "m ago";
-  }
+  sendExpressFeeling(txt);
+  document.getElementById("customFeeling").value="";
 }
 
-setInterval(checkPresence, 3000);
-checkPresence();
+function loadExpressLog(){
+
+  const box = document.getElementById("expressLog");
+
+  onValue(ref(db,"expressLogs"),(snapshot)=>{
+
+    const data = snapshot.val();
+
+    box.innerHTML="";
+
+    if(!data) return;
+
+    const arr = Object.values(data)
+      .sort((a,b)=>b.time-a.time);
+
+    arr.forEach(m=>{
+
+      const div = document.createElement("div");
+      div.className="express-entry";
+
+      div.textContent =
+        `${m.user}: felt "${m.feeling}" at ${
+        new Date(m.time).toLocaleString()
+        }`;
+
+      box.appendChild(div);
+
+    });
+
+  });
+
+}

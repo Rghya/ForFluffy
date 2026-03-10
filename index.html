@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,20 +8,27 @@
   <link rel="icon" type="image/png" href="assets/icon.png">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Irish+Grover&family=Gloria+Hallelujah&family=Inria+Serif&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Irish+Grover&family=Gloria+Hallelujah&family=Inria+Serif&display=swap"
+    rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Limelight&family=Patrick+Hand&family=Sansation:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Limelight&family=Patrick+Hand&family=Sansation:ital,wght@1,700&display=swap"
+    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J:ital,wght@0,100..400;1,100..400&display=swap"
+    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montez&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <div id="lockScreen" class="lock">
@@ -29,7 +37,7 @@
     <button id="unlockBtn">Unlock</button>
     <p id="lockError"></p>
   </div>
-  
+
 
   <div id="loginScreen" class="lock hidden">
 
@@ -59,14 +67,14 @@
   <!-- ===== HOME PAGE ===== -->
   <section id="homePage" class="page">
 
-    
+
 
 
 
     <div class="timer glass" id="timer">
-      Time Left : 
+      Time Left :
     </div>
-    
+
     <h1 class="heading">
       APP KYA CHOOSE <br>
       KARNA CHAHATE HO??
@@ -76,7 +84,7 @@
       <button class="glass" onclick="showNote()">AJJ KA NOTE</button>
       <button class="glass" onclick="showSpecial()">AJJ KA SPECIAL</button>
       <button class="glass" onclick="showMore()">KHAAS OPTIONS</button>
-      
+
     </div>
   </section>
 
@@ -90,14 +98,12 @@
     <div class="note glass">
       <h3 style="margin-bottom:10px;color:#a63a6f">How was your day? 🤍</h3>
 
-      <textarea id="dayShareText"
-        placeholder="Tell me everything about today..."
+      <textarea id="dayShareText" placeholder="Tell me everything about today..."
         style="width:100%;min-height:160px;border:none;border-radius:12px;padding:10px;font-family:inherit;"></textarea>
 
       <button class="glass back-btn" onclick="sendDayShare()">Send to him 💌</button>
 
-      <p id="dayShareStatus"
-         style="margin-top:8px;font-size:13px;color:#a63a6f"></p>
+      <p id="dayShareStatus" style="margin-top:8px;font-size:13px;color:#a63a6f"></p>
     </div>
 
 
@@ -106,27 +112,27 @@
   </section>
 
   <!-- ===== DOODLE PAGE ===== -->
-<!-- ===== DOODLE PAGE ===== -->
+  <!-- ===== DOODLE PAGE ===== -->
   <section id="doodlePage" class="page hidden">
     <h1 class="heading">Draw something for me 🤍</h1>
-  
+
     <div class="glass doodle-wrap">
       <canvas id="doodleCanvas"></canvas>
-    
+
       <div class="doodle-toolbar">
         <input type="color" id="brushColor" value="#a63a6f">
         <input type="range" id="brushSize" min="1" max="20" value="5">
-      
+
         <button onclick="setTool('pen')">✏️</button>
         <button onclick="setTool('eraser')">🧽</button>
         <button onclick="undoStroke()">↩️</button>
         <button onclick="clearDoodle()">🗑️</button>
         <button onclick="saveDoodle()">💌</button>
       </div>
-    
+
       <p id="doodleStatus"></p>
     </div>
-  
+
     <br>
     <button class="glass back-btn" onclick="showMore()">← Back</button>
   </section>
@@ -136,7 +142,7 @@
 
 
 
- <section id="repairPage" class="page hidden">
+  <section id="repairPage" class="page hidden">
     <div class="glass calm2-box" id="calm2Menu">
       <p>How do you want to calm down?</p>
       <div class="calm2-options">
@@ -155,31 +161,31 @@
     <button class="glass back-btn" onclick="showMore()">← Back</button>
   </section>
 
-  
+
 
   <section id="calmPage" class="page hidden">
-    
+
     <div class="glass calm-wrap">
       <h2 class="calm-title">🌬️ Slow down</h2>
 
       <p class="calm-sub">
-        Ya don’t have to talk.  
-        Ya don’t have to fix anything.  
+        Ya don’t have to talk.
+        Ya don’t have to fix anything.
         Just breathe with me.
       </p>
-    
+
       <div class="breath-ring" id="breathRing">
         <span id="breathText">Inhale</span>
       </div>
-    
+
       <p class="calm-guide" id="breathGuide">
         Inhale through your nose
       </p>
-    
-      
+
+
     </div>
 
-    
+
 
     <br>
     <button class="glass back-btn" onclick="showRepairPage()">← Back</button>
@@ -190,20 +196,17 @@
       <h2 class="write-title">📝 Let it out</h2>
 
       <p class="write-sub">
-        Say everything you can’t say out loud.  
+        Say everything you can’t say out loud.
         This will disappear when ya release it.
       </p>
-    
-      <textarea
-        id="writeBox"
-        placeholder="Type anything… anger, hurt, confusion, all of it."
-      ></textarea>
+
+      <textarea id="writeBox" placeholder="Type anything… anger, hurt, confusion, all of it."></textarea>
       <div id="dustLayer"></div>
 
       <button class="glass write-btn" onclick="releaseWrite()">
         Release
       </button>
-    
+
       <p id="writeStatus" class="soft hidden">
         It’s gone 🤍
       </p>
@@ -220,14 +223,14 @@
       <div class="reassure-box">
         <p id="reassureText" class="typing"></p>
       </div>
-    
+
       <button class="glass reassure-btn" onclick="nextReassure()">
         stay with me
       </button>
     </div>
-    
 
-    
+
+
 
     <br>
     <button class="glass back-btn" onclick="showRepairPage()">← Back</button>
@@ -240,14 +243,14 @@
       <div class="perspective-box">
         <p id="perspectiveText"></p>
       </div>
-    
+
       <button class="glass perspective-btn" onclick="nextPerspective()">
         see it differently
       </button>
     </div>
 
 
-    
+
 
     <br>
     <button class="glass back-btn" onclick="showRepairPage()">← Back</button>
@@ -258,31 +261,31 @@
       <h2 class="mc-title">🔗 Let’s reconnect</h2>
 
       <p class="mc-sub">
-        This is a small bridge between us.  
+        This is a small bridge between us.
         Just one step is enough.
       </p>
-    
+
       <div class="mc-actions">
-      
+
         <button class="glass mc-btn" onclick="sendPingMC()">
           Send a 🫶 to him
         </button>
-      
+
         <button class="glass mc-btn" onclick="waitTogether()">
           Wait together (10s)
         </button>
-      
+
         <button class="glass mc-btn" onclick="promiseConnect()">
           We’ll talk later 🤍
         </button>
-      
+
       </div>
-    
+
       <p id="mcStatus" class="soft"></p>
     </div>
 
 
-    
+
 
     <br>
     <button class="glass back-btn" onclick="showRepairPage()">← Back</button>
@@ -293,22 +296,22 @@
       <h2 class="energy-title">⚡ Let it out</h2>
 
       <p class="energy-sub">
-        Hit the screen. Breathe hard.  
+        Hit the screen. Breathe hard.
         This space can take it.
       </p>
-    
+
       <div class="energy-zone" id="energyZone">
         TAP / HIT
       </div>
-    
+
       <div class="energy-bar">
         <div id="energyFill"></div>
       </div>
-    
+
       <p id="energyText" class="energy-text">
         Start releasing…
       </p>
-    
+
       <button class="glass energy-done" onclick="finishEnergy()">
         I feel lighter 🤍
       </button>
@@ -324,8 +327,7 @@
   <section id="replyPage" class="page hidden">
     <h1 class="heading">My Replies 🤍</h1>
 
-    <div id="replyList" class="receive glass"
-         style="width:min(90vw,520px);margin:auto;padding:16px">
+    <div id="replyList" class="receive glass" style="width:min(90vw,520px);margin:auto;padding:16px">
       Loading replies…
     </div>
 
@@ -344,24 +346,24 @@
         <span>Together since</span>
         <b id="gtDays">--</b>
       </div>
-    
-      
+
+
       <div class="growth-item">
         <span>Days visited</span>
         <b id="gtVisits">--</b>
       </div>
-    
+
       <div class="growth-item">
         <span>Hard days survived</span>
         <b id="gtHard">0</b>
       </div>
-    
+
       <!-- ===== MILESTONE PROGRESS ===== -->
       <div class="milestone-box">
         <div class="milestone-label">
           Next milestone in <span id="msRemaining">--</span> days
         </div>
-      
+
         <div class="milestone-bar">
           <div class="milestone-fill" id="msFill"></div>
         </div>
@@ -371,7 +373,7 @@
         + We survived a hard day
       </button>
 
-      
+
 
 
       <!-- ===== MILESTONE HISTORY ===== -->
@@ -383,14 +385,14 @@
       <button class="glass growth-btn celebrate-btn" onclick="celebrateFor(5)">
         🎉 Celebrate
       </button>
-      
-      
 
-      
-    
+
+
+
+
       <div class="growth-message" id="growthMessage"></div>
-    
-      
+
+
     </div>
 
 
@@ -398,7 +400,7 @@
     <button class="glass back-btn" onclick="showMore()">← Back</button>
   </section>
 
- 
+
 
   <!-- ===== Countdown PAGE ===== -->
   <section id="countPage" class="page hidden">
@@ -410,7 +412,7 @@
         <span class="cd-label">Days since we started</span>
         <span class="cd-value" id="cdStarted">--</span>
       </div>
-    
+
       <div class="countdown-item">
         <span class="cd-label">Days since last call</span>
         <span class="cd-value" id="cdLastCall">--</span>
@@ -430,77 +432,77 @@
         <span class="cd-label">Days since last held hands</span>
         <span class="cd-value" id="cdLastHeld">--</span>
       </div>
-    
+
       <div class="countdown-item">
         <span class="cd-label">Days until next plan</span>
         <span class="cd-value" id="cdNext">--</span>
       </div>
     </div>
 
-    
+
 
     <br>
     <button class="glass back-btn" onclick="showMore()">← Back</button>
   </section>
 
   <!-- ===== Open When PAGE ===== -->
-<section id="owPage" class="page hidden">
-  <h1 class="heading">Open Whens For YAAA!!!</h1>
+  <section id="owPage" class="page hidden">
+    <h1 class="heading">Open Whens For YAAA!!!</h1>
 
-  <div class="open-when glass split-layout">
+    <div class="open-when glass split-layout">
 
-    <!-- LEFT: LETTER LIST -->
-    <div class="letter-panel">
-      <h2 class="open-title">💌 Letters</h2>
+      <!-- LEFT: LETTER LIST -->
+      <div class="letter-panel">
+        <h2 class="open-title">💌 Letters</h2>
 
-      <div class="letter-list">
-        <div class="letter" onclick="openLetter(this,'sad1')">😔 Open when you’re sad #1</div>
-        <!-- <div class="letter" onclick="openLetter(this,'sad2')">😔 Open when you’re sad #2</div>
+        <div class="letter-list">
+          <div class="letter" onclick="openLetter(this,'sad1')">😔 Open when you’re sad #1</div>
+          <!-- <div class="letter" onclick="openLetter(this,'sad2')">😔 Open when you’re sad #2</div>
         <div class="letter" onclick="openLetter(this,'sad3')">😔 Open when you’re sad #3</div>
         <div class="letter" onclick="openLetter(this,'sad4')">😔 Open when you’re sad #4</div>
         <div class="letter" onclick="openLetter(this,'sad5')">😔 Open when you’re sad #5</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'low1')">🌧️ Open when you feel low #1</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'low2')">🌧️ Open when you feel low #2</div>
+          <!-- <div class="letter" onclick="openLetter(this,'low1')">🌧️ Open when you feel low #1</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'low2')">🌧️ Open when you feel low #2</div>
         <div class="letter" onclick="openLetter(this,'low3')">🌧️ Open when you feel low #3</div>
         <div class="letter" onclick="openLetter(this,'low4')">🌧️ Open when you feel low #4</div>
         <div class="letter" onclick="openLetter(this,'low5')">🌧️ Open when you feel low #5</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'miss1')">💭 Open when you miss me #1</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'miss2')">💭 Open when you miss me #2</div>
+          <!-- <div class="letter" onclick="openLetter(this,'miss1')">💭 Open when you miss me #1</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'miss2')">💭 Open when you miss me #2</div>
         <div class="letter" onclick="openLetter(this,'miss3')">💭 Open when you miss me #3</div>
         <div class="letter" onclick="openLetter(this,'miss4')">💭 Open when you miss me #4</div>
         <div class="letter" onclick="openLetter(this,'miss5')">💭 Open when you miss me #5</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'anx1')">🌀 Open when you’re overthinking #1</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'anx2')">🌀 Open when you’re overthinking #2</div>
+          <!-- <div class="letter" onclick="openLetter(this,'anx1')">🌀 Open when you’re overthinking #1</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'anx2')">🌀 Open when you’re overthinking #2</div>
         <div class="letter" onclick="openLetter(this,'anx3')">🌀 Open when you’re overthinking #3</div>
         <div class="letter" onclick="openLetter(this,'anx4')">🌀 Open when you’re overthinking #4</div>
         <div class="letter" onclick="openLetter(this,'anx5')">🌀 Open when you’re overthinking #5</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'night1')">🌙 Open when you can’t sleep #1</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'night2')">🌙 Open when you can’t sleep #2</div>
+          <!-- <div class="letter" onclick="openLetter(this,'night1')">🌙 Open when you can’t sleep #1</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'night2')">🌙 Open when you can’t sleep #2</div>
         <div class="letter" onclick="openLetter(this,'night3')">🌙 Open when you can’t sleep #3</div>
         <div class="letter" onclick="openLetter(this,'night4')">🌙 Open when you can’t sleep #4</div>
         <div class="letter" onclick="openLetter(this,'night5')">🌙 Open when you can’t sleep #5</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'lonely1')">🌫️ Open when you feel lonely #1</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'lonely2')">🌫️ Open when you feel lonely #2</div>
+          <!-- <div class="letter" onclick="openLetter(this,'lonely1')">🌫️ Open when you feel lonely #1</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'lonely2')">🌫️ Open when you feel lonely #2</div>
         <div class="letter" onclick="openLetter(this,'lonely3')">🌫️ Open when you feel lonely #3</div>
         <div class="letter" onclick="openLetter(this,'lonely4')">🌫️ Open when you feel lonely #4</div>
         <div class="letter" onclick="openLetter(this,'lonely5')">🌫️ Open when you feel lonely #5</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'happy1')">☀️ Open when you’re happy #1</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'happy2')">☀️ Open when you’re happy #2</div>
+          <!-- <div class="letter" onclick="openLetter(this,'happy1')">☀️ Open when you’re happy #1</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'happy2')">☀️ Open when you’re happy #2</div>
         <div class="letter" onclick="openLetter(this,'happy3')">☀️ Open when you’re happy #3</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'secure1')">🫶 Open when you need reassurance #1</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'secure2')">🫶 Open when you need reassurance #2</div>
+          <!-- <div class="letter" onclick="openLetter(this,'secure1')">🫶 Open when you need reassurance #1</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'secure2')">🫶 Open when you need reassurance #2</div>
         <div class="letter" onclick="openLetter(this,'secure3')">🫶 Open when you need reassurance #3</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'hug1')">🫂 Open when you need a hug #1</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'hug2')">🫂 Open when you need a hug #2</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'cry1')">😭 Open when you feel like crying</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'empty1')">🕳️ Open when you feel empty</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'tired1')">🪫 Open when you feel exhausted</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'lost1')">❓ Open when you feel lost</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'sad6')">😔 Open when you’re sad #6</div>
+          <!-- <div class="letter" onclick="openLetter(this,'hug1')">🫂 Open when you need a hug #1</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'hug2')">🫂 Open when you need a hug #2</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'cry1')">😭 Open when you feel like crying</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'empty1')">🕳️ Open when you feel empty</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'tired1')">🪫 Open when you feel exhausted</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'lost1')">❓ Open when you feel lost</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'sad6')">😔 Open when you’re sad #6</div>
         <div class="letter" onclick="openLetter(this,'sad7')">😔 Open when you’re sad #7</div>
         <div class="letter" onclick="openLetter(this,'sad8')">😔 Open when you’re sad #8</div>
         <div class="letter" onclick="openLetter(this,'sad9')">😔 Open when you’re sad #9</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'sad10')">😔 Open when you’re sad #10</div>      
+          <!-- <div class="letter" onclick="openLetter(this,'sad10')">😔 Open when you’re sad #10</div>      
         <div class="letter" onclick="openLetter(this,'miss6')">💭 Open when you miss me #6</div>
         <div class="letter" onclick="openLetter(this,'miss7')">💭 Open when you miss me #7</div>
         <div class="letter" onclick="openLetter(this,'miss8')">💭 Open when you miss me #8</div>
@@ -518,7 +520,7 @@
         <div class="letter" onclick="openLetter(this,'night10')">🌙 Open when you can’t sleep #10</div>      
         <div class="letter" onclick="openLetter(this,'secure4')">🫶 Open when you need reassurance #4</div>
         <div class="letter" onclick="openLetter(this,'secure5')">🫶 Open when you need reassurance #5</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'secure6')">🫶 Open when you need reassurance #6</div>    
+          <!-- <div class="letter" onclick="openLetter(this,'secure6')">🫶 Open when you need reassurance #6</div>    
         <div class="letter" onclick="openLetter(this,'hug3')">🫂 Open when you need a hug #3</div>
         <div class="letter" onclick="openLetter(this,'hug4')">🫂 Open when you need a hug #4</div>              
         <div class="letter" onclick="openLetter(this,'lonely6')">🌫️ Open when you feel lonely #6</div>
@@ -531,79 +533,60 @@
         <div class="letter" onclick="openLetter(this,'empty2')">🕳️ Open when you feel empty #2</div>
         <div class="letter" onclick="openLetter(this,'empty3')">🕳️ Open when you feel empty #3</div>              
         <div class="letter" onclick="openLetter(this,'hope1')">✨ Open when you need hope</div>-->
-        <!-- <div class="letter" onclick="openLetter(this,'strength1')">💪 Open when you need strength</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'patience1')">🕊️ Open when you need patience</div>  -->
-        <!-- <div class="letter" onclick="openLetter(this,'calm1')">🌿 Open when you need calm</div> -->
-        <!-- <div class="letter" onclick="openLetter(this,'love1')">🤍 Open when you need love</div> -->
-              
+          <!-- <div class="letter" onclick="openLetter(this,'strength1')">💪 Open when you need strength</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'patience1')">🕊️ Open when you need patience</div>  -->
+          <!-- <div class="letter" onclick="openLetter(this,'calm1')">🌿 Open when you need calm</div> -->
+          <!-- <div class="letter" onclick="openLetter(this,'love1')">🤍 Open when you need love</div> -->
+
+        </div>
       </div>
+
+      <!-- RIGHT: READING BOX -->
+      <div class="reading-panel">
+        <h2 class="open-title">📖 Read</h2>
+
+        <div class="letter-box glass">
+          <p id="letterText">Select a letter from the left 🤍</p>
+        </div>
+        <textarea id="replyText" placeholder="Write your reply here 🤍"></textarea>
+        <button class="send glass" onclick="sendReply()">Send Reply 💌</button>
+        <p id="replyStatus"></p>
+
+      </div>
+
     </div>
 
-    <!-- RIGHT: READING BOX -->
-    <div class="reading-panel">
-      <h2 class="open-title">📖 Read</h2>
-
-      <div class="letter-box glass">
-        <p id="letterText">Select a letter from the left 🤍</p>
-      </div>
-      <textarea id="replyText" placeholder="Write your reply here 🤍"></textarea>
-      <button class="send glass" onclick="sendReply()">Send Reply 💌</button>
-      <p id="replyStatus"></p>
-
-    </div>
-
-  </div>
-
-  <br>
-  <button class="glass back-btn" onclick="showMore()">← Back</button>
-</section>
+    <br>
+    <button class="glass back-btn" onclick="showMore()">← Back</button>
+  </section>
 
 
   <!-- ===== Express PAGE ===== -->
-<section id="expressPage" class="page hidden">
-  <h1 class="heading">Send me How Ya FEELIN today!!</h1>
+  <section id="expressPage" class="page hidden">
 
-  <div class="express-split send-feeling glass">
+    <h1 class="heading">Express 🤍</h1>
 
-    <!-- LEFT: BUTTONS -->
-    <div class="express-buttons">
+    <div class="express-wrap glass">
 
-      <h3>Send Feeling 🤍</h3>
+      <!-- LEFT: FEELING BUTTONS -->
+      <div class="express-buttons" id="expressButtons"></div>
 
-      <div class="feeling-buttons">
-        <button onclick="sendFeeling('missing')">🤍 Missing you</button>
-        <button onclick="sendFeeling('thinking')">💭 Thinking of you</button>
-        <button onclick="sendFeeling('close')">🫶 Feeling close</button>
-        <button onclick="sendFeeling('presence')">🧲 Wanting presence</button>
-        <button onclick="sendFeeling('longing')">🌙 Longing</button>
-        <button onclick="sendFeeling('attached')">🪶 Attached</button>
-        <button onclick="sendFeeling('happy')">😄 Happy</button>
-        <button onclick="sendFeeling('sad')">😔 Sad</button>
-        <button onclick="sendFeeling('lonely')">🌫️ Lonely</button>
-        <button onclick="sendFeeling('hug')">🤗 Need hug</button>
+      <!-- RIGHT: FEELING LOG -->
+      <div class="express-log">
+        <div id="expressLog">Loading feelings…</div>
+
+        <div class="express-input">
+          <input id="customFeeling" placeholder="Type a feeling..." />
+          <button onclick="sendCustomFeeling()">Send</button>
+        </div>
       </div>
 
     </div>
 
-    <!-- RIGHT: HISTORY -->
-    <div class="express-history">
+    <br>
+    <button class="glass back-btn" onclick="showMore()">← Back</button>
 
-      <h3>Our Feelings Log</h3>
-
-      <div id="expressHistoryBox"></div>
-
-    </div>
-
-  </div>
-
-  <br>
-  <button class="glass back-btn" onclick="showMore()">← Back</button>
-
-</section>
-
-
-
-
+  </section>
   <!-- ===== KHASS PAGE ===== -->
   <section id="khaasPage" class="page hidden">
     <h1 class="heading">SOME MORE THINGS FOR YA!!</h1>
@@ -645,14 +628,11 @@
 
         <h3>💬 Your Reply</h3>
 
-        <textarea
-          id="specialReplyText"
-          placeholder="Write your reply here 🤍"
-          style="width:100%;min-height:90px;border:none;border-radius:12px;padding:10px;font-family:inherit;margin-top:8px;"
-        ></textarea>
+        <textarea id="specialReplyText" placeholder="Write your reply here 🤍"
+          style="width:100%;min-height:90px;border:none;border-radius:12px;padding:10px;font-family:inherit;margin-top:8px;"></textarea>
 
-        
-      
+
+
         <p id="specialReplyStatus" style="margin-top:6px;font-size:13px"></p>
       </div>
 
@@ -676,7 +656,7 @@
 
     </div>
     <button class="glass back-btn" onclick="sendSpecialReply()">
-          Send to him 💌
+      Send to him 💌
     </button>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
   </section>
@@ -688,7 +668,7 @@
   <div id="musicBar" class="glass romantic-bar">
     <div class="player">
 
-      
+
 
 
       <!-- Cover Art -->
@@ -717,24 +697,51 @@
 
     </div>
   </div>
-  
+
 
   <div id="songMenu" class="song-menu hidden">
     <h3>Choose your mood 🤍</h3>
 
-    <input 
-      id="songSearch" 
-      type="text" 
-      placeholder="Search song..." 
-      oninput="filterSongs(this.value)"
-    >
+    <input id="songSearch" type="text" placeholder="Search song..." oninput="filterSongs(this.value)">
 
     <div id="songList"></div>
   </div>
 
 
+  <script type="module">
 
+    import { initializeApp } from
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+      getDatabase,
+      ref,
+      push,
+      onValue
+    } from
+      "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDaym6RRGagDH8kt9Teuao-HooyTF6YkwQ",
+      authDomain: "daily-fluffy-express.firebaseapp.com",
+      databaseURL: "https://daily-fluffy-express-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "daily-fluffy-express",
+      storageBucket: "daily-fluffy-express.firebasestorage.app",
+      messagingSenderId: "8242405986",
+      appId: "1:8242405986:web:1d888a1338f62aa0ffe73b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.db = db;
+    window.ref = ref;
+    window.push = push;
+    window.onValue = onValue;
+
+  </script>
   <script src="https://unpkg.com/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
   <script src="script.js"></script>
 </body>
+
 </html>

@@ -319,40 +319,6 @@ body {
   line-height: 1.6;
 }
 
-/* ===== SEND A FEELING ===== */
-.send-feeling {
-  width: min(90vw, 520px);
-  height: 350px;
-  margin: 20px auto;
-  padding: 20px;
-  text-align: center;
-  overflow: auto;
-}
-
-.feeling-title {
-  font-family: 'Irish Grover', cursive;
-  color: #a63a6f;
-  margin-bottom: 16px;
-}
-
-.feeling-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-.feeling-buttons button {
-  background: rgba(255,255,255,0.5);
-  border: none;
-  border-radius: 16px;
-  padding: 14px;
-  cursor: pointer;
-  font-size: 22px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform .15s ease;
-}
 
 
 .letter {
@@ -1432,45 +1398,81 @@ textarea{
 }
 
 
+/* ===== EXPRESS PAGE ===== */
 
-.express-split{
+.express-wrap{
   width:min(95vw,900px);
   height:420px;
-  margin:20px auto;
-  padding:16px;
+  margin:auto;
   display:flex;
   gap:16px;
+  padding:16px;
 }
 
+/* LEFT BUTTON PANEL */
 .express-buttons{
-  flex:1;
+  width:260px;
   overflow-y:auto;
-  font-family: 'Irish Grover', cursive;
-  color: #a63a6f;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
-.express-buttons button span {
-  font-size: 20px;
-  margin-top: 6px;
-  color: #a63a6f;
-  font-family: "Single Day", cursive;
-  font-weight: 400;
-  font-style: normal;
+.express-buttons button{
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ffd6e7;
+  color:#a63a6f;
+  cursor:pointer;
+  font-family:"Single Day",cursive;
 }
-.express-history{
+
+.express-buttons button:hover{
+  background:#ffb6d1;
+}
+
+/* RIGHT LOG PANEL */
+.express-log{
   flex:1;
   display:flex;
   flex-direction:column;
 }
 
-#expressHistoryBox{
+#expressLog{
   flex:1;
   overflow-y:auto;
-  padding:14px;
-  background:rgba(255,255,255,0.45);
+  padding:12px;
   border-radius:14px;
-  text-align:left;
-  
-  font-size:15px;
+  background:rgba(255,255,255,.6);
+  font-size:14px;
   color:#4a1f35;
+}
+
+.express-entry{
+  margin-bottom:10px;
+  padding-bottom:6px;
+  border-bottom:1px solid rgba(0,0,0,.1);
+}
+
+.express-input{
+  display:flex;
+  gap:6px;
+  margin-top:10px;
+}
+
+.express-input input{
+  flex:1;
+  padding:8px;
+  border-radius:10px;
+  border:none;
+}
+
+.express-input button{
+  padding:8px 14px;
+  border:none;
+  border-radius:10px;
+  background:#a63a6f;
+  color:white;
+  cursor:pointer;
 }

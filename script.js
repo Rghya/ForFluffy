@@ -2475,15 +2475,21 @@ async function startShare() {
 
   const stream = await navigator.mediaDevices.getDisplayMedia({
     video: {
-      cursor: "always",
-      frameRate: 30
+      width: 1280,
+      height: 720,
+      frameRate: 24
     },
-    audio: true
+    audio: {
+      echoCancellation: true,
+      noiseSuppression: true
+    }
   });
 
   document.getElementById("remoteVideo").srcObject = stream;
 
 }
+
+
 
 
 function stopShare() {

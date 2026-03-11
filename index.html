@@ -113,42 +113,42 @@
 
   <!-- ===== DOODLE PAGE ===== -->
   <!-- ===== DOODLE PAGE ===== -->
-<section id="doodlePage" class="page hidden">
+  <section id="doodlePage" class="page hidden">
 
-  <h1 class="heading">Draw something for me 🤍</h1>
-  
-  <div class="doodle-layout">
-  
-    <!-- LEFT: CANVAS -->
-    <div class="glass doodle-wrap">
-    
-      <canvas id="doodleCanvas"></canvas>
-    
-      <div class="doodle-toolbar">
-        <input type="color" id="brushColor" value="#a63a6f">
-        <input type="range" id="brushSize" min="1" max="20" value="5">
-      
-        <button onclick="setTool('pen')">✏️</button>
-        <button onclick="setTool('eraser')">🧽</button>
-        <button onclick="undoStroke()">↩️</button>
-        <button onclick="clearDoodle()">🗑️</button>
-        <button onclick="saveDoodleFirebase()">💌</button>
+    <h1 class="heading">Draw something for me 🤍</h1>
+
+    <div class="doodle-layout">
+
+      <!-- LEFT: CANVAS -->
+      <div class="glass doodle-wrap">
+
+        <canvas id="doodleCanvas"></canvas>
+
+        <div class="doodle-toolbar">
+          <input type="color" id="brushColor" value="#a63a6f">
+          <input type="range" id="brushSize" min="1" max="20" value="5">
+
+          <button onclick="setTool('pen')">✏️</button>
+          <button onclick="setTool('eraser')">🧽</button>
+          <button onclick="undoStroke()">↩️</button>
+          <button onclick="clearDoodle()">🗑️</button>
+          <button onclick="saveDoodleFirebase()">💌</button>
+        </div>
+
       </div>
-    
-    </div>
-  
-    <!-- RIGHT: SAVED DOODLES -->
-    <div class="glass doodle-gallery">
-      <h3>Our Doodles 🎨</h3>
-      <div id="doodleList"></div>
-    </div>
-  
-  </div>
-  
-  <br>
-  <button class="glass back-btn" onclick="showMore()">← Back</button>
 
-</section>
+      <!-- RIGHT: SAVED DOODLES -->
+      <div class="glass doodle-gallery">
+        <h3>Our Doodles 🎨</h3>
+        <div id="doodleList"></div>
+      </div>
+
+    </div>
+
+    <br>
+    <button class="glass back-btn" onclick="showMore()">← Back</button>
+
+  </section>
 
 
 
@@ -337,14 +337,41 @@
 
   <!-- ===== Reply PAGE ===== -->
   <section id="replyPage" class="page hidden">
-    <h1 class="heading">My Replies 🤍</h1>
 
-    <div id="replyList" class="receive glass" style="width:min(90vw,520px);margin:auto;padding:16px">
-      Loading replies…
+    <h1 class="heading">Watch Together 🎬</h1>
+
+    <div class="watch-layout">
+
+      <!-- VIDEO -->
+      <div class="watch-video">
+
+        <video id="remoteVideo" autoplay playsinline></video>
+
+        <div class="watch-controls">
+          <button onclick="startShare()">Share Screen</button>
+          <button onclick="stopShare()">Stop</button>
+        </div>
+
+      </div>
+
+      <!-- CHAT -->
+      <div class="glass watch-chat">
+
+        <div id="watchMessages"></div>
+
+        <div class="chat-input">
+          <input id="watchInput" placeholder="Message..." />
+          <button onclick="sendWatchMsg()">Send</button>
+        </div>
+
+      </div>
     </div>
+
+
 
     <br>
     <button class="glass back-btn" onclick="showMore()">← Back</button>
+
   </section>
 
   <!-- ===== GROWTH PAGE ===== -->

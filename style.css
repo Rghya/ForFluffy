@@ -1506,3 +1506,48 @@ textarea{
 .doodle-thumb:hover{
   transform:scale(1.03);
 }
+
+.watch-layout{
+  width:min(95vw,1000px);
+  margin:auto;
+  display:flex;
+  gap:16px;
+}
+
+.watch-video{
+  flex:2;
+  padding:16px;
+}
+
+.watch-chat{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:12px;
+  overflow:auto;
+  height : 200px;
+}
+
+#watchMessages{
+  flex:1;
+  overflow-y:auto;
+}
+
+.chat-input{
+  display:flex;
+  gap:6px;
+}
+
+.watch-video{
+flex:2;
+position:relative;
+overflow:hidden;
+}
+
+#remoteVideo{
+width:100%;
+height:100%;
+object-fit:contain;
+border-radius:20px;
+background:black;
+}

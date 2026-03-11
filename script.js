@@ -304,7 +304,8 @@ function showReplyPage() {
   hideAllPages();
   replyPage.classList.remove("hidden");
   startEmojiRain(love2Emoji);
-  loadReplies();
+  // loadReplies();
+  loadWatchChat();
 }
 
 
@@ -360,7 +361,7 @@ function showMore() {
 }
 let expressInterval;
 
-function showExpress(){
+function showExpress() {
   hideAllPages();
   expressPage.classList.remove("hidden");
 
@@ -459,23 +460,23 @@ async function loadDailyNote() {
 
 loadDailyNote();
 
-function loadNote(){
+function loadNote() {
 
-  const day = new Date().toISOString().slice(0,10);
+  const day = new Date().toISOString().slice(0, 10);
 
-  onValue(ref(db,"notes/"+day),(snapshot)=>{
+  onValue(ref(db, "notes/" + day), (snapshot) => {
 
     const data = snapshot.val();
     const box = document.getElementById("dailyNote");
 
-    if(!data){
-      box.textContent="Waiting for note 🤍";
+    if (!data) {
+      box.textContent = "Waiting for note 🤍";
       return;
     }
 
-    const partner = Object.keys(data).find(k=>k!==user);
+    const partner = Object.keys(data).find(k => k !== user);
 
-    if(partner){
+    if (partner) {
       box.textContent = data[partner].text;
     }
 
@@ -894,7 +895,7 @@ async function sendFeeling(type) {
 
   const text = map[type] || type;
 
-  push(ref(db,"expressLogs"),{
+  push(ref(db, "expressLogs"), {
     user,
     feeling: text,
     time: Date.now()
@@ -1721,19 +1722,19 @@ perspectiveObserver.observe(
   { attributes: true, attributeFilter: ["class"] }
 );
 
-function sendDayShare(){
+function sendDayShare() {
 
   const text = document.getElementById("dayShareText").value.trim();
-  if(!text) return;
+  if (!text) return;
 
-  const day = new Date().toISOString().slice(0,10);
+  const day = new Date().toISOString().slice(0, 10);
 
-  set(ref(db,"notes/"+day+"/"+user),{
+  set(ref(db, "notes/" + day + "/" + user), {
     text,
     time: Date.now()
   });
 
-  document.getElementById("dayShareText").value="";
+  document.getElementById("dayShareText").value = "";
 }
 /* ===== MUTUAL MICRO CONNECTION ===== */
 
@@ -1935,7 +1936,7 @@ function finishEnergy() {
     redraw();
   };
 
-  
+
 
 
   /* ===== EVENTS ===== */
@@ -1950,11 +1951,11 @@ function finishEnergy() {
 })();
 
 
-function saveDoodleFirebase(){
+function saveDoodleFirebase() {
 
   const img = exportWithWhiteBG();
 
-  push(ref(db,"doodles"),{
+  push(ref(db, "doodles"), {
     user,
     image: img,
     time: Date.now()
@@ -1962,28 +1963,28 @@ function saveDoodleFirebase(){
 
 }
 
-function loadDoodles(){
+function loadDoodles() {
 
   const box = document.getElementById("doodleList");
 
-  onValue(ref(db,"doodles"),(snapshot)=>{
+  onValue(ref(db, "doodles"), (snapshot) => {
 
     const data = snapshot.val();
 
-    box.innerHTML="";
+    box.innerHTML = "";
 
-    if(!data) return;
+    if (!data) return;
 
     const arr = Object.values(data)
-      .sort((a,b)=>b.time-a.time);
+      .sort((a, b) => b.time - a.time);
 
-    arr.forEach(d=>{
+    arr.forEach(d => {
 
       const img = document.createElement("img");
       img.src = d.image;
-      img.className="doodle-thumb";
+      img.className = "doodle-thumb";
 
-      img.onclick = ()=>{
+      img.onclick = () => {
         openDoodleViewer(d.image);
       };
 
@@ -1996,27 +1997,27 @@ function loadDoodles(){
 }
 
 
-function openDoodleViewer(src){
+function openDoodleViewer(src) {
 
   const viewer = document.createElement("div");
 
-  viewer.style.position="fixed";
-  viewer.style.inset="0";
-  viewer.style.background="rgba(0,0,0,.8)";
-  viewer.style.display="flex";
-  viewer.style.alignItems="center";
-  viewer.style.justifyContent="center";
-  viewer.style.zIndex="99999";
+  viewer.style.position = "fixed";
+  viewer.style.inset = "0";
+  viewer.style.background = "rgba(0,0,0,.8)";
+  viewer.style.display = "flex";
+  viewer.style.alignItems = "center";
+  viewer.style.justifyContent = "center";
+  viewer.style.zIndex = "99999";
 
   const img = document.createElement("img");
   img.src = src;
-  img.style.maxWidth="90vw";
-  img.style.maxHeight="90vh";
-  img.style.borderRadius="20px";
+  img.style.maxWidth = "90vw";
+  img.style.maxHeight = "90vh";
+  img.style.borderRadius = "20px";
 
   viewer.appendChild(img);
 
-  viewer.onclick = ()=>viewer.remove();
+  viewer.onclick = () => viewer.remove();
 
   document.body.appendChild(viewer);
 
@@ -2298,81 +2299,81 @@ checkPresence();
 
 
 const EXPRESS_LIST = [
-"missing you",
-"thinking about you",
-"need you",
-"want a hug",
-"want your voice",
-"feeling lonely",
-"feeling sad",
-"feeling tired",
-"overthinking",
-"feeling anxious",
+  "missing you",
+  "thinking about you",
+  "need you",
+  "want a hug",
+  "want your voice",
+  "feeling lonely",
+  "feeling sad",
+  "feeling tired",
+  "overthinking",
+  "feeling anxious",
 
-"feeling calm",
-"feeling safe",
-"feeling peaceful",
+  "feeling calm",
+  "feeling safe",
+  "feeling peaceful",
 
-"feeling happy",
-"smiling because of you",
-"feeling grateful",
+  "feeling happy",
+  "smiling because of you",
+  "feeling grateful",
 
-"feeling naughty",
-"feeling flirty",
-"want to tease you",
-"feeling playful",
+  "feeling naughty",
+  "feeling flirty",
+  "want to tease you",
+  "feeling playful",
 
-"need reassurance",
-"need comfort",
-"need attention",
-"want you near",
+  "need reassurance",
+  "need comfort",
+  "need attention",
+  "want you near",
 
-"thinking of our memories",
-"missing your touch",
-"want to see you",
-"wish you were here",
+  "thinking of our memories",
+  "missing your touch",
+  "want to see you",
+  "wish you were here",
 
-"feeling excited",
-"feeling hopeful",
-"feeling lucky",
+  "feeling excited",
+  "feeling hopeful",
+  "feeling lucky",
 
-"feeling jealous",
-"feeling clingy",
-"want cuddles",
-"want kisses",
+  "feeling jealous",
+  "feeling clingy",
+  "want cuddles",
+  "want kisses",
 
-"thinking deeply",
-"mind is restless",
-"need quiet",
+  "thinking deeply",
+  "mind is restless",
+  "need quiet",
 
-"feeling proud of us",
-"feeling attached",
-"heart feels full",
+  "feeling proud of us",
+  "feeling attached",
+  "heart feels full",
 
-"want to talk",
-"want to listen",
-"want to laugh",
+  "want to talk",
+  "want to listen",
+  "want to laugh",
 
-"want to stay with you",
-"thinking about future",
-"feeling emotional"
+  "want to stay with you",
+  "thinking about future",
+  "feeling emotional"
 ];
 
-function buildExpressButtons(){
-  const box=document.getElementById("expressButtons");
-  box.innerHTML="";
+function buildExpressButtons() {
+  const box = document.getElementById("expressButtons");
+  box.innerHTML = "";
 
-  EXPRESS_LIST.forEach(f=>{
-    const btn=document.createElement("button");
-    btn.textContent=f;
-    btn.onclick=()=>sendExpressFeeling(f);
+  EXPRESS_LIST.forEach(f => {
+    const btn = document.createElement("button");
+    btn.textContent = f;
+    btn.onclick = () => sendExpressFeeling(f);
     box.appendChild(btn);
   });
 }
 
 buildExpressButtons();
 
-function sendExpressFeeling(feeling){
+function sendExpressFeeling(feeling) {
 
   const entry = {
     user,
@@ -2380,40 +2381,39 @@ function sendExpressFeeling(feeling){
     time: Date.now()
   };
 
-  push(ref(db,"expressLogs"),entry);
+  push(ref(db, "expressLogs"), entry);
 
 }
-function sendCustomFeeling(){
-  const txt=document.getElementById("customFeeling").value.trim();
-  if(!txt) return;
+function sendCustomFeeling() {
+  const txt = document.getElementById("customFeeling").value.trim();
+  if (!txt) return;
 
   sendExpressFeeling(txt);
-  document.getElementById("customFeeling").value="";
+  document.getElementById("customFeeling").value = "";
 }
 
-function loadExpressLog(){
+function loadExpressLog() {
 
   const box = document.getElementById("expressLog");
 
-  onValue(ref(db,"expressLogs"),(snapshot)=>{
+  onValue(ref(db, "expressLogs"), (snapshot) => {
 
     const data = snapshot.val();
 
-    box.innerHTML="";
+    box.innerHTML = "";
 
-    if(!data) return;
+    if (!data) return;
 
     const arr = Object.values(data)
-      .sort((a,b)=>b.time-a.time);
+      .sort((a, b) => b.time - a.time);
 
-    arr.forEach(m=>{
+    arr.forEach(m => {
 
       const div = document.createElement("div");
-      div.className="express-entry";
+      div.className = "express-entry";
 
       div.textContent =
-        `${m.user} ${m.feeling} at ${
-        new Date(m.time).toLocaleString()
+        `${m.user} ${m.feeling} at ${new Date(m.time).toLocaleString()
         }`;
 
       box.appendChild(div);
@@ -2421,5 +2421,83 @@ function loadExpressLog(){
     });
 
   });
+
+}
+
+function sendWatchMsg() {
+
+  const txt = document.getElementById("watchInput").value.trim();
+  if (!txt) return;
+
+  push(ref(db, "watchChat"), {
+    user,
+    text: txt,
+    time: Date.now()
+  });
+
+  document.getElementById("watchInput").value = "";
+}
+
+function loadWatchChat() {
+
+  const box = document.getElementById("watchMessages");
+
+  onValue(ref(db, "watchChat"), (snapshot) => {
+
+    const data = snapshot.val();
+
+    box.innerHTML = "";
+
+    if (!data) return;
+
+    const arr = Object.values(data)
+      .sort((a, b) => a.time - b.time);
+
+    arr.forEach(m => {
+
+      const div = document.createElement("div");
+      div.className = "watch-entry";
+
+      div.textContent =
+        `${m.user}: ${m.text} at ${new Date(m.time).toLocaleTimeString()}`;
+
+      box.appendChild(div);
+
+    });
+
+  });
+
+}
+
+let localStream;
+
+async function startShare() {
+
+  const stream = await navigator.mediaDevices.getDisplayMedia({
+    video: {
+      cursor: "always",
+      frameRate: 30
+    },
+    audio: true
+  });
+
+  document.getElementById("remoteVideo").srcObject = stream;
+
+}
+
+
+function stopShare() {
+
+  if (localStream) {
+    localStream.getTracks().forEach(t => t.stop());
+  }
+
+}
+
+function stopShare() {
+
+  if (localStream) {
+    localStream.getTracks().forEach(t => t.stop());
+  }
 
 }

@@ -3,6 +3,15 @@
 // New bg added : add in const bgs
 
 
+let pc;
+let localStream;
+
+const servers = {
+  iceServers: [
+    { urls: "stun:stun.l.google.com:19302" }
+  ]
+};
+
 
 const WORKER_URL = "https://daily-fluffy-api.arghyadeepsahoo1.workers.dev";
 let pairId = localStorage.getItem("pairId") || null;
@@ -123,7 +132,7 @@ document.getElementById("loginBtn").onclick = async () => {
     "assets/bg44.png",
     "assets/bg45.png",
     "assets/bg46.png",
-    "assets/bg47.png"
+    "assets/bg47.png",
     // "assets/bg48.png",
     // "assets/bg49.png",
     // "assets/bg50.png",
@@ -2648,24 +2657,31 @@ function loadWatchChat() {
 
 }
 
-let localStream;
+
 
 async function startShare() {
 
-  const stream = await navigator.mediaDevices.getDisplayMedia({
-    video: {
-      width: 1280,
-      height: 720,
-      frameRate: 24
-    },
-    audio: {
-      echoCancellation: true,
-      noiseSuppression: true
-    }
+  localStream = await navigator.mediaDevices.getDisplayMedia({
+    video: true,
+    audio: true
   });
 
-  document.getElementById("remoteVideo").srcObject = stream;
+  pc = new RTCPeerConnection(servers);
 
+  localStream.getTracks().forEach(track => {
+    pc.addTrack(track, localStream);
+  });
+
+  pc.onicecandidate = e => {
+    if (e.candidate) {
+      push(ref(db, roomPath + "/candidates"), e.candidate.toJSON());
+    }
+  };
+
+  const offer = await pc.createOffer();
+  await pc.setLocalDescription(offer);
+
+  await set(ref(db, roomPath + "/offer"), offer);
 }
 
 
@@ -2677,16 +2693,13 @@ function stopShare() {
     localStream.getTracks().forEach(t => t.stop());
   }
 
-}
-
-function stopShare() {
-
-  if (localStream) {
-    localStream.getTracks().forEach(t => t.stop());
+  if (pc) {
+    pc.close();
+    pc = null;
   }
 
+  document.getElementById("remoteVideo").srcObject = null;
 }
-
 function loadJournal(day) {
 
   const box =
@@ -2831,3 +2844,61 @@ function saveJournal() {
     .textContent = "Saved ✨";
 
 }
+
+
+const roomPath = "watchRoom/" + pairId;
+
+
+
+onValue(ref(db, roomPath + "/offer"), async snap => {
+
+  const offer = snap.val();
+  if (!offer) return;
+
+  if (!pc) {
+
+    pc = new RTCPeerConnection(servers);
+
+    pc.ontrack = e => {
+      document.getElementById("remoteVideo").srcObject = e.streams[0];
+    };
+
+    pc.onicecandidate = e => {
+      if (e.candidate) {
+        push(ref(db, roomPath + "/candidates"), e.candidate.toJSON());
+      }
+    };
+
+    await pc.setRemoteDescription(offer);
+
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+
+    set(ref(db, roomPath + "/answer"), answer);
+  }
+
+});
+
+
+onValue(ref(db, roomPath + "/answer"), async snap => {
+
+  const answer = snap.val();
+  if (!answer || !pc) return;
+
+  if (!pc.currentRemoteDescription) {
+    await pc.setRemoteDescription(answer);
+  }
+
+});
+
+
+
+onValue(ref(db, roomPath + "/candidates"), snap => {
+
+  snap.forEach(c => {
+    const candidate = new RTCIceCandidate(c.val());
+    pc.addIceCandidate(candidate);
+  });
+
+});
+

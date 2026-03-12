@@ -111,6 +111,40 @@
     <button class="glass back-btn" onclick="showHome()">← Back</button>
   </section>
 
+  <section id="journalPage" class="page hidden">
+
+    <h1 class="heading">Our Journal 📖</h1>
+
+    <div class="journal-layout">
+    
+      <!-- LEFT: DATE LIST -->
+      <div class="journal-dates glass">
+        <h3>Entries</h3>
+        <div id="journalList"></div>
+      </div>
+    
+      <!-- RIGHT: JOURNAL PAGE -->
+      <div class="journal-wrap glass">
+      
+        <div class="journal-date" id="journalDate"></div>
+      
+        <textarea
+          id="journalText"
+          placeholder="Write about today together..."
+        ></textarea>
+      
+        <div id="journalStatus" class="journal-status"></div>
+      
+      </div>
+    
+    </div>
+
+    <br>
+    <button class="glass back-btn" onclick="showMore()">← Back</button>
+
+  </section>
+
+
   <!-- ===== DOODLE PAGE ===== -->
   <!-- ===== DOODLE PAGE ===== -->
   <section id="doodlePage" class="page hidden">
@@ -133,6 +167,7 @@
           <button onclick="undoStroke()">↩️</button>
           <button onclick="clearDoodle()">🗑️</button>
           <button onclick="saveDoodleFirebase()">💌</button>
+          <!-- <button onclick="saveEditedDoodle()">Save Edit</button> -->
         </div>
 
       </div>
@@ -141,6 +176,11 @@
       <div class="glass doodle-gallery">
         <h3>Our Doodles 🎨</h3>
         <div id="doodleList"></div>
+      </div>
+
+      <div id="doodleOptionBox" class="glass hidden">
+        <button onclick="viewDoodle()">👁 View</button>
+        <button onclick="editDoodle()">✏ Edit</button>
       </div>
 
     </div>
@@ -632,13 +672,27 @@
 
 
     <br>
-    <button class="glass back-btn" onclick="showExpress()">Express!!</button>
-    <button class="glass back-btn" onclick="showOW()">Open Whens!!</button>
-    <button class="glass back-btn" onclick="showGrowth()">Growth Timeline!!</button>
-    <button class="glass back-btn" onclick="showRepairPage()">We are not OKKI</button>
-    <button class="glass back-btn" onclick="showCount()">CountDowns!!</button>
-    <button class="glass back-btn" onclick="showDoodle()">Doodle!!</button>
-    <button class="glass back-btn" onclick="showReplyPage()">His Replies!!</button>
+    <div class="khaas-grid">
+
+      <button class="khaas-btn" onclick="showExpress()">💭 Express</button>
+
+      <button class="khaas-btn" onclick="showJournalPage()">📖 Journal</button>
+
+      <button class="khaas-btn" onclick="showDoodle()">🎨 Doodle</button>
+
+      <button class="khaas-btn" onclick="showOW()">💌 Open Whens</button>
+
+      <button class="khaas-btn" onclick="showReplyPage()">🎬 Movie Theatre</button>
+
+      <button class="khaas-btn" onclick="showRepairPage()">🤍 We Not OKKI</button>
+
+      <button class="khaas-btn" onclick="showGrowth()">🌱 Growth</button>
+
+      <button class="khaas-btn" onclick="showCount()">⏳ Countdowns</button>
+
+    </div>
+
+    
     <br>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
   </section>
@@ -756,6 +810,7 @@
       getDatabase,
       ref,
       push,
+      set,
       onValue
     } from
       "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -776,6 +831,7 @@
     window.db = db;
     window.ref = ref;
     window.push = push;
+    window.set = set;
     window.onValue = onValue;
 
   </script>

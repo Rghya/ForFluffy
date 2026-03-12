@@ -319,6 +319,90 @@ body {
   line-height: 1.6;
 }
 
+.khaas-grid{
+
+  width:min(95vw,700px);
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:18px;
+
+}
+
+/* ===== KHAAS FEATURE BUTTONS ===== */
+
+.khaas-btn{
+
+  width:min(90vw,420px);
+
+  padding:22px;
+
+  margin:10px auto;
+
+  display:block;
+
+  border:none;
+
+  border-radius:22px;
+
+  font-size:24px;
+
+  font-family:"Patrick Hand", cursive;
+
+  color:#a63a6f;
+
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.85),
+    rgba(255,240,245,.75)
+  );
+
+  box-shadow:
+  0 10px 24px rgba(0,0,0,.18),
+  inset 0 0 10px rgba(255,255,255,.4);
+
+  cursor:pointer;
+
+  transition:all .25s ease;
+
+}
+
+
+
+.khaas-btn:active{
+  transform:scale(.94);
+}
+
+/* .khaas-btn::before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  border-radius:22px;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,122,162,.25),
+    transparent
+  );
+
+  opacity:0;
+
+  transition:.3s;
+
+} */
+
+.khaas-btn:hover::before{
+  opacity:1;
+}
 
 
 .letter {
@@ -1120,9 +1204,119 @@ textarea{
   font-family:inherit;
 }
 
-#notePage button{
-  margin-top:12px;
+#notePage .note{
+
+  width:min(90vw,560px);
+
+  padding:26px;
+
+  border-radius:22px;
+
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.8),
+    rgba(255,240,245,.7)
+  );
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,.18);
+
+  font-family:"Inria Serif", serif;
+
+  line-height:1.7;
+
 }
+
+#dailyNote{
+
+  font-size:17px;
+
+  color:#4a1f35;
+
+  text-align:left;
+
+  position:relative;
+
+}
+
+#dailyNote::before{
+
+  content:"❝";
+
+  position:absolute;
+
+  top:-14px;
+  left:-6px;
+
+  font-size:40px;
+
+  color:#ff7aa2;
+
+  opacity:.5;
+
+}
+
+#dayShareText{
+
+  width:100%;
+
+  min-height:180px;
+
+  padding:18px;
+
+  border-radius:16px;
+
+  border:none;
+
+  font-family:"Patrick Hand", cursive;
+
+  font-size:18px;
+
+  line-height:32px;
+
+  color:#4a1f35;
+
+  background:
+  repeating-linear-gradient(
+    white,
+    white 30px,
+    #ffd6e7 31px
+  );
+
+  resize:none;
+
+}
+
+#notePage button{
+
+  margin-top:14px;
+
+  font-family:"Patrick Hand", cursive;
+
+  font-size:20px;
+
+  color:white;
+
+  background:linear-gradient(
+    135deg,
+    #ff7aa2,
+    #a63a6f
+  );
+
+  padding:14px;
+
+  border-radius:16px;
+
+  border:none;
+
+  cursor:pointer;
+
+  transition:.2s;
+
+}
+
+
+
 
 /* ===== MICRO CONNECTION PAGE ===== */
 
@@ -1551,3 +1745,478 @@ object-fit:contain;
 border-radius:20px;
 background:black;
 }
+
+
+/* DOODLE OPTION POPUP */
+#doodleOptionBox{
+  position:fixed;
+  bottom:65px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:14px;
+  padding:12px 18px;
+
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  border-radius:16px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  z-index:9999;
+
+  animation:doodlePop .25s ease;
+}
+
+/* BUTTON STYLE */
+#doodleOptionBox button{
+
+  padding:10px 18px;
+  border:none;
+  border-radius:12px;
+
+  font-size:14px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  background:rgba(255,255,255,0.9);
+  color:#333;
+
+  transition:all .2s ease;
+}
+
+/* HOVER EFFECT */
+#doodleOptionBox button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 5px 12px rgba(0,0,0,0.25);
+}
+
+/* VIEW BUTTON COLOR */
+#doodleOptionBox button:first-child{
+  background:#ffffff;
+}
+
+/* EDIT BUTTON COLOR */
+#doodleOptionBox button:last-child{
+  background:#ffd8e4;
+}
+
+/* POP ANIMATION */
+@keyframes doodlePop{
+  from{
+    transform:translateX(-50%) scale(.8);
+    opacity:0;
+  }
+  to{
+    transform:translateX(-50%) scale(1);
+    opacity:1;
+  }
+}
+
+#doodleOptionBox button:active{
+  transform:scale(.95);
+}
+
+
+/* ===== MOVIE THEATRE ===== */
+
+.watch-layout{
+  width:min(95vw,1100px);
+  margin:auto;
+  display:flex;
+  gap:20px;
+  align-items:stretch;
+}
+
+/* VIDEO SIDE */
+.watch-video{
+  flex:2;
+  position:relative;
+  padding:18px;
+  border-radius:22px;
+
+  background:linear-gradient(
+    180deg,
+    rgba(0,0,0,0.9),
+    rgba(0,0,0,0.6)
+  );
+
+  box-shadow:
+  0 0 40px rgba(0,0,0,0.5),
+  inset 0 0 40px rgba(0,0,0,0.7);
+}
+
+/* VIDEO PLAYER */
+#remoteVideo{
+  width:100%;
+  height:480px;
+  object-fit:contain;
+  border-radius:18px;
+  background:black;
+
+  box-shadow:
+  0 0 40px rgba(255,120,150,0.25);
+}
+
+.watch-video::before{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius:26px;
+
+  background:linear-gradient(
+    90deg,
+    #ff7aa2,
+    #a63a6f,
+    #ff7aa2
+  );
+
+  filter:blur(20px);
+  opacity:.4;
+  z-index:-1;
+}
+
+.watch-chat{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+
+  padding:16px;
+  border-radius:20px;
+
+  background:rgba(255,255,255,.35);
+  backdrop-filter:blur(10px);
+
+  height:480px;
+}
+
+/* chat messages */
+#watchMessages{
+  flex:1;
+  overflow-y:auto;
+  padding:8px;
+}
+
+/* each message */
+.watch-msg{
+  margin-bottom:10px;
+  padding:8px 12px;
+  border-radius:12px;
+
+  background:white;
+  color:#4a1f35;
+
+  max-width:85%;
+  font-size:14px;
+}
+
+/* partner msg */
+.watch-msg.them{
+  background:#ffd6e7;
+}
+
+/* your msg */
+.watch-msg.me{
+  margin-left:auto;
+  background:#a63a6f;
+  color:white;
+}
+
+.chat-input{
+  display:flex;
+  gap:6px;
+  margin-top:10px;
+}
+
+.chat-input input{
+  flex:1;
+  padding:10px;
+  border-radius:12px;
+  border:none;
+}
+
+.chat-input button{
+  padding:10px 16px;
+  border:none;
+  border-radius:12px;
+  background:#a63a6f;
+  color:white;
+  cursor:pointer;
+}
+
+#replyPage .heading{
+  text-shadow:
+  0 0 10px #ff7aa2,
+  0 0 20px #ff7aa2;
+}
+
+/* ===== THEATRE CHAT TEXT ===== */
+
+.watch-msg{
+  font-family: "Single Day", cursive;
+  font-size:16px;
+  line-height:1.5;
+
+  padding:10px 14px;
+  border-radius:14px;
+  margin-bottom:10px;
+
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* your message */
+.watch-msg.me{
+  background:linear-gradient(
+    135deg,
+    #ff7aa2,
+    #a63a6f
+  );
+  color:white;
+}
+
+/* partner message */
+.watch-msg.them{
+  background:rgba(255,255,255,0.85);
+  color:#4a1f35;
+}
+
+.chat-input input{
+
+  font-family:"Patrick Hand", cursive;
+  font-size:16px;
+
+  color:#4a1f35;
+
+  background:rgba(255,255,255,0.8);
+
+  border-radius:14px;
+  padding:12px;
+
+  box-shadow:
+  inset 0 0 6px rgba(0,0,0,0.1);
+}
+
+.chat-input button{
+
+  font-family:"Single Day", cursive;
+  font-size:16px;
+
+  background:linear-gradient(
+    135deg,
+    #ff7aa2,
+    #a63a6f
+  );
+
+  color:white;
+
+  border-radius:14px;
+  padding:10px 16px;
+
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+
+  transition:.2s;
+}
+
+.chat-input button:hover{
+  transform:translateY(-2px);
+}
+
+.watch-controls button{
+
+  font-family:"Patrick Hand", cursive;
+  font-size:16px;
+
+  padding:10px 16px;
+
+  border-radius:14px;
+
+  background:rgba(255,255,255,0.9);
+  color:#a63a6f;
+
+  border:none;
+  cursor:pointer;
+
+  margin-right:8px;
+
+  transition:.2s;
+}
+
+.watch-controls button:hover{
+  transform:scale(1.05);
+}
+
+#replyPage .heading{
+
+  font-family:"Limelight", cursive;
+
+  letter-spacing:2px;
+
+  text-shadow:
+  0 0 10px #ff7aa2,
+  0 0 20px #ff7aa2,
+  0 0 30px #ff7aa2;
+}
+
+.watch-msg{
+  margin-bottom:10px;
+  padding:10px 14px;
+  border-radius:16px;
+  max-width:75%;
+  font-family:"Patrick Hand", cursive;
+}
+
+.watch-msg.me{
+  background:linear-gradient(135deg,#ff7aa2,#a63a6f);
+  color:white;
+  margin-left:auto;
+}
+
+.watch-msg.them{
+  background:white;
+  color:#4a1f35;
+}
+
+.watch-name{
+  font-size:12px;
+  opacity:.7;
+  display:block;
+}
+
+.watch-text{
+  font-size:16px;
+  margin:2px 0;
+}
+
+.watch-time{
+  font-size:11px;
+  opacity:.6;
+}
+
+/* JOURNAL PAGE */
+
+.journal-wrap{
+width:min(90vw,650px);
+margin:auto;
+padding:24px;
+background:#fffaf3;
+border-radius:20px;
+box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
+
+/* notebook paper */
+#journalText{
+
+width:100%;
+height:420px;
+
+border:none;
+outline:none;
+
+padding:20px;
+
+font-family:"Patrick Hand", cursive;
+font-size:18px;
+line-height:32px;
+
+color:#4a1f35;
+
+background:
+repeating-linear-gradient(
+white,
+white 30px,
+#ffd6e7 31px
+);
+
+resize:none;
+}
+
+.journal-date{
+font-family:"Irish Grover", cursive;
+font-size:22px;
+color:#a63a6f;
+margin-bottom:12px;
+}
+
+.journal-status{
+margin-top:10px;
+font-size:13px;
+color:#a63a6f;
+opacity:.8;
+}
+
+/* JOURNAL LAYOUT */
+
+.journal-layout{
+  width:min(95vw,900px);
+  margin:auto;
+  display:flex;
+  gap:18px;
+}
+
+/* LEFT DATE BOX */
+
+.journal-dates{
+  width:220px;
+  height:480px;
+  padding:16px;
+  overflow-y:auto;
+}
+
+.journal-dates h3{
+  font-family:"Patrick Hand", cursive;
+  color:#a63a6f;
+  margin-bottom:10px;
+}
+
+/* DATE BUTTON */
+
+.journal-entry{
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:8px;
+
+  background:#ffd6e7;
+  color:#a63a6f;
+
+  cursor:pointer;
+  font-family:"Single Day", cursive;
+
+  transition:.2s;
+}
+
+.journal-entry:hover{
+  background:#ffb6d1;
+}
+
+/* RIGHT PAGE */
+
+.journal-wrap{
+  flex:1;
+  padding:24px;
+  background:#fffaf3;
+  border-radius:20px;
+}
+
+/* NOTEBOOK STYLE */
+
+#journalText{
+  width:100%;
+  height:420px;
+  border:none;
+  outline:none;
+  padding:20px;
+
+  font-family:"Patrick Hand", cursive;
+  font-size:18px;
+  line-height:32px;
+
+  background:
+  repeating-linear-gradient(
+    white,
+    white 30px,
+    #ffd6e7 31px
+  );
+
+  resize:none;
+}
+

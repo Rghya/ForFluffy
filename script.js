@@ -126,6 +126,59 @@ document.getElementById("loginBtn").onclick = async () => {
     "assets/bg47.png"
     // "assets/bg48.png",
     // "assets/bg49.png",
+    // "assets/bg50.png",
+    // "assets/bg51.png",
+    // "assets/bg52.png",
+    // "assets/bg53.png",
+    // "assets/bg54.png",
+    // "assets/bg55.png",
+    // "assets/bg56.png",
+    // "assets/bg57.png",
+    // "assets/bg58.png",
+    // "assets/bg59.png",
+    // "assets/bg60.png",
+    // "assets/bg61.png",
+    // "assets/bg62.png",
+    // "assets/bg63.png",
+    // "assets/bg64.png",
+    // "assets/bg65.png",
+    // "assets/bg66.png",
+    // "assets/bg67.png",
+    // "assets/bg68.png",
+    // "assets/bg69.png",
+    // "assets/bg70.png",
+    // "assets/bg71.png",
+    // "assets/bg72.png",
+    // "assets/bg73.png",
+    // "assets/bg74.png",
+    // "assets/bg75.png",
+    // "assets/bg76.png",
+    // "assets/bg77.png",
+    // "assets/bg78.png",
+    // "assets/bg79.png",
+    // "assets/bg80.png",
+    // "assets/bg81.png",
+    // "assets/bg82.png",
+    // "assets/bg83.png",
+    // "assets/bg84.png",
+    // "assets/bg85.png",
+    // "assets/bg86.png",
+    // "assets/bg87.png",
+    // "assets/bg88.png",
+    // "assets/bg89.png",
+    // "assets/bg90.png",
+    // "assets/bg91.png",
+    // "assets/bg92.png",
+    // "assets/bg93.png",
+    // "assets/bg94.png",
+    // "assets/bg95.png",
+    // "assets/bg96.png",
+    // "assets/bg97.png",
+    // "assets/bg98.png",
+    // "assets/bg99.png",
+    // "assets/bg100.png"
+    // "assets/bg48.png",
+    // "assets/bg49.png",
 
 
   ];
@@ -133,8 +186,6 @@ document.getElementById("loginBtn").onclick = async () => {
   const bg = bgs[Math.floor(Math.random() * bgs.length)];
   document.querySelector(".bg-overlay").style.backgroundImage = `url(${bg})`;
 })();
-
-
 
 
 let currentLetterType = "";
@@ -220,6 +271,7 @@ const perspectivePage = document.getElementById("perspectivePage");
 const connectionPage = document.getElementById("mcPage");
 const energyPage = document.getElementById("energyPage");
 const doodlePage = document.getElementById("doodlePage");
+const journalPage = document.getElementById("journalPage");
 
 function hideAllPages() {
   document.querySelectorAll(".page").forEach(p => {
@@ -228,6 +280,24 @@ function hideAllPages() {
 
   stopFirework();
   stopEmojiRain();
+
+}
+
+
+function showJournalPage() {
+
+  hideAllPages();
+
+  document
+    .getElementById("journalPage")
+    .classList.remove("hidden");
+
+  const today =
+    new Date().toISOString().slice(0, 10);
+
+  openJournalDay(today);
+
+  loadJournalList();
 
 }
 
@@ -260,6 +330,9 @@ function showCalm() {
   calmPage.classList.remove("hidden");
 
 }
+
+
+
 
 function showWrite() {
   hideAllPages();
@@ -344,8 +417,8 @@ function showNote() {
 
   loadNote(); // load immediately
 
-  clearInterval(noteInterval);
-  noteInterval = setInterval(loadNote, 5000); // refresh every 5s
+
+  // refresh every 5s
 }
 function showSpecial() {
   hideAllPages();
@@ -463,11 +536,11 @@ loadDailyNote();
 function loadNote() {
 
   const day = new Date().toISOString().slice(0, 10);
+  const box = document.getElementById("dailyNote");
 
   onValue(ref(db, "notes/" + day), (snapshot) => {
 
     const data = snapshot.val();
-    const box = document.getElementById("dailyNote");
 
     if (!data) {
       box.textContent = "Waiting for note 🤍";
@@ -1306,7 +1379,9 @@ function disableHardDayBtn() {
   });
 })();
 
-
+let selectedDoodleImage = null;
+let selectedDoodleId = null;
+let doodleBackground = null;
 const startDate = new Date("2025-09-29"); // SAME DATE everywhere
 const milestoneDays = 90; // ~3 months
 
@@ -1725,16 +1800,23 @@ perspectiveObserver.observe(
 function sendDayShare() {
 
   const text = document.getElementById("dayShareText").value.trim();
-  if (!text) return;
+  const status = document.getElementById("dayShareStatus");
+
+  if (!text) {
+    status.textContent = "Write something first 🤍";
+    return;
+  }
 
   const day = new Date().toISOString().slice(0, 10);
 
   set(ref(db, "notes/" + day + "/" + user), {
-    text,
+    text: text,
     time: Date.now()
   });
 
+  status.textContent = "Sent 🤍";
   document.getElementById("dayShareText").value = "";
+
 }
 /* ===== MUTUAL MICRO CONNECTION ===== */
 
@@ -1911,7 +1993,19 @@ function finishEnergy() {
   }
 
   function redraw() {
+
     doodleCtx.clearRect(0, 0, doodleCanvas.width, doodleCanvas.height);
+
+    /* draw background image first */
+    if (doodleBackground) {
+      doodleCtx.drawImage(
+        doodleBackground,
+        0,
+        0,
+        doodleCanvas.width,
+        doodleCanvas.height
+      );
+    }
 
     for (const s of strokes) drawStroke(s);
 
@@ -1923,6 +2017,7 @@ function finishEnergy() {
         points: currentStroke
       });
     }
+
   }
 
   /* ===== ACTIONS ===== */
@@ -1963,6 +2058,8 @@ function saveDoodleFirebase() {
 
 }
 
+
+// let selectedDoodleImage = null;
 function loadDoodles() {
 
   const box = document.getElementById("doodleList");
@@ -1985,9 +2082,13 @@ function loadDoodles() {
       img.className = "doodle-thumb";
 
       img.onclick = () => {
-        openDoodleViewer(d.image);
-      };
 
+        selectedDoodleImage = d.image;
+
+        const box = document.getElementById("doodleOptionBox");
+        box.classList.remove("hidden");
+
+      };
       box.appendChild(img);
 
     });
@@ -1995,6 +2096,75 @@ function loadDoodles() {
   });
 
 }
+
+function viewSelectedDoodle() {
+
+  openDoodleViewer(selectedDoodleImage);
+
+  document.getElementById("doodleOptions").classList.add("hidden");
+
+}
+
+
+function viewDoodle() {
+
+  if (!selectedDoodleImage) return;
+
+  const viewer = document.createElement("div");
+
+  viewer.style.position = "fixed";
+  viewer.style.inset = "0";
+  viewer.style.background = "rgba(0,0,0,0.8)";
+  viewer.style.display = "flex";
+  viewer.style.alignItems = "center";
+  viewer.style.justifyContent = "center";
+  viewer.style.zIndex = "9999";
+
+  const img = document.createElement("img");
+  img.src = selectedDoodleImage;
+  img.style.maxWidth = "90%";
+  img.style.maxHeight = "90%";
+
+  viewer.appendChild(img);
+
+  viewer.onclick = () => viewer.remove();
+
+  document.body.appendChild(viewer);
+  document.getElementById("doodleOptionBox").classList.add("hidden");
+}
+
+function editDoodle() {
+
+  if (!selectedDoodleImage) return;
+
+  const img = new Image();
+
+  img.onload = () => {
+
+    doodleBackground = img;
+
+    strokes = [];
+
+    redraw();
+
+  };
+
+  img.src = selectedDoodleImage;
+
+  document
+    .getElementById("doodleOptionBox")
+    .classList.add("hidden");
+
+}
+function editSelectedDoodle() {
+
+  editDoodle(selectedDoodleImage);
+
+  document.getElementById("doodleOptions").classList.add("hidden");
+
+}
+
+
 
 
 function openDoodleViewer(src) {
@@ -2456,14 +2626,23 @@ function loadWatchChat() {
     arr.forEach(m => {
 
       const div = document.createElement("div");
-      div.className = "watch-entry";
 
-      div.textContent =
-        `${m.user}: ${m.text} at ${new Date(m.time).toLocaleTimeString()}`;
+      div.className =
+        "watch-msg " + (m.user === user ? "me" : "them");
+
+      div.innerHTML = `
+        <span class="watch-name">${m.user}</span>
+        <div class="watch-text">${m.text}</div>
+        <span class="watch-time">
+          ${new Date(m.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        </span>
+      `;
 
       box.appendChild(div);
 
     });
+
+    box.scrollTop = box.scrollHeight;
 
   });
 
@@ -2505,5 +2684,150 @@ function stopShare() {
   if (localStream) {
     localStream.getTracks().forEach(t => t.stop());
   }
+
+}
+
+function loadJournal(day) {
+
+  const box =
+    document.getElementById("journalText");
+
+  onValue(
+    ref(db, "journal/" + day),
+    (snapshot) => {
+
+      const data = snapshot.val();
+
+      if (!data) return;
+
+      box.value = data.text;
+
+    });
+
+}
+
+const journalBox =
+  document.getElementById("journalText");
+
+journalBox.addEventListener("input", () => {
+
+  const day =
+    new Date().toISOString().slice(0, 10);
+
+  set(
+    ref(db, "journal/" + day),
+    {
+      text: journalBox.value,
+      time: Date.now(),
+      user: user
+    });
+
+  document
+    .getElementById("journalStatus")
+    .textContent = "Saved ✨";
+
+});
+
+
+function loadJournalList() {
+
+  const list =
+    document.getElementById("journalList");
+
+  onValue(ref(db, "journal"), snapshot => {
+
+    const data = snapshot.val();
+
+    list.innerHTML = "";
+
+    if (!data) return;
+
+    const days =
+      Object.keys(data).sort().reverse();
+
+    days.forEach(day => {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "journal-entry";
+
+      const d = new Date(day);
+
+      div.textContent =
+        d.toLocaleDateString(
+          "en-GB",
+          { day: "numeric", month: "long", year: "numeric" }
+        );
+
+      div.onclick = () => {
+        openJournalDay(day);
+      };
+
+      list.appendChild(div);
+
+    });
+
+  });
+
+}
+
+
+function openJournalDay(day) {
+
+  document
+    .getElementById("journalDate")
+    .textContent = day;
+
+  const box =
+    document.getElementById("journalText");
+
+  onValue(
+    ref(db, "journal/" + day),
+    snap => {
+
+      const data = snap.val();
+
+      box.value = data ? data.text : "";
+
+    }
+  );
+
+}
+
+let journalTimer;
+
+document
+  .getElementById("journalText")
+  .addEventListener("input", () => {
+
+    clearTimeout(journalTimer);
+
+    journalTimer = setTimeout(saveJournal, 2000);
+
+  });
+
+function saveJournal() {
+
+  const day =
+    document
+      .getElementById("journalDate")
+      .textContent;
+
+  set(
+    ref(db, "journal/" + day),
+    {
+      text:
+        document
+          .getElementById("journalText")
+          .value,
+      time: Date.now(),
+      user: user
+    }
+  );
+
+  document
+    .getElementById("journalStatus")
+    .textContent = "Saved ✨";
 
 }

@@ -425,7 +425,7 @@ function showNote() {
   stopFirework();
 
   loadNote(); // load immediately
-
+  loadNoteHistory();
 
   // refresh every 5s
 }
@@ -1809,7 +1809,7 @@ perspectiveObserver.observe(
 function sendDayShare() {
 
   const text = document.getElementById("dayShareText").value.trim();
-  const status = document.getElementById("dayShareStatus");
+  const status = document.getElementById("noteStatus");
 
   if (!text) {
     status.textContent = "Write something first 🤍";
@@ -2901,4 +2901,60 @@ onValue(ref(db, roomPath + "/candidates"), snap => {
   });
 
 });
+
+
+
+function loadNoteHistory() {
+
+  const list = document.getElementById("noteHistory");
+
+  onValue(ref(db, "notes"), snap => {
+
+    const data = snap.val();
+    list.innerHTML = "";
+
+    if (!data) return;
+
+    Object.keys(data)
+      .sort()
+      .reverse()
+      .forEach(date => {
+
+        const item = document.createElement("div");
+        item.className = "journal-date-item";
+        item.textContent = date;
+
+        item.onclick = () => openNoteDay(date);
+
+        list.appendChild(item);
+
+      });
+
+  });
+
+}
+
+
+function openNoteDay(day){
+
+  const box = document.getElementById("dayShareText");
+
+  onValue(ref(db,"notes/"+day), snap => {
+
+    const data = snap.val();
+
+    if(!data){
+      box.value = "";
+      return;
+    }
+
+    const texts = Object.values(data)
+      .map(x => x.text)
+      .join("\n\n");
+
+    box.value = texts;
+
+  });
+
+}
 

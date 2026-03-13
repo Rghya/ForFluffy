@@ -90,25 +90,42 @@
 
   <!-- ===== NOTE PAGE ===== -->
   <section id="notePage" class="page hidden">
+
     <h1 class="heading">AJJ KA NOTE</h1>
 
-    <div class="note glass" id="dailyNote">
-      Loading today’s note…
+    <div class="journal-layout">
+    
+      <!-- LEFT : NOTE HISTORY -->
+      <div class="journal-dates glass">
+        <h3>Responses</h3>
+        <div id="noteHistory"></div>
+      </div>
+    
+      <!-- RIGHT : TODAY NOTE -->
+      <div class="journal-wrap glass">
+      
+        <div class="note glass" id="dailyNote">
+          Loading today’s note…
+        </div>
+      
+        <textarea
+          id="dayShareText"
+          placeholder="Tell me everything about today..."
+        ></textarea>
+      
+        <button class="glass back-btn" onclick="sendDayShare()">
+          Send 💌
+        </button>
+      
+        <div id="noteStatus"></div>
+      
+      </div>
+    
     </div>
-    <div class="note glass">
-      <h3 style="margin-bottom:10px;color:#a63a6f">How was your day? 🤍</h3>
-
-      <textarea id="dayShareText" placeholder="Tell me everything about today..."
-        style="width:100%;min-height:160px;border:none;border-radius:12px;padding:10px;font-family:inherit;"></textarea>
-
-      <button class="glass back-btn" onclick="sendDayShare()">Send to him 💌</button>
-
-      <p id="dayShareStatus" style="margin-top:8px;font-size:13px;color:#a63a6f"></p>
-    </div>
-
 
     <br>
     <button class="glass back-btn" onclick="showHome()">← Back</button>
+
   </section>
 
   <section id="journalPage" class="page hidden">
@@ -682,7 +699,7 @@
 
       <button class="khaas-btn" onclick="showOW()">💌 Open Whens</button>
 
-      <button class="khaas-btn" onclick="showReplyPage()">🎬 Movie Theatre</button>
+      <!-- <button class="khaas-btn" onclick="showReplyPage()">🎬 Movie Theatre</button> -->
 
       <button class="khaas-btn" onclick="showRepairPage()">🤍 We Not OKKI</button>
 
